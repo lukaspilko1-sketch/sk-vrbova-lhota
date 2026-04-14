@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FK Vrbová Lhota 98 z.s. – fotbalový klub z Nymburska. Hrajeme s vášní a srdcem od roku 1998. Oddíly pro všechny věkové kategorie." />
+  <title>FK Vrbová Lhota 98 — Fotbalový klub</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Material Symbols -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary:  { DEFAULT: '#1a65a8', dark: '#134e87', light: '#2278c5' },
+            accent:   { DEFAULT: '#2f8f4e', light: '#3aa76d' },
+            surface:  { DEFAULT: '#f5f8fc', 2: '#e8f0f8' },
+            ink:      '#0a1628',
+            muted:    '#3d5a7a',
+          },
+          fontFamily: {
+            headline: ['"Noto Serif"', 'serif'],
+            body:     ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ─── CSS custom properties ─── */
+    :root {
+      --primary:    #1a65a8;
+      --primary-dk: #134e87;
+      --primary-lt: #2278c5;
+      --accent:     #2f8f4e;
+      --accent-lt:  #3aa76d;
+      --surface:    #f5f8fc;
+      --surface-2:  #e8f0f8;
+      --ink:        #0a1628;
+      --text:       #111827;
+      --muted:      #3d5a7a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html  { scroll-behavior: smooth; }
+    body  { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--surface); color: var(--text); overflow-x: hidden; }
+    h1, h2, h3 { font-family: 'Noto Serif', serif; }
+    a { text-decoration: none; }
+    img { display: block; }
+
+    /* ─── Scroll progress bar ─── */
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: var(--accent); z-index: 9999; transition: width .1s linear;
+    }
+
+    /* ─── Nav ─── */
+    #site-header {
+      border-top: 3px solid var(--primary);
+    }
+    #site-header.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,.1); }
+    .nav-link {
+      font-size: .82rem; font-weight: 800; text-transform: uppercase; letter-spacing: .09em;
+      color: #1f2937; transition: color .2s;
+      position: relative; padding-bottom: 3px;
+    }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -3px; left: 0; right: 0; height: 2px;
+      background: var(--primary); transform: scaleX(0); transform-origin: left;
+      transition: transform .25s cubic-bezier(.4,0,.2,1);
+    }
+    .nav-link:hover { color: var(--primary); }
+    .nav-link:hover::after { transform: scaleX(1); }
+    .nav-link-accent { color: var(--accent) !important; }
+    .nav-link-accent::after { background: var(--accent) !important; }
+
+    /* ─── Hamburger ─── */
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--text); transition: .3s; margin-bottom: 5px; }
+    .hamburger span:last-child { margin-bottom: 0; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ─── Mobile nav drawer ─── */
+    #mobile-nav {
+      position: fixed; top: 0; right: -100%; width: min(320px, 85vw); height: 100vh;
+      background: #fff; z-index: 200; padding: 5rem 2rem 2rem;
+      transition: right .35s cubic-bezier(.4,0,.2,1);
+      box-shadow: -4px 0 30px rgba(0,0,0,.12);
+      display: flex; flex-direction: column; gap: .25rem;
+    }
+    #mobile-nav.open { right: 0; }
+    #mobile-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 199;
+      opacity: 0; pointer-events: none; transition: opacity .3s;
+    }
+    #mobile-overlay.active { opacity: 1; pointer-events: all; }
+    .mob-link {
+      display: block; padding: .85rem 0; font-size: 1rem; font-weight: 600;
+      color: #111827; border-bottom: 1px solid #f0f0f0; transition: color .2s;
+    }
+    .mob-link:hover { color: var(--primary); }
+
+    /* ─── Eyebrow ─── */
+    .eyebrow {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: .7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .18em;
+      color: var(--primary);
+      display: inline-flex; align-items: center; gap: .6rem;
+    }
+    .eyebrow::before {
+      content: ''; display: inline-block; width: 24px; height: 2px;
+      background: var(--primary); flex-shrink: 0;
+    }
+    .eyebrow-green {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: .7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .18em;
+      color: var(--accent-lt);
+      display: inline-flex; align-items: center; gap: .6rem;
+    }
+    .eyebrow-green::before {
+      content: ''; display: inline-block; width: 24px; height: 2px;
+      background: var(--accent-lt); flex-shrink: 0;
+    }
+    /* keep old name as alias for contact section */
+    .eyebrow-gold {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: .7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .18em;
+      color: var(--accent-lt);
+      display: inline-flex; align-items: center; gap: .6rem;
+    }
+    .eyebrow-gold::before {
+      content: ''; display: inline-block; width: 24px; height: 2px;
+      background: var(--accent-lt); flex-shrink: 0;
+    }
+
+    /* ─── Buttons ─── */
+    .btn-primary {
+      background: var(--primary); color: #fff;
+      padding: .75rem 1.8rem; font-weight: 700; font-size: .85rem;
+      letter-spacing: .05em; text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: .5rem;
+      transition: background .2s, box-shadow .2s; cursor: pointer; border: none;
+    }
+    .btn-primary:hover { background: var(--primary-dk); box-shadow: 5px 5px 0 var(--accent); }
+
+    .btn-green {
+      background: var(--accent); color: #fff;
+      padding: .75rem 1.8rem; font-weight: 700; font-size: .85rem;
+      letter-spacing: .05em; text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: .5rem;
+      transition: background .2s, box-shadow .2s; cursor: pointer; border: none;
+    }
+    .btn-green:hover { background: #247a40; box-shadow: 5px 5px 0 var(--primary); }
+
+    .btn-outline {
+      border: 2px solid var(--primary); color: var(--primary);
+      padding: .7rem 1.6rem; font-weight: 700; font-size: .85rem;
+      letter-spacing: .05em; text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: .5rem;
+      transition: background .2s, color .2s, box-shadow .2s;
+    }
+    .btn-outline:hover { background: var(--primary); color: #fff; box-shadow: 4px 4px 0 var(--accent); }
+
+    .btn-ghost-white {
+      border: 2px solid rgba(255,255,255,.45); color: #fff;
+      padding: .7rem 1.6rem; font-weight: 700; font-size: .85rem;
+      letter-spacing: .05em; text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: .5rem;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-ghost-white:hover { border-color: #fff; background: rgba(255,255,255,.1); }
+
+    /* ─── Hero noise texture (zesílená) ─── */
+    .hero-noise {
+      position: absolute; inset: 0; pointer-events: none; z-index: 2; opacity: .09;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ─── Grass texture for sections ─── */
+    .grass-texture {
+      position: relative;
+    }
+    .grass-texture::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: .025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='turbulence' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    }
+    .grass-texture > * { position: relative; z-index: 1; }
+
+    /* ─── Stats strip ─── */
+    .stat-val  { font-family: 'Noto Serif', serif; font-size: 2rem; font-weight: 900; color: #fff; line-height: 1; }
+    .stat-unit { font-size: .85rem; font-weight: 700; color: var(--accent-lt); }
+    .stat-lab  { font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-top: .2rem; }
+    .stat-div  { width: 1px; height: 2rem; background: rgba(26,101,168,.18); flex-shrink: 0; }
+
+    /* ─── Match banner ─── */
+    .match-banner {
+      background: var(--primary); color: #fff;
+      border-left: 4px solid var(--accent);
+    }
+    .match-score-win  { background: #16a34a; color: #fff; }
+    .match-score-loss { background: #dc2626; color: #fff; }
+    .match-score-draw { background: #ca8a04; color: #fff; }
+    .result-row { border-bottom: 1px solid rgba(58,167,109,.12); }
+    .result-row:last-child { border-bottom: none; }
+    .result-row:hover { background: rgba(26,101,168,.25); }
+
+    /* ─── Team cards ─── */
+    .team-card {
+      background: #fff; border: 1px solid rgba(26,101,168,.1);
+      position: relative; overflow: hidden;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .team-card:hover { transform: translateY(-4px); box-shadow: 5px 5px 0 0 var(--accent); }
+    .team-card:hover .card-icon { background: var(--accent) !important; }
+    .team-card:hover .card-icon span { color: #fff !important; }
+    .card-num {
+      font-family: 'Noto Serif', serif; font-size: 4rem; font-weight: 900;
+      color: var(--surface-2); position: absolute; top: .25rem; right: .75rem;
+      line-height: 1; user-select: none; pointer-events: none;
+    }
+
+    /* ─── Gallery ─── */
+    .gallery-item { position: relative; overflow: hidden; cursor: pointer; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,22,40,.85) 0%, rgba(26,101,168,.45) 100%);
+      display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end;
+      padding: 1rem 1.2rem;
+      opacity: 0; transition: opacity .3s;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-tag {
+      display: inline-block; background: var(--accent); color: #fff;
+      font-size: .65rem; font-weight: 800; text-transform: uppercase; letter-spacing: .12em;
+      padding: .2rem .6rem; margin-bottom: .4rem;
+    }
+    .gallery-caption { color: #fff; font-size: .8rem; font-weight: 600; }
+
+    /* ─── Testi cards — méně glossy ─── */
+    .testi-card {
+      background: #fff;
+      border: 1px solid rgba(26,101,168,.12);
+      border-top: 3px solid var(--accent);
+    }
+
+    /* ─── Reveal animation ─── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: .1s; }
+    .d2 { transition-delay: .2s; }
+    .d3 { transition-delay: .3s; }
+    .d4 { transition-delay: .4s; }
+
+    /* ─── Section defaults ─── */
+    section { padding: 5rem 0; }
+
+    /* ─── Footer ─── */
+    footer { background: var(--ink); color: rgba(255,255,255,.65); }
+
+    /* ─── Material icons ─── */
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; vertical-align: middle; }
+    .ms-fill { font-variation-settings: 'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24; }
+
+    /* ─── Form inputs ─── */
+    .field {
+      width: 100%; border: 1px solid #d1d5db; padding: .75rem 1rem;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: .875rem;
+      color: var(--text); background: #fff; outline: none;
+      transition: border-color .2s;
+    }
+    .field:focus { border-color: var(--primary); }
+    .field::placeholder { color: #9ca3af; }
+
+    /* ─── Club logo in nav ─── */
+    .logo-img {
+      height: 44px; width: auto; object-fit: contain;
+    }
+
+    /* ─── Hero match info line ─── */
+    .hero-match-line {
+      display: inline-flex; align-items: center; gap: .55rem;
+      color: var(--primary-dk); font-weight: 800; font-size: .9rem;
+      padding: .35rem 0 .35rem .75rem;
+      border-left: 3px solid var(--accent);
+      line-height: 1.3; letter-spacing: .01em;
+    }
+    .hero-match-line .match-icon {
+      color: var(--accent); flex-shrink: 0;
+    }
+
+
+    /* --- Live dot pulse --- */
+    .live-dot {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent-lt); flex-shrink: 0;
+      animation: pulse-dot 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(58,167,109,.6); }
+      50% { opacity: .7; transform: scale(1.2); box-shadow: 0 0 0 5px rgba(58,167,109,0); }
+    }
+
+    /* --- Match day strip --- */
+    .match-day-strip {
+      background: rgba(8,18,30,.75);
+      border: 1px solid rgba(58,167,109,.25);
+      border-left: 3px solid var(--accent-lt);
+      padding: 1rem 1.25rem;
+      box-shadow: 4px 4px 0 rgba(47,143,78,.35);
+      backdrop-filter: blur(4px);
+    }
+    /* ─── Match CTA badge ─── */
+    .match-cta-badge {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: var(--primary); color: #fff;
+      font-weight: 700; font-size: .9rem;
+      padding: .8rem 1.4rem;
+      box-shadow: 3px 3px 0 rgba(26,101,168,.25);
+      transition: background .2s, box-shadow .2s;
+      margin-bottom: 1.5rem;
+    }
+    .match-cta-badge:hover {
+      background: var(--primary-dk);
+      box-shadow: 4px 4px 0 var(--accent);
+    }
+
+    /* ─── Contact split ─── */
+    .contact-dark { background: var(--primary); }
+  </style>
+</head>
+<body>
+
+<!-- Scroll progress bar -->
+<div id="scroll-progress"></div>
+
+<!-- ══ MOBILE NAV OVERLAY ══ -->
+<div id="mobile-overlay" aria-hidden="true"></div>
+
+<!-- ══ MOBILE NAV DRAWER ══ -->
+<nav id="mobile-nav" aria-label="Mobilní navigace">
+  <a href="#zapasy"   class="mob-link font-bold" style="color:var(--accent)">⚽ Zápasy</a>
+  <a href="#oddiely"  class="mob-link">Oddíly</a>
+  <a href="#o-klubu"  class="mob-link">O klubu</a>
+  <a href="#galerie"  class="mob-link">Galerie</a>
+  <a href="#kontakt"  class="mob-link">Kontakt</a>
+  <div class="mt-6 flex flex-col gap-3">
+    <a href="#kontakt" class="btn-primary justify-center">Napsat nám</a>
+    <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener"
+       class="flex items-center gap-2 text-sm font-semibold" style="color:var(--primary)">
+      <span class="material-symbols-outlined ms-fill" style="font-size:1.2rem">group</span>
+      Facebook komunita
+    </a>
+  </div>
+</nav>
+
+<!-- ══ HEADER ══ -->
+<header id="site-header" class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/60 transition-shadow duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+
+    <!-- Logo -->
+    <a href="#" class="flex items-center gap-3">
+      <img src="logo.png" alt="FK Vrbová Lhota 98 logo" class="logo-img" />
+      <div class="leading-tight hidden sm:block">
+        <div class="font-headline font-bold text-sm lg:text-base" style="color:var(--primary)">FK Vrbová Lhota</div>
+        <div class="text-xs font-semibold tracking-widest uppercase" style="color:var(--muted)">Fotbalový klub · 1998</div>
+      </div>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden lg:flex items-center gap-8" aria-label="Hlavní navigace">
+      <a href="#zapasy"   class="nav-link nav-link-accent">Zápasy</a>
+      <a href="#oddiely"  class="nav-link">Oddíly</a>
+      <a href="#o-klubu"  class="nav-link">O klubu</a>
+      <a href="#galerie"  class="nav-link">Galerie</a>
+      <a href="#kontakt"  class="nav-link">Kontakt</a>
+    </nav>
+
+    <!-- CTA + Hamburger -->
+    <div class="flex items-center gap-3">
+      <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener"
+         class="hidden md:flex items-center gap-1.5 text-sm font-semibold" style="color:var(--primary)">
+        <span class="material-symbols-outlined ms-fill" style="font-size:1.25rem">group</span>
+        <span class="hidden lg:inline">Facebook</span>
+      </a>
+      <a href="#zapasy" class="hidden sm:inline-flex btn-green py-2 px-4 text-xs">
+        <span class="material-symbols-outlined ms-fill" style="font-size:1rem">sports_soccer</span>
+        Zápasy
+      </a>
+      <button id="hamburger-btn" class="hamburger lg:hidden p-2 flex flex-col justify-center"
+              aria-label="Otevřít menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ══ HERO ══ -->
+<section id="hero" class="relative flex items-end overflow-hidden" style="background:#eef6f0;min-height:88svh">
+
+  <!-- Fotka "tým" — zakotvená vpravo, posunuta o ~20% doprava -->
+  <div class="absolute inset-0 z-0" style="overflow:hidden">
+    <img src="tym.jpg"
+         alt="Tým FK Vrbová Lhota"
+         class="w-full h-full object-cover"
+         style="object-position:right center;opacity:.85;transform:translateX(20%)" />
+  </div>
+
+  <!-- Horizontální gradient: plné pozadí vlevo → průhledné vpravo -->
+  <div class="absolute inset-0 z-1"
+       style="background:linear-gradient(to right, #eef6f0 32%, rgba(238,246,240,.92) 45%, rgba(238,246,240,.45) 57%, transparent 65%)"></div>
+
+  <!-- Vertikální gradient dole — pro čitelnost textu na mobilu -->
+  <div class="absolute inset-0 z-1"
+       style="background:linear-gradient(to top, rgba(238,246,240,.9) 0%, rgba(238,246,240,.3) 22%, transparent 45%)"></div>
+
+  <!-- Velmi jemný noise -->
+  <div class="hero-noise" style="opacity:.06"></div>
+
+  <!-- Obsah zarovnaný dolů -->
+  <div class="relative z-10 w-full pt-16 pb-10 lg:pb-14">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-xl">
+
+        <!-- Match info — typografický akcent místo tlačítka -->
+        <div class="hero-match-line mb-4">
+          <span class="material-symbols-outlined ms-fill match-icon" style="font-size:1rem">sports_soccer</span>
+          Sobota 19. 4. · 15:00 &nbsp;—&nbsp; FK Vrbová Lhota vs TJ Sokol Písty
+        </div>
+
+        <!-- H1 -->
+        <h1 class="font-headline text-5xl sm:text-6xl lg:text-[4.25rem] font-bold leading-[1.05] mt-5 mb-5" style="color:var(--ink)">
+          Hrajeme za Vrbovou Lhotu.<br>
+          <span style="color:var(--accent)">Přijď fandit.</span>
+        </h1>
+
+        <!-- Perex -->
+        <p class="text-base leading-relaxed mb-7 max-w-md" style="color:var(--muted)">
+          Místní fotbalový klub s 25 lety tradice na Nymbursku. Přijďte hrát nebo fandit.
+        </p>
+
+        <!-- CTA -->
+        <div class="flex flex-wrap gap-3">
+          <a href="#zapasy" class="btn-primary">
+            <span class="material-symbols-outlined ms-fill" style="font-size:1.1rem">calendar_month</span>
+            Rozpis zápasů
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATS ══ -->
+<div style="background:var(--surface);border-bottom:1px solid rgba(26,101,168,.08)">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+    <div class="flex flex-wrap gap-y-4 items-center justify-center">
+      <div class="flex flex-col items-center px-6 sm:px-10">
+        <div class="font-headline text-2xl font-black leading-none" style="color:var(--ink)"><span class="counter" data-target="25">0</span>+</div>
+        <div class="text-xs uppercase tracking-widest mt-0.5" style="font-size:.6rem;letter-spacing:.12em;color:var(--muted)">let tradice</div>
+      </div>
+      <div class="stat-div mx-4 sm:mx-6"></div>
+      <div class="flex flex-col items-center px-6 sm:px-10">
+        <div class="font-headline text-2xl font-black leading-none" style="color:var(--ink)"><span class="counter" data-target="4">0</span></div>
+        <div class="text-xs uppercase tracking-widest mt-0.5" style="font-size:.6rem;letter-spacing:.12em;color:var(--muted)">kategorie</div>
+      </div>
+      <div class="stat-div mx-4 sm:mx-6"></div>
+      <div class="flex flex-col items-center px-6 sm:px-10">
+        <div class="font-headline text-2xl font-black leading-none" style="color:var(--ink)"><span class="counter" data-target="100">0</span>+</div>
+        <div class="text-xs uppercase tracking-widest mt-0.5" style="font-size:.6rem;letter-spacing:.12em;color:var(--muted)">členů klubu</div>
+      </div>
+      <div class="stat-div mx-4 sm:mx-6"></div>
+      <!-- FAČR logo -->
+      <div class="flex flex-col items-center gap-1 px-6 sm:px-10">
+        <a href="https://www.fotbal.cz" target="_blank" rel="noopener" title="Fotbalová asociace České republiky">
+          <img src="facr.svg" alt="FAČR – Fotbalová asociace České republiky"
+               style="height:44px;width:auto;opacity:.7;transition:opacity .2s"
+               onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'" />
+        </a>
+        <div class="text-xs font-semibold" style="font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Člen FAČR</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ZÁPASY ══ -->
+<section id="zapasy" class="p-0 grass-texture" style="background:#0a1c35">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="grid lg:grid-cols-[1fr_auto_1fr] gap-6 items-start">
+
+      <!-- ── Nejbližší zápas ── -->
+      <div class="reveal">
+        <div class="text-xs font-bold uppercase tracking-widest mb-4 flex items-center gap-2" style="color:var(--accent-lt)">
+          <span class="material-symbols-outlined ms-fill" style="font-size:1rem">upcoming</span>
+          Nejbližší zápas
+        </div>
+        <div class="match-banner p-6 sm:p-8">
+          <!-- Date / time -->
+          <div class="flex items-center gap-3 mb-5">
+            <div class="px-3 py-1.5 text-center" style="background:var(--accent);min-width:52px">
+              <div class="text-white font-black text-xl leading-none">19</div>
+              <div class="text-green-100 text-xs font-bold uppercase tracking-wide">dub</div>
+            </div>
+            <div>
+              <div class="text-white font-bold text-sm">Sobota · 15:00</div>
+              <div class="text-blue-200 text-xs flex items-center gap-1 mt-0.5">
+                <span class="material-symbols-outlined" style="font-size:.9rem">location_on</span>
+                Hřiště Vrbová Lhota
+              </div>
+            </div>
+            <div class="ml-auto">
+              <span class="px-2 py-1 text-xs font-bold uppercase tracking-wider text-white" style="background:rgba(0,0,0,.25)">Domácí</span>
+            </div>
+          </div>
+
+          <!-- Teams -->
+          <div class="flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3 flex-1">
+              <img src="logo.png" alt="FK Vrbová Lhota" class="w-10 h-10 object-contain flex-shrink-0" />
+              <div>
+                <div class="text-white font-bold text-sm leading-tight">FK Vrbová Lhota 98</div>
+                <div class="text-blue-200 text-xs">Domácí</div>
+              </div>
+            </div>
+            <div class="text-white font-black text-2xl font-headline px-4">VS</div>
+            <div class="flex items-center gap-3 flex-1 justify-end text-right">
+              <div>
+                <div class="text-white font-bold text-sm leading-tight">TJ Sokol Písty</div>
+                <div class="text-blue-200 text-xs">Hosté</div>
+              </div>
+              <span class="material-symbols-outlined ms-fill text-green-300 flex-shrink-0" style="font-size:2rem">sports_soccer</span>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div class="mt-6 pt-4 border-t border-white/20 flex items-center justify-between">
+            <span class="text-blue-200 text-xs">III. třída sk. B · Středočeský kraj</span>
+            <a href="#kontakt" class="inline-flex items-center gap-1.5 bg-white text-green-800 font-bold text-xs uppercase tracking-wider px-4 py-2 hover:bg-green-50 transition-colors">
+              <span class="material-symbols-outlined ms-fill" style="font-size:1rem">groups</span>
+              Přijď fandit
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Divider ── -->
+      <div class="hidden lg:flex flex-col items-center justify-center self-stretch gap-3 py-4">
+        <div class="w-px flex-1" style="background:rgba(58,167,109,.2)"></div>
+        <span class="material-symbols-outlined ms-fill" style="color:var(--accent-lt);font-size:1.5rem">sports_soccer</span>
+        <div class="w-px flex-1" style="background:rgba(58,167,109,.2)"></div>
+      </div>
+
+      <!-- ── Poslední výsledky ── -->
+      <div class="reveal">
+        <div class="text-xs font-bold uppercase tracking-widest mb-4 flex items-center gap-2" style="color:var(--accent-lt)">
+          <span class="material-symbols-outlined ms-fill" style="font-size:1rem">history</span>
+          Poslední výsledky
+        </div>
+
+        <!-- Poslední zápas — zvýrazněný -->
+        <div class="p-4 mb-4 flex items-center justify-between gap-4" style="background:rgba(255,255,255,.05);border:1px solid rgba(26,101,168,.35);border-left:3px solid var(--accent)">
+          <div class="flex-1 min-w-0">
+            <div class="text-xs text-blue-300 mb-1">12. 4. 2025 · Domácí</div>
+            <div class="text-white font-semibold text-sm truncate">FK VL 98 vs TJ Hlaváčov</div>
+          </div>
+          <div class="match-score-win px-3 py-1.5 text-center flex-shrink-0">
+            <div class="font-black text-lg leading-none text-white">2:1</div>
+            <div class="text-xs text-green-200 font-bold uppercase tracking-wide">Výhra</div>
+          </div>
+        </div>
+
+        <!-- Přehled posledních zápasů -->
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(26,101,168,.2)">
+          <div class="result-row flex items-center gap-3 px-4 py-3 transition-colors">
+            <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:#16a34a"></span>
+            <div class="flex-1 min-w-0">
+              <div class="text-white text-xs font-semibold truncate">vs Bohemia Poděbrady B</div>
+              <div class="text-blue-300 text-xs">5. 4. 2025 · Venku</div>
+            </div>
+            <div class="match-score-win text-xs font-black px-2 py-1 flex-shrink-0">3:0</div>
+          </div>
+          <div class="result-row flex items-center gap-3 px-4 py-3 transition-colors">
+            <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:#ca8a04"></span>
+            <div class="flex-1 min-w-0">
+              <div class="text-white text-xs font-semibold truncate">vs SK Sokoleč</div>
+              <div class="text-blue-300 text-xs">29. 3. 2025 · Doma</div>
+            </div>
+            <div class="match-score-draw text-xs font-black px-2 py-1 flex-shrink-0">1:1</div>
+          </div>
+          <div class="result-row flex items-center gap-3 px-4 py-3 transition-colors">
+            <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:#dc2626"></span>
+            <div class="flex-1 min-w-0">
+              <div class="text-white text-xs font-semibold truncate">vs TJ Třebestovice</div>
+              <div class="text-blue-300 text-xs">22. 3. 2025 · Venku</div>
+            </div>
+            <div class="match-score-loss text-xs font-black px-2 py-1 flex-shrink-0">0:2</div>
+          </div>
+          <div class="result-row flex items-center gap-3 px-4 py-3 transition-colors">
+            <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:#16a34a"></span>
+            <div class="flex-1 min-w-0">
+              <div class="text-white text-xs font-semibold truncate">vs Slovan Mcely</div>
+              <div class="text-blue-300 text-xs">15. 3. 2025 · Doma</div>
+            </div>
+            <div class="match-score-win text-xs font-black px-2 py-1 flex-shrink-0">4:1</div>
+          </div>
+        </div>
+
+        <div class="mt-4 flex items-center justify-between gap-4 flex-wrap">
+          <a href="https://www.fotbal.cz/souteze/turnaje/hlavni/26809f2b-5859-4129-a4e8-891d1dc7cdf3" target="_blank" rel="noopener"
+             class="text-xs font-bold uppercase tracking-widest hover:text-white transition-colors flex items-center gap-1" style="color:var(--accent-lt)">
+            <span class="material-symbols-outlined" style="font-size:.9rem">history</span>
+            Všechny výsledky →
+          </a>
+          <a href="https://www.fotbal.cz/souteze/turnaje/table/26809f2b-5859-4129-a4e8-891d1dc7cdf3" target="_blank" rel="noopener"
+             class="text-xs font-bold uppercase tracking-widest hover:text-white transition-colors flex items-center gap-1" style="color:var(--accent-lt)">
+            <span class="material-symbols-outlined" style="font-size:.9rem">leaderboard</span>
+            Tabulka pořadí →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ ODDÍLY ══ -->
+<section id="oddiely" style="background:var(--surface)">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-14 reveal">
+      <span class="eyebrow mb-4 flex justify-center">Oddíly</span>
+      <h2 class="font-headline text-4xl lg:text-5xl font-bold" style="color:var(--text)">Fotbal pro všechny</h2>
+      <p class="mt-4 text-lg max-w-2xl mx-auto" style="color:var(--muted)">
+        V FK Vrbová Lhota 98 máme místo pro každého — od nejmenších fotbalistů po zkušené hráče mužských kategorií.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Muži -->
+      <div class="team-card p-8 reveal d1">
+        <span class="card-num">01</span>
+        <div class="mb-5">
+          <span class="inline-flex items-center justify-center w-12 h-12" style="background:var(--surface-2)">
+            <span class="material-symbols-outlined ms-fill text-2xl" style="color:var(--primary)">sports_soccer</span>
+          </span>
+        </div>
+        <div class="text-xs font-bold uppercase tracking-widest mb-2" style="color:var(--accent)">Dospělí</div>
+        <h3 class="font-headline text-xl font-bold mb-3" style="color:var(--text)">Muži</h3>
+        <p class="text-sm leading-relaxed" style="color:var(--muted)">
+          Hlavní tým klubu soutěžící v okresní lize. Hledáme nové posily — přijďte vyzkoušet trénink!
+        </p>
+      </div>
+
+      <!-- Dorost -->
+      <div class="team-card p-8 reveal d2">
+        <span class="card-num">02</span>
+        <div class="mb-5">
+          <span class="inline-flex items-center justify-center w-12 h-12" style="background:var(--surface-2)">
+            <span class="material-symbols-outlined ms-fill text-2xl" style="color:var(--primary)">supervisor_account</span>
+          </span>
+        </div>
+        <div class="text-xs font-bold uppercase tracking-widest mb-2" style="color:var(--accent)">15–18 let</div>
+        <h3 class="font-headline text-xl font-bold mb-3" style="color:var(--text)">Dorost</h3>
+        <p class="text-sm leading-relaxed" style="color:var(--muted)">
+          Příprava mladých hráčů na dospělý fotbal. Technická a taktická průprava pod vedením zkušených trenérů.
+        </p>
+      </div>
+
+      <!-- Žáci -->
+      <div class="team-card p-8 reveal d3">
+        <span class="card-num">03</span>
+        <div class="mb-5">
+          <span class="inline-flex items-center justify-center w-12 h-12" style="background:var(--surface-2)">
+            <span class="material-symbols-outlined ms-fill text-2xl" style="color:var(--primary)">child_care</span>
+          </span>
+        </div>
+        <div class="text-xs font-bold uppercase tracking-widest mb-2" style="color:var(--accent)">10–14 let</div>
+        <h3 class="font-headline text-xl font-bold mb-3" style="color:var(--text)">Žáci</h3>
+        <p class="text-sm leading-relaxed" style="color:var(--muted)">
+          Závodní fotbal pro starší žáky. Rozvíjíme herní inteligenci, fyzičku i týmového ducha.
+        </p>
+      </div>
+
+      <!-- Přípravka -->
+      <div class="team-card p-8 reveal d4">
+        <span class="card-num">04</span>
+        <div class="mb-5">
+          <span class="inline-flex items-center justify-center w-12 h-12" style="background:var(--surface-2)">
+            <span class="material-symbols-outlined ms-fill text-2xl" style="color:var(--primary)">emoji_people</span>
+          </span>
+        </div>
+        <div class="text-xs font-bold uppercase tracking-widest mb-2" style="color:var(--accent)">5–9 let</div>
+        <h3 class="font-headline text-xl font-bold mb-3" style="color:var(--text)">Přípravka</h3>
+        <p class="text-sm leading-relaxed" style="color:var(--muted)">
+          Zábavné tréninky pro nejmenší. Základy fotbalu, pohyb a radost ze hry v přátelské atmosféře.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- CTA banner -->
+    <div class="mt-12 p-8 reveal flex flex-col sm:flex-row items-center justify-between gap-6"
+         style="background:var(--surface-2); border-left:4px solid var(--primary)">
+      <div>
+        <div class="text-xs font-bold uppercase tracking-widest mb-1" style="color:var(--primary)">Zájem o členství?</div>
+        <p class="text-lg font-semibold" style="color:var(--text)">
+          Noví hráči jsou vždy vítáni. Přijďte na trénink nebo nám napište!
+        </p>
+      </div>
+      <a href="#kontakt" class="btn-primary whitespace-nowrap">
+        <span class="material-symbols-outlined ms-fill" style="font-size:1.2rem">send</span>
+        Napsat nám
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ O KLUBU ══ -->
+<section id="o-klubu" style="background:#fff">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+      <!-- Photo -->
+      <div class="relative reveal">
+        <div class="relative overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?w=700&q=80&auto=format&fit=crop"
+               alt="Fotbalové hřiště FK Vrbová Lhota"
+               class="w-full object-cover" style="height:500px" />
+        </div>
+        <!-- Accent block -->
+        <div class="absolute -bottom-4 -right-4 w-24 h-24 -z-10" style="background:var(--primary)"></div>
+        <!-- Logo badge -->
+        <div class="absolute top-6 -right-5 px-4 py-3 shadow-xl hidden lg:block bg-white flex items-center gap-3">
+          <img src="logo.png" alt="Logo FK Vrbová Lhota 98" style="height:48px;width:auto" />
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="reveal">
+        <span class="eyebrow mb-4 flex">O klubu</span>
+        <h2 class="font-headline text-4xl lg:text-5xl font-bold mb-6" style="color:var(--text)">
+          Více než 25 let<br>fotbalu na Nymbursku
+        </h2>
+        <p class="text-base leading-relaxed mb-4" style="color:var(--muted)">
+          FK Vrbová Lhota 98 z.s. byl založen v roce 1998 a od té doby je nedílnou součástí sportovního
+          a společenského života ve Vrbové Lhotě. Za ta léta jsme vychovali desítky hráčů a vybudovali
+          klub, na který může celá obec být hrdá.
+        </p>
+        <p class="text-base leading-relaxed mb-8" style="color:var(--muted)">
+          Hrajeme v soutěžích Středočeského krajského fotbalového svazu. Naším cílem není jen sportovní
+          výkon — chceme být místem, kde se lidé setkávají, přátelí a sdílí vášeň pro fotbal bez ohledu
+          na věk a výkonnost.
+        </p>
+
+        <!-- Trust bullets -->
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined ms-fill mt-0.5 flex-shrink-0" style="color:var(--primary)">verified</span>
+            <div>
+              <div class="font-semibold text-sm" style="color:var(--text)">25+ let tradice ve Vrbové Lhotě</div>
+              <div class="text-sm" style="color:var(--muted)">Zakořeněný místní klub s historií a silnou komunitou</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined ms-fill mt-0.5 flex-shrink-0" style="color:var(--primary)">groups</span>
+            <div>
+              <div class="font-semibold text-sm" style="color:var(--text)">Týmy pro všechny věkové kategorie</div>
+              <div class="text-sm" style="color:var(--muted)">Od přípravky (od 5 let) až po mužský tým</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined ms-fill mt-0.5 flex-shrink-0" style="color:var(--primary)">handshake</span>
+            <div>
+              <div class="font-semibold text-sm" style="color:var(--text)">Přátelská atmosféra a fair play</div>
+              <div class="text-sm" style="color:var(--muted)">Sport jako radost, komunita i životní styl</div>
+            </div>
+          </div>
+        </div>
+
+        <a href="#kontakt" class="btn-primary">
+          <span class="material-symbols-outlined ms-fill" style="font-size:1.2rem">sports_soccer</span>
+          Chci hrát fotbal
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ GALERIE ══ -->
+<section id="galerie" style="background:var(--surface-2)">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-14 reveal">
+      <span class="eyebrow mb-4 flex justify-center">Fotogalerie</span>
+      <h2 class="font-headline text-4xl lg:text-5xl font-bold" style="color:var(--text)">Ze zápasů i tréninků</h2>
+      <p class="mt-4 text-lg max-w-xl mx-auto" style="color:var(--muted)">
+        Nahlédněte do zákulisí FK Vrbová Lhota 98 — na hřišti i mimo něj.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+
+      <div class="gallery-item reveal d1 col-span-2" style="aspect-ratio:16/9">
+        <img src="https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=900&q=80&auto=format&fit=crop" alt="Fotbalový zápas" loading="lazy" />
+        <div class="gallery-overlay">
+          <span class="gallery-tag">Derby</span>
+          <span class="gallery-caption">Domácí zápas · jaro 2025</span>
+        </div>
+      </div>
+
+      <div class="gallery-item reveal d2" style="aspect-ratio:4/3">
+        <img src="https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=500&q=80&auto=format&fit=crop" alt="Trénink" loading="lazy" />
+        <div class="gallery-overlay">
+          <span class="gallery-tag">Trénink</span>
+          <span class="gallery-caption">Úterní příprava</span>
+        </div>
+      </div>
+
+      <div class="gallery-item reveal d3" style="aspect-ratio:4/3">
+        <img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=500&q=80&auto=format&fit=crop" alt="Hřiště" loading="lazy" />
+        <div class="gallery-overlay">
+          <span class="gallery-tag">Hřiště</span>
+          <span class="gallery-caption">Náš domov · Vrbová Lhota</span>
+        </div>
+      </div>
+
+      <div class="gallery-item reveal d1" style="aspect-ratio:4/3">
+        <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=500&q=80&auto=format&fit=crop" alt="Fotbalový tým" loading="lazy" />
+        <div class="gallery-overlay">
+          <span class="gallery-tag">Tým</span>
+          <span class="gallery-caption">Parta na celý život</span>
+        </div>
+      </div>
+
+      <div class="gallery-item reveal d2" style="aspect-ratio:4/3">
+        <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=500&q=80&auto=format&fit=crop" alt="Gól" loading="lazy" />
+        <div class="gallery-overlay">
+          <span class="gallery-tag">Góóól!</span>
+          <span class="gallery-caption">Radost ze hry</span>
+        </div>
+      </div>
+
+      <div class="gallery-item reveal d3 col-span-2" style="aspect-ratio:16/9">
+        <img src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?w=900&q=80&auto=format&fit=crop" alt="Fotbal" loading="lazy" />
+        <div class="gallery-overlay">
+          <span class="gallery-tag">Match day</span>
+          <span class="gallery-caption">Každá sobota je svátek</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-10 reveal">
+      <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener" class="btn-outline">
+        <span class="material-symbols-outlined ms-fill" style="font-size:1.2rem">photo_library</span>
+        Více fotek na Facebooku
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ KOMUNITA / TESTIMONIALS ══ -->
+<section id="komunita" style="background:var(--surface-2)">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-12 reveal">
+      <span class="eyebrow mb-4 flex justify-center">Komunita</span>
+      <h2 class="font-headline text-4xl lg:text-5xl font-bold" style="color:var(--text)">Co říkají lidi z klubu</h2>
+      <p class="mt-3 text-base max-w-xl mx-auto" style="color:var(--muted)">
+        Žádné hvězdičky a formulář — jen skutečné příběhy lidí, kteří tvoří FK Vrbová Lhota.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+
+      <div class="testi-card p-7 reveal d1">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-11 h-11 flex items-center justify-center font-black text-white text-sm flex-shrink-0"
+               style="background:var(--primary)">MN</div>
+          <div>
+            <div class="font-bold text-sm" style="color:var(--text)">Markéta N.</div>
+            <div class="text-xs font-medium" style="color:var(--accent)">rodič · přípravka</div>
+          </div>
+        </div>
+        <p class="text-sm leading-relaxed" style="color:var(--muted)">
+          „Syn hraje v přípravce druhý rok. Největší radost je vidět, jak roste jako hráč
+          i jako člověk. Trenéři jsou trpěliví a skutečně jim na dětech záleží."
+        </p>
+      </div>
+
+      <div class="testi-card p-7 reveal d2">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-11 h-11 flex items-center justify-center font-black text-white text-sm flex-shrink-0"
+               style="background:var(--primary)">TK</div>
+          <div>
+            <div class="font-bold text-sm" style="color:var(--text)">Tomáš K.</div>
+            <div class="text-xs font-medium" style="color:var(--accent)">hráč · muži · 15 let v klubu</div>
+          </div>
+        </div>
+        <p class="text-sm leading-relaxed" style="color:var(--muted)">
+          „Hraju tady skoro 15 let a nikdy jsem nechtěl odejít. Parta, atmosféra
+          na zápasech — to se prostě nenajde všude. Je to víc než fotbal."
+        </p>
+      </div>
+
+      <div class="testi-card p-7 reveal d3">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-11 h-11 flex items-center justify-center font-black text-white text-sm flex-shrink-0"
+               style="background:var(--primary)">JP</div>
+          <div>
+            <div class="font-bold text-sm" style="color:var(--text)">Jan P.</div>
+            <div class="text-xs font-medium" style="color:var(--accent)">fanoušek · místní</div>
+          </div>
+        </div>
+        <p class="text-sm leading-relaxed" style="color:var(--muted)">
+          „Domácí zápasy jsou ve Vrbové Lhotě svátek. Přijdou rodiny, přátelé, sousedé.
+          Tohle je pravý komunitní sport — a přesně proto tu kluby jako tento musí existovat."
+        </p>
+      </div>
+
+    </div>
+
+    <!-- FB CTA -->
+    <div class="mt-10 text-center reveal">
+      <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener"
+         class="inline-flex items-center gap-2 text-sm font-bold" style="color:var(--primary)">
+        <span class="material-symbols-outlined ms-fill" style="font-size:1.1rem">group</span>
+        Připoj se ke komunitě na Facebooku →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ KONTAKT ══ -->
+<section id="kontakt" class="p-0" style="background:var(--surface)">
+  <div class="flex flex-col lg:flex-row min-h-[640px]">
+
+    <!-- Dark info side -->
+    <div class="contact-dark lg:w-[42%] p-10 lg:p-16 text-white flex flex-col justify-between">
+      <div>
+        <span class="eyebrow-gold mb-5 flex">Kontaktujte nás</span>
+        <h2 class="font-headline text-4xl font-bold text-white mb-4">Spojme se</h2>
+        <p class="text-blue-100 leading-relaxed mb-10 text-base">
+          Máte zájem o členství, chcete sponzorovat klub nebo se jen přijít podívat
+          na zápas? Napište nebo zavolejte — rádi odpovíme.
+        </p>
+
+        <div class="space-y-7">
+
+          <div class="flex items-start gap-4">
+            <span class="material-symbols-outlined ms-fill flex-shrink-0 mt-0.5" style="color:var(--accent-lt);font-size:1.5rem">phone</span>
+            <div>
+              <div class="text-xs font-bold uppercase tracking-wider mb-1 text-blue-200">Telefon</div>
+              <a href="tel:+420773940809" class="text-white text-lg font-semibold hover:text-green-300 transition-colors">
+                +420 773 940 809
+              </a>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <span class="material-symbols-outlined ms-fill flex-shrink-0 mt-0.5" style="color:var(--accent-lt);font-size:1.5rem">email</span>
+            <div>
+              <div class="text-xs font-bold uppercase tracking-wider mb-1 text-blue-200">E-mail</div>
+              <a href="mailto:info@fkvrbovalhotacz" class="text-white text-lg font-semibold hover:text-green-300 transition-colors">
+                info@fkvrbovalhotacz
+              </a>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <span class="material-symbols-outlined ms-fill flex-shrink-0 mt-0.5" style="color:var(--accent-lt);font-size:1.5rem">location_on</span>
+            <div>
+              <div class="text-xs font-bold uppercase tracking-wider mb-1 text-blue-200">Hřiště</div>
+              <div class="text-white font-semibold">U Lindovy 191, Vrbová Lhota</div>
+              <div class="text-sm mt-0.5 text-blue-200">289 11 · Okres Nymburk</div>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <span class="material-symbols-outlined ms-fill flex-shrink-0 mt-0.5" style="color:var(--accent-lt);font-size:1.5rem">group</span>
+            <div>
+              <div class="text-xs font-bold uppercase tracking-wider mb-1 text-blue-200">Sociální sítě</div>
+              <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener"
+                 class="inline-flex items-center gap-1.5 text-white font-semibold hover:text-green-300 transition-colors">
+                Facebook komunita
+                <span class="material-symbols-outlined" style="font-size:1rem">open_in_new</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Bottom brand -->
+      <div class="mt-14 pt-8 border-t border-white/15">
+        <div class="flex items-center gap-4">
+          <img src="logo.png" alt="Logo FK Vrbová Lhota 98" style="height:44px;width:auto;filter:brightness(0) invert(1);opacity:.85" />
+          <div>
+            <div class="font-headline font-bold text-white text-sm">Sportovní klub Vrbová Lhota 98</div>
+            <div class="text-xs tracking-widest uppercase" style="color:var(--accent-lt)">Fotbalový klub · Nymburk</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form side -->
+    <div class="lg:w-[58%] bg-white p-10 lg:p-16 flex flex-col justify-center">
+      <h3 class="font-headline text-3xl font-bold mb-2" style="color:var(--text)">Napište nám</h3>
+      <p class="text-sm mb-8" style="color:var(--muted)">Vyplňte formulář a ozveme se vám co nejdříve.</p>
+
+      <form id="contact-form" action="https://formspree.io/f/XXXXXXXX" method="POST" novalidate>
+
+        <div class="grid sm:grid-cols-2 gap-4 mb-4">
+          <div>
+            <label for="jmeno" class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:var(--text)">
+              Jméno a příjmení <span class="text-red-500">*</span>
+            </label>
+            <input type="text" id="jmeno" name="jmeno" required placeholder="Jan Novák" class="field" />
+          </div>
+          <div>
+            <label for="telefon" class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:var(--text)">Telefon</label>
+            <input type="tel" id="telefon" name="telefon" placeholder="+420 000 000 000" class="field" />
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="email" class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:var(--text)">
+            E-mail <span class="text-red-500">*</span>
+          </label>
+          <input type="email" id="email" name="email" required placeholder="jan@email.cz" class="field" />
+        </div>
+
+        <div class="mb-4">
+          <label for="kategorie" class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:var(--text)">Zájem o kategorii</label>
+          <select id="kategorie" name="kategorie" class="field">
+            <option value="">— vyberte kategorii —</option>
+            <option value="muzi">Muži (dospělí)</option>
+            <option value="dorost">Dorost (15–18 let)</option>
+            <option value="zaci">Žáci (10–14 let)</option>
+            <option value="pripravka">Přípravka (5–9 let)</option>
+            <option value="jine">Jiný dotaz</option>
+          </select>
+        </div>
+
+        <div class="mb-6">
+          <label for="zprava" class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:var(--text)">
+            Zpráva <span class="text-red-500">*</span>
+          </label>
+          <textarea id="zprava" name="zprava" required rows="4"
+            placeholder="Popište stručně váš zájem — kategorie, věk hráče, případné otázky…"
+            class="field resize-none"></textarea>
+        </div>
+
+        <!-- Status messages -->
+        <div id="form-success" class="hidden mb-4 p-4 text-sm font-semibold text-blue-800 bg-blue-50 border border-blue-200">
+          ✓ Zpráva odeslána! Ozveme se vám co nejdříve.
+        </div>
+        <div id="form-error" class="hidden mb-4 p-4 text-sm font-semibold text-red-800 bg-red-50 border border-red-200">
+          Něco se pokazilo. Zkuste to prosím znovu nebo nás kontaktujte přímo.
+        </div>
+
+        <button type="submit" id="form-submit" class="btn-primary w-full justify-center text-sm py-4">
+          <span class="material-symbols-outlined ms-fill" style="font-size:1.2rem">send</span>
+          <span id="btn-text">Odeslat zprávu</span>
+        </button>
+
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Row 1 -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 py-12 border-b border-white/10">
+
+      <div class="max-w-sm">
+        <div class="flex items-center gap-4 mb-4">
+          <img src="logo.png" alt="Logo FK Vrbová Lhota 98" style="height:44px;width:auto" />
+          <div>
+            <div class="font-headline font-bold text-white">Sportovní klub Vrbová Lhota 98</div>
+            <div class="text-xs font-semibold tracking-widest uppercase" style="color:var(--accent)">Fotbalový klub · Nymburk</div>
+          </div>
+        </div>
+        <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,.5)">
+          Místní fotbalový klub ve Vrbové Lhotě. Sport, přátelství a fair play od roku 1998.
+        </p>
+      </div>
+
+      <nav class="flex flex-wrap gap-6" aria-label="Patičková navigace">
+        <a href="#zapasy"   class="text-sm font-semibold transition-colors" style="color:var(--accent-lt)">Zápasy</a>
+        <a href="#oddiely"  class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Oddíly</a>
+        <a href="#o-klubu"  class="text-sm font-medium text-gray-400 hover:text-white transition-colors">O klubu</a>
+        <a href="#galerie"  class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Galerie</a>
+        <a href="#kontakt"  class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Kontakt</a>
+        <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener"
+           class="text-sm font-semibold transition-colors hover:text-white" style="color:var(--accent-lt)">Facebook →</a>
+      </nav>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-3 py-6 text-sm" style="color:rgba(255,255,255,.4)">
+      <div class="flex flex-wrap gap-5">
+        <span class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined" style="font-size:1rem">phone</span>
+          +420 773 940 809
+        </span>
+        <span class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined" style="font-size:1rem">location_on</span>
+          U Lindovy 191, Vrbová Lhota, 289 11
+        </span>
+      </div>
+      <div class="text-xs" style="color:rgba(255,255,255,.3)">
+        © 2025 Sportovní klub Vrbová Lhota 98 · Všechna práva vyhrazena
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<!-- ══ JAVASCRIPT ══ -->
+<script>
+  // ─── 1. Scroll progress bar ───
+  const progressBar = document.getElementById('scroll-progress');
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }
+
+  // ─── 2. Nav scrolled class ───
+  const siteHeader = document.getElementById('site-header');
+  function updateNav() {
+    siteHeader.classList.toggle('scrolled', window.scrollY > 60);
+  }
+
+  window.addEventListener('scroll', () => {
+    updateProgress();
+    updateNav();
+  }, { passive: true });
+
+  updateProgress();
+  updateNav();
+
+  // ─── 3. Hamburger menu ───
+  const hamburgerBtn  = document.getElementById('hamburger-btn');
+  const mobileNav     = document.getElementById('mobile-nav');
+  const mobileOverlay = document.getElementById('mobile-overlay');
+
+  function openMenu() {
+    mobileNav.classList.add('open');
+    mobileOverlay.classList.add('active');
+    hamburgerBtn.classList.add('open');
+    hamburgerBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    mobileNav.classList.remove('open');
+    mobileOverlay.classList.remove('active');
+    hamburgerBtn.classList.remove('open');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  hamburgerBtn.addEventListener('click', () => {
+    mobileNav.classList.contains('open') ? closeMenu() : openMenu();
+  });
+
+  mobileOverlay.addEventListener('click', closeMenu);
+
+  document.querySelectorAll('.mob-link').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  // ─── 4. Reveal on scroll (IntersectionObserver) ───
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        revealObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  // ─── 5. Counter animation ───
+  const counterObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el     = entry.target;
+      const target = parseInt(el.dataset.target, 10);
+      const step   = target / (1500 / 16);
+      let   cur    = 0;
+      const tick   = setInterval(() => {
+        cur = Math.min(cur + step, target);
+        el.textContent = Math.floor(cur);
+        if (cur >= target) clearInterval(tick);
+      }, 16);
+      counterObs.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.counter').forEach(c => counterObs.observe(c));
+
+  // ─── 6. Formspree AJAX ───
+  const form        = document.getElementById('contact-form');
+  const formSuccess = document.getElementById('form-success');
+  const formError   = document.getElementById('form-error');
+  const submitBtn   = document.getElementById('form-submit');
+  const btnText     = document.getElementById('btn-text');
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    formSuccess.classList.add('hidden');
+    formError.classList.add('hidden');
+    submitBtn.disabled = true;
+    btnText.textContent = 'Odesílám…';
+
+    try {
+      const res = await fetch(form.action, {
+        method:  'POST',
+        body:    new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      if (res.ok) {
+        formSuccess.classList.remove('hidden');
+        form.reset();
+      } else {
+        formError.classList.remove('hidden');
+      }
+    } catch {
+      formError.classList.remove('hidden');
+    } finally {
+      submitBtn.disabled  = false;
+      btnText.textContent = 'Odeslat zprávu';
+    }
+  });
+</script>
+
+</body>
+</html>

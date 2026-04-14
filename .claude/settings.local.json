@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.facebook.com)",
+      "WebFetch(domain:graph.facebook.com)",
+      "WebSearch",
+      "WebFetch(domain:fotbalunas.cz)",
+      "WebFetch(domain:www.fotbal.cz)",
+      "WebFetch(domain:www.sportmap.cz)",
+      "WebFetch(domain:www.kfis.cz)",
+      "WebFetch(domain:mbasic.facebook.com)",
+      "WebFetch(domain:kfis.cz)",
+      "Bash(python3 -)",
+      "Bash(python3 /tmp/replace_hero.py)",
+      "Bash(python3 /c/Users/lukas/AppData/Local/Temp/replace_hero.py)",
+      "Bash(python3 -c ':*)"
+    ]
+  }
+}
