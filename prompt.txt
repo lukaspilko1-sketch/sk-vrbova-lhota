@@ -1,0 +1,63 @@
+Pracuješ se souborem index.html — webem fotbalového klubu SK Vrbová Lhota z.s. 
+Klub je malý, místní, vesnický fotbalový oddíl z Nymburska (III. třída, okres).
+
+CÍLE:
+Lehce modernizuj vizuál stránky, ale zachovej "vesnický, místní" charakter klubu. 
+Stránka nesmí vypadat jako web Premier League — má působit autenticky, přátelsky 
+a lokálně, jen o trochu svěžejší a čistší.
+
+Hlavní barva #1a65a8 (modrá) se NEMĚNÍ. Je to identita klubu.
+
+KONKRÉTNÍ ZMĚNY K PROVEDENÍ:
+
+1. HERO SEKCE
+   - Přidej jemný diagonal stripe pattern jako pozadí hero sekce (CSS only, 
+     SVG nebo linear-gradient) — místo nebo přes stávající tmavé pozadí.
+     Barvy: velmi tmavá modrá + o trochu světlejší pruh, sotva viditelné.
+   - Přidej pod hlavní nadpis "Hrajeme s vášní..." drobný řádek s ikonkou 
+     📍 "Vrbová Lhota · Nymbursko · od roku 1998" — malé, šedé, důvěryhodné.
+   - CTA tlačítka zaoblí na border-radius: 6px (místo ostrých rohů).
+
+2. NAVIGACE
+   - Přidej `backdrop-filter: blur(12px)` na nav při scrollu (třída `.scrolled`).
+   - Horní barevný pruh nav (`border-top: 3px solid var(--primary)`) změň 
+     na 4px a přidej mu jemný gradient: from #1a65a8 to #2f8f4e.
+
+3. SEKCE ODDÍLY (team karty)
+   - Zaoblené rohy karet: border-radius: 12px.
+   - Hover efekt: místo `box-shadow: 5px 5px 0 var(--accent)` použij 
+     `box-shadow: 0 8px 24px rgba(26,101,168,0.18)` + `translateY(-6px)`.
+     Zachovej přechod na zelené pozadí ikony.
+   - Přidej do každé karty dole tenkého horizontal rule 
+     (1px, barva var(--surface-2)) a pod ním malý "→ Více informací" link 
+     v barvě primary (placeholder href="#kontakt").
+
+4. STATISTIKY (stat strip — modrý pruh s čísly)
+   - Zvětši čísla (stat-val) z 2rem na 2.5rem.
+   - Přidej `border-radius: 8px` na celý strip.
+   - Přidej separátory mezi stat položky jako svislou čáru s opacity 0.2.
+
+5. FOOTER
+   - Přidej nahoře do footeru tenký barevný pruh: 
+     `border-top: 3px solid var(--primary)`.
+   - Rok copyright aktualizuj na 2025 (je tam správně, zkontroluj).
+   - Pod adresu přidej malý odkaz na Google Maps: 
+     `https://maps.google.com/?q=Vrbová+Lhota+U+Lindovy+191` 
+     s textem "Zobrazit na mapě →" — malé, barva accent-lt.
+
+6. TYPOGRAFIE (globálně)
+   - Nadpisy h2 v sekcích dostanenou jemný text-shadow: 
+     `text-shadow: 0 1px 0 rgba(0,0,0,0.06)` — sotva znatelné, přidá hloubku.
+
+7. MOBILE (do 768px)
+   - Zkontroluj, že CTA tlačítka v hero jsou na mobilu full-width 
+     (`width: 100%` nebo `w-full`). Pokud nejsou, oprav.
+
+PRAVIDLA:
+- Zachovej všechny stávající funkce (scroll progress, hamburger menu, 
+  reveal animace, counter animace, Formspree formulář).
+- Neměň texty, kontaktní údaje, ani strukturu sekcí.
+- Neměň barvy mimo zadané výjimky — primary #1a65a8 zůstává.
+- Zachovej Google Fonts (Noto Serif + Plus Jakarta Sans).
+- Výsledkem je stále single-file HTML.
+- Po dokončení změn mi vypiš seznam všeho, co jsi upravil.

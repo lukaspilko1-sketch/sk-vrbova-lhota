@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="FK Vrbová Lhota 98 z.s. – fotbalový klub z Nymburska. Hrajeme s vášní a srdcem od roku 1998. Oddíly pro všechny věkové kategorie." />
-  <title>FK Vrbová Lhota 98 — Fotbalový klub</title>
+  <meta name="description" content="SK Vrbová Lhota z.s. – fotbalový klub z Nymburska. Hrajeme s vášní a srdcem od roku 1998. Oddíly pro všechny věkové kategorie." />
+  <title>SK Vrbová Lhota z.s. — Fotbalový klub</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -65,9 +65,10 @@
 
     /* ─── Nav ─── */
     #site-header {
-      border-top: 3px solid var(--primary);
+      border-top: 4px solid transparent;
+      border-image: linear-gradient(to right, #1a65a8, #2f8f4e) 1;
     }
-    #site-header.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,.1); }
+    #site-header.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,.1); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
     .nav-link {
       font-size: .82rem; font-weight: 800; text-transform: uppercase; letter-spacing: .09em;
       color: #1f2937; transition: color .2s;
@@ -153,6 +154,7 @@
       letter-spacing: .05em; text-transform: uppercase;
       display: inline-flex; align-items: center; gap: .5rem;
       transition: background .2s, box-shadow .2s; cursor: pointer; border: none;
+      border-radius: 6px;
     }
     .btn-primary:hover { background: var(--primary-dk); box-shadow: 5px 5px 0 var(--accent); }
 
@@ -162,6 +164,7 @@
       letter-spacing: .05em; text-transform: uppercase;
       display: inline-flex; align-items: center; gap: .5rem;
       transition: background .2s, box-shadow .2s; cursor: pointer; border: none;
+      border-radius: 6px;
     }
     .btn-green:hover { background: #247a40; box-shadow: 5px 5px 0 var(--primary); }
 
@@ -171,6 +174,7 @@
       letter-spacing: .05em; text-transform: uppercase;
       display: inline-flex; align-items: center; gap: .5rem;
       transition: background .2s, color .2s, box-shadow .2s;
+      border-radius: 6px;
     }
     .btn-outline:hover { background: var(--primary); color: #fff; box-shadow: 4px 4px 0 var(--accent); }
 
@@ -180,6 +184,7 @@
       letter-spacing: .05em; text-transform: uppercase;
       display: inline-flex; align-items: center; gap: .5rem;
       transition: border-color .2s, background .2s;
+      border-radius: 6px;
     }
     .btn-ghost-white:hover { border-color: #fff; background: rgba(255,255,255,.1); }
 
@@ -200,7 +205,7 @@
     .grass-texture > * { position: relative; z-index: 1; }
 
     /* ─── Stats strip ─── */
-    .stat-val  { font-family: 'Noto Serif', serif; font-size: 2rem; font-weight: 900; color: #fff; line-height: 1; }
+    .stat-val  { font-family: 'Noto Serif', serif; font-size: 2.5rem; font-weight: 900; color: #fff; line-height: 1; }
     .stat-unit { font-size: .85rem; font-weight: 700; color: var(--accent-lt); }
     .stat-lab  { font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-top: .2rem; }
     .stat-div  { width: 1px; height: 2rem; background: rgba(26,101,168,.18); flex-shrink: 0; }
@@ -222,8 +227,9 @@
       background: #fff; border: 1px solid rgba(26,101,168,.1);
       position: relative; overflow: hidden;
       transition: transform .25s, box-shadow .25s;
+      border-radius: 12px;
     }
-    .team-card:hover { transform: translateY(-4px); box-shadow: 5px 5px 0 0 var(--accent); }
+    .team-card:hover { transform: translateY(-6px); box-shadow: 0 8px 24px rgba(26,101,168,0.18); }
     .team-card:hover .card-icon { background: var(--accent) !important; }
     .team-card:hover .card-icon span { color: #fff !important; }
     .card-num {
@@ -270,7 +276,7 @@
     section { padding: 5rem 0; }
 
     /* ─── Footer ─── */
-    footer { background: var(--ink); color: rgba(255,255,255,.65); }
+    footer { background: var(--ink); color: rgba(255,255,255,.65); border-top: 3px solid var(--primary); }
 
     /* ─── Material icons ─── */
     .material-symbols-outlined { font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; vertical-align: middle; }
@@ -341,6 +347,21 @@
 
     /* ─── Contact split ─── */
     .contact-dark { background: var(--primary); }
+
+    /* ─── Section h2 text-shadow ─── */
+    section h2 { text-shadow: 0 1px 0 rgba(0,0,0,.06); }
+
+    /* ─── Hero diagonal stripe ─── */
+    .hero-stripe {
+      position: absolute; inset: 0; pointer-events: none; z-index: 1; opacity: .045;
+      background-image: repeating-linear-gradient(
+        135deg,
+        #0a1c35 0px,
+        #0a1c35 12px,
+        #1a3a60 12px,
+        #1a3a60 24px
+      );
+    }
   </style>
 </head>
 <body>
@@ -374,9 +395,9 @@
 
     <!-- Logo -->
     <a href="#" class="flex items-center gap-3">
-      <img src="img/logo/logo-sk-vrbova-lhota.png" alt="FK Vrbová Lhota 98 logo" class="logo-img" />
+      <img src="img/logo/logo-sk-vrbova-lhota.png" alt="SK Vrbová Lhota z.s. logo" class="logo-img" />
       <div class="leading-tight hidden sm:block">
-        <div class="font-headline font-bold text-sm lg:text-base" style="color:var(--primary)">FK Vrbová Lhota</div>
+        <div class="font-headline font-bold text-sm lg:text-base" style="color:var(--primary)">SK Vrbová Lhota z.s.</div>
         <div class="text-xs font-semibold tracking-widest uppercase" style="color:var(--muted)">Fotbalový klub · 1998</div>
       </div>
     </a>
@@ -415,7 +436,7 @@
   <!-- Fotka "tým" — zakotvená vpravo, posunuta o ~20% doprava -->
   <div class="absolute inset-0 z-0" style="overflow:hidden">
     <img src="img/hero/tym-01.jpg"
-         alt="Tým FK Vrbová Lhota"
+         alt="Tým SK Vrbová Lhota z.s."
          class="w-full h-full object-cover"
          style="object-position:right center;opacity:.85;transform:translateX(20%)" />
   </div>
@@ -428,6 +449,9 @@
   <div class="absolute inset-0 z-1"
        style="background:linear-gradient(to top, rgba(238,246,240,.9) 0%, rgba(238,246,240,.3) 22%, transparent 45%)"></div>
 
+  <!-- Diagonální stripe pattern -->
+  <div class="hero-stripe"></div>
+
   <!-- Velmi jemný noise -->
   <div class="hero-noise" style="opacity:.06"></div>
 
@@ -438,21 +462,27 @@
 
         <!-- Logo SK Vrbová Lhota -->
         <img src="img/logo/logo-sk-vrbova-lhota.png"
-             alt="SK Vrbová Lhota"
+             alt="SK Vrbová Lhota z.s."
              class="reveal d1"
-             style="height:90px;width:auto;object-fit:contain;margin-bottom:1.25rem;filter:drop-shadow(0 4px 12px rgba(0,0,0,.18))" />
+             style="height:135px;width:auto;object-fit:contain;margin:0 auto 1.25rem;filter:drop-shadow(0 4px 12px rgba(0,0,0,.18))" />
 
         <!-- Match info — typografický akcent místo tlačítka -->
         <div class="hero-match-line mb-4">
           <span class="material-symbols-outlined ms-fill match-icon" style="font-size:1rem">sports_soccer</span>
-          Sobota 19. 4. · 15:00 &nbsp;—&nbsp; FK Vrbová Lhota vs TJ Sokol Písty
+          Sobota 19. 4. · 15:00 &nbsp;—&nbsp; SK Vrbová Lhota z.s. vs TJ Sokol Písty
         </div>
 
         <!-- H1 -->
         <h1 class="font-headline text-5xl sm:text-6xl lg:text-[4.25rem] font-bold leading-[1.05] mt-5 mb-5" style="color:var(--ink)">
-          Hrajeme za Vrbovou Lhotu.<br>
-          <span style="color:var(--accent)">Přijď fandit.</span>
+          Hrajeme za Vrbovku.<br>
+          <span style="color:var(--accent)">Přijď mezi nás.</span>
         </h1>
+
+        <!-- Lokace -->
+        <p class="text-sm mb-5 flex items-center gap-1.5" style="color:var(--muted)">
+          <span>📍</span>
+          <span>Vrbová Lhota · Nymbursko · od roku 1998</span>
+        </p>
 
         <!-- Perex -->
         <p class="text-base leading-relaxed mb-7 max-w-md" style="color:var(--muted)">
@@ -461,7 +491,7 @@
 
         <!-- CTA -->
         <div class="flex flex-wrap gap-3">
-          <a href="#zapasy" class="btn-primary">
+          <a href="#zapasy" class="btn-primary w-full sm:w-auto justify-center">
             <span class="material-symbols-outlined ms-fill" style="font-size:1.1rem">calendar_month</span>
             Rozpis zápasů
           </a>
@@ -475,19 +505,19 @@
 <!-- ══ STATS ══ -->
 <div style="background:var(--surface);border-bottom:1px solid rgba(26,101,168,.08)">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
-    <div class="flex flex-wrap gap-y-4 items-center justify-center">
+    <div class="flex flex-wrap gap-y-4 items-center justify-center" style="border-radius:8px">
       <div class="flex flex-col items-center px-6 sm:px-10">
-        <div class="font-headline text-2xl font-black leading-none" style="color:var(--ink)"><span class="counter" data-target="25">0</span>+</div>
+        <div class="font-headline font-black leading-none" style="color:var(--ink);font-size:2.5rem"><span class="counter" data-target="25">0</span>+</div>
         <div class="text-xs uppercase tracking-widest mt-0.5" style="font-size:.6rem;letter-spacing:.12em;color:var(--muted)">let tradice</div>
       </div>
       <div class="stat-div mx-4 sm:mx-6"></div>
       <div class="flex flex-col items-center px-6 sm:px-10">
-        <div class="font-headline text-2xl font-black leading-none" style="color:var(--ink)"><span class="counter" data-target="4">0</span></div>
+        <div class="font-headline font-black leading-none" style="color:var(--ink);font-size:2.5rem"><span class="counter" data-target="4">0</span></div>
         <div class="text-xs uppercase tracking-widest mt-0.5" style="font-size:.6rem;letter-spacing:.12em;color:var(--muted)">kategorie</div>
       </div>
       <div class="stat-div mx-4 sm:mx-6"></div>
       <div class="flex flex-col items-center px-6 sm:px-10">
-        <div class="font-headline text-2xl font-black leading-none" style="color:var(--ink)"><span class="counter" data-target="100">0</span>+</div>
+        <div class="font-headline font-black leading-none" style="color:var(--ink);font-size:2.5rem"><span class="counter" data-target="100">0</span>+</div>
         <div class="text-xs uppercase tracking-widest mt-0.5" style="font-size:.6rem;letter-spacing:.12em;color:var(--muted)">členů klubu</div>
       </div>
       <div class="stat-div mx-4 sm:mx-6"></div>
@@ -537,9 +567,9 @@
           <!-- Teams -->
           <div class="flex items-center justify-between gap-4">
             <div class="flex items-center gap-3 flex-1">
-              <img src="img/logo/logo-sk-vrbova-lhota.png" alt="FK Vrbová Lhota" class="w-10 h-10 object-contain flex-shrink-0" />
+              <img src="img/logo/logo-sk-vrbova-lhota.png" alt="SK Vrbová Lhota z.s." class="w-10 h-10 object-contain flex-shrink-0" />
               <div>
-                <div class="text-white font-bold text-sm leading-tight">FK Vrbová Lhota 98</div>
+                <div class="text-white font-bold text-sm leading-tight">SK Vrbová Lhota z.s.</div>
                 <div class="text-blue-200 text-xs">Domácí</div>
               </div>
             </div>
@@ -582,7 +612,7 @@
         <div class="p-4 mb-4 flex items-center justify-between gap-4" style="background:rgba(255,255,255,.05);border:1px solid rgba(26,101,168,.35);border-left:3px solid var(--accent)">
           <div class="flex-1 min-w-0">
             <div class="text-xs text-blue-300 mb-1">12. 4. 2025 · Domácí</div>
-            <div class="text-white font-semibold text-sm truncate">FK VL 98 vs TJ Hlaváčov</div>
+            <div class="text-white font-semibold text-sm truncate">SK VL vs TJ Hlaváčov</div>
           </div>
           <div class="match-score-win px-3 py-1.5 text-center flex-shrink-0">
             <div class="font-black text-lg leading-none text-white">2:1</div>
@@ -652,11 +682,11 @@
       <span class="eyebrow mb-4 flex justify-center">Oddíly</span>
       <h2 class="font-headline text-4xl lg:text-5xl font-bold" style="color:var(--text)">Fotbal pro všechny</h2>
       <p class="mt-4 text-lg max-w-2xl mx-auto" style="color:var(--muted)">
-        V FK Vrbová Lhota 98 máme místo pro každého — od nejmenších fotbalistů po zkušené hráče mužských kategorií.
+        V SK Vrbová Lhota z.s. máme místo pro každého — od nejmenších fotbalistů po zkušené hráče mužských kategorií.
       </p>
     </div>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid sm:grid-cols-2 gap-6">
 
       <!-- Muži -->
       <div class="team-card p-8 reveal d1">
@@ -671,41 +701,13 @@
         <p class="text-sm leading-relaxed" style="color:var(--muted)">
           Hlavní tým klubu soutěžící v okresní lize. Hledáme nové posily — přijďte vyzkoušet trénink!
         </p>
-      </div>
-
-      <!-- Dorost -->
-      <div class="team-card p-8 reveal d2">
-        <span class="card-num">02</span>
-        <div class="mb-5">
-          <span class="inline-flex items-center justify-center w-12 h-12" style="background:var(--surface-2)">
-            <span class="material-symbols-outlined ms-fill text-2xl" style="color:var(--primary)">supervisor_account</span>
-          </span>
-        </div>
-        <div class="text-xs font-bold uppercase tracking-widest mb-2" style="color:var(--accent)">15–18 let</div>
-        <h3 class="font-headline text-xl font-bold mb-3" style="color:var(--text)">Dorost</h3>
-        <p class="text-sm leading-relaxed" style="color:var(--muted)">
-          Příprava mladých hráčů na dospělý fotbal. Technická a taktická průprava pod vedením zkušených trenérů.
-        </p>
-      </div>
-
-      <!-- Žáci -->
-      <div class="team-card p-8 reveal d3">
-        <span class="card-num">03</span>
-        <div class="mb-5">
-          <span class="inline-flex items-center justify-center w-12 h-12" style="background:var(--surface-2)">
-            <span class="material-symbols-outlined ms-fill text-2xl" style="color:var(--primary)">child_care</span>
-          </span>
-        </div>
-        <div class="text-xs font-bold uppercase tracking-widest mb-2" style="color:var(--accent)">10–14 let</div>
-        <h3 class="font-headline text-xl font-bold mb-3" style="color:var(--text)">Žáci</h3>
-        <p class="text-sm leading-relaxed" style="color:var(--muted)">
-          Závodní fotbal pro starší žáky. Rozvíjíme herní inteligenci, fyzičku i týmového ducha.
-        </p>
+        <hr style="border:none;border-top:1px solid var(--surface-2);margin:1.25rem 0 .75rem" />
+        <a href="#kontakt" class="text-sm font-semibold" style="color:var(--primary)">→ Více informací</a>
       </div>
 
       <!-- Přípravka -->
-      <div class="team-card p-8 reveal d4">
-        <span class="card-num">04</span>
+      <div class="team-card p-8 reveal d2">
+        <span class="card-num">02</span>
         <div class="mb-5">
           <span class="inline-flex items-center justify-center w-12 h-12" style="background:var(--surface-2)">
             <span class="material-symbols-outlined ms-fill text-2xl" style="color:var(--primary)">emoji_people</span>
@@ -716,6 +718,8 @@
         <p class="text-sm leading-relaxed" style="color:var(--muted)">
           Zábavné tréninky pro nejmenší. Základy fotbalu, pohyb a radost ze hry v přátelské atmosféře.
         </p>
+        <hr style="border:none;border-top:1px solid var(--surface-2);margin:1.25rem 0 .75rem" />
+        <a href="#kontakt" class="text-sm font-semibold" style="color:var(--primary)">→ Více informací</a>
       </div>
 
     </div>
@@ -746,15 +750,15 @@
       <!-- Photo -->
       <div class="relative reveal">
         <div class="relative overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?w=700&q=80&auto=format&fit=crop"
-               alt="Fotbalové hřiště FK Vrbová Lhota"
+          <img src="img/galerie/tym-02.jpg"
+               alt="Tým SK Vrbová Lhota z.s."
                class="w-full object-cover" style="height:500px" />
         </div>
         <!-- Accent block -->
         <div class="absolute -bottom-4 -right-4 w-24 h-24 -z-10" style="background:var(--primary)"></div>
         <!-- Logo badge -->
         <div class="absolute top-6 -right-5 px-4 py-3 shadow-xl hidden lg:block bg-white flex items-center gap-3">
-          <img src="img/logo/logo-sk-vrbova-lhota.png" alt="Logo FK Vrbová Lhota 98" style="height:48px;width:auto" />
+          <img src="img/logo/logo-sk-vrbova-lhota.png" alt="Logo SK Vrbová Lhota z.s." style="height:48px;width:auto" />
         </div>
       </div>
 
@@ -765,7 +769,7 @@
           Více než 25 let<br>fotbalu na Nymbursku
         </h2>
         <p class="text-base leading-relaxed mb-4" style="color:var(--muted)">
-          FK Vrbová Lhota 98 z.s. byl založen v roce 1998 a od té doby je nedílnou součástí sportovního
+          SK Vrbová Lhota z.s. byl založen v roce 1998 a od té doby je nedílnou součástí sportovního
           a společenského života ve Vrbové Lhotě. Za ta léta jsme vychovali desítky hráčů a vybudovali
           klub, na který může celá obec být hrdá.
         </p>
@@ -818,14 +822,14 @@
       <span class="eyebrow mb-4 flex justify-center">Fotogalerie</span>
       <h2 class="font-headline text-4xl lg:text-5xl font-bold" style="color:var(--text)">Ze zápasů i tréninků</h2>
       <p class="mt-4 text-lg max-w-xl mx-auto" style="color:var(--muted)">
-        Nahlédněte do zákulisí FK Vrbová Lhota 98 — na hřišti i mimo něj.
+        Nahlédněte do zákulisí SK Vrbová Lhota z.s. — na hřišti i mimo něj.
       </p>
     </div>
 
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
 
       <div class="gallery-item reveal d1 col-span-2" style="aspect-ratio:16/9">
-        <img src="img/galerie/tym-02.jpg" alt="Tým FK Vrbová Lhota" loading="lazy" />
+        <img src="img/galerie/tym-02.jpg" alt="Tým SK Vrbová Lhota z.s." loading="lazy" />
         <div class="gallery-overlay">
           <span class="gallery-tag">Tým</span>
           <span class="gallery-caption">Domácí zápas · jaro 2025</span>
@@ -857,7 +861,7 @@
       </div>
 
       <div class="gallery-item reveal d2" style="aspect-ratio:4/3">
-        <img src="img/galerie/deti-01.jpg" alt="Mládež FK Vrbová Lhota" loading="lazy" />
+        <img src="img/galerie/deti-01.jpg" alt="Mládež SK Vrbová Lhota z.s." loading="lazy" />
         <div class="gallery-overlay">
           <span class="gallery-tag">Mládež</span>
           <span class="gallery-caption">Malí fotbalisté v akci</span>
@@ -892,7 +896,7 @@
       <span class="eyebrow mb-4 flex justify-center">Komunita</span>
       <h2 class="font-headline text-4xl lg:text-5xl font-bold" style="color:var(--text)">Co říkají lidi z klubu</h2>
       <p class="mt-3 text-base max-w-xl mx-auto" style="color:var(--muted)">
-        Žádné hvězdičky a formulář — jen skutečné příběhy lidí, kteří tvoří FK Vrbová Lhota.
+        Žádné hvězdičky a formulář — jen skutečné příběhy lidí, kteří tvoří SK Vrbová Lhota z.s.
       </p>
     </div>
 
@@ -958,7 +962,7 @@
 
 <!-- ══ KONTAKT ══ -->
 <section id="kontakt" class="p-0" style="background:var(--surface)">
-  <div class="flex flex-col lg:flex-row min-h-[640px]">
+  <div class="max-w-7xl mx-auto w-full flex flex-col lg:flex-row min-h-[640px]">
 
     <!-- Dark info side -->
     <div class="contact-dark lg:w-[42%] p-10 lg:p-16 text-white flex flex-col justify-between">
@@ -998,6 +1002,8 @@
               <div class="text-xs font-bold uppercase tracking-wider mb-1 text-blue-200">Hřiště</div>
               <div class="text-white font-semibold">U Lindovy 191, Vrbová Lhota</div>
               <div class="text-sm mt-0.5 text-blue-200">289 11 · Okres Nymburk</div>
+              <a href="https://maps.google.com/?q=Vrbová+Lhota+U+Lindovy+191" target="_blank" rel="noopener"
+                 class="text-xs font-semibold mt-1 inline-block hover:underline" style="color:var(--accent-lt)">Zobrazit na mapě →</a>
             </div>
           </div>
 
@@ -1019,7 +1025,7 @@
       <!-- Bottom brand -->
       <div class="mt-14 pt-8 border-t border-white/15">
         <div class="flex items-center gap-4">
-          <img src="img/logo/logo-sk-vrbova-lhota.png" alt="Logo FK Vrbová Lhota 98" style="height:44px;width:auto;filter:brightness(0) invert(1);opacity:.85" />
+          <img src="img/logo/logo-sk-vrbova-lhota.png" alt="Logo SK Vrbová Lhota z.s." style="height:44px;width:auto;filter:brightness(0) invert(1);opacity:.85" />
           <div>
             <div class="font-headline font-bold text-white text-sm">Sportovní klub Vrbová Lhota 98</div>
             <div class="text-xs tracking-widest uppercase" style="color:var(--accent-lt)">Fotbalový klub · Nymburk</div>
@@ -1104,7 +1110,7 @@
 
       <div class="max-w-sm">
         <div class="flex items-center gap-4 mb-4">
-          <img src="img/logo/logo-sk-vrbova-lhota.png" alt="Logo FK Vrbová Lhota 98" style="height:44px;width:auto" />
+          <img src="img/logo/logo-sk-vrbova-lhota.png" alt="Logo SK Vrbová Lhota z.s." style="height:44px;width:auto" />
           <div>
             <div class="font-headline font-bold text-white">Sportovní klub Vrbová Lhota 98</div>
             <div class="text-xs font-semibold tracking-widest uppercase" style="color:var(--accent)">Fotbalový klub · Nymburk</div>
