@@ -1,0 +1,16 @@
+{
+  "nazev": "Mladší přípravka",
+  "podtitulek": "Děti 5–9 let",
+  "trener": "—",
+  "treninky": [
+    { "den": "Sobota", "cas": "10:00", "misto": "Hřiště U Lindovy" }
+  ],
+  "foto": "img/galerie/deti-01.jpg",
+  "popis": "Zábavné tréninky pro nejmenší fotbalisty. Základy fotbalu, pohyb a radost ze hry v přátelské atmosféře. Přijďte s dětmi kdykoli na sobotní trénink!",
+  "vek_od": 5,
+  "vek_do": 9,
+  "hledame": true,
+  "hledame_text": "Máte dítě ve věku 5–9 let? Přijďte na trénink — vítáme nové hráčky i hráče!",
+  "kontakt_jmeno": "Trenér přípravky",
+  "kontakt_tel": "+420 773 940 809"
+}

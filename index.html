@@ -35,334 +35,7 @@
     };
   </script>
 
-  <style>
-    /* ─── CSS custom properties ─── */
-    :root {
-      --primary:    #1a65a8;
-      --primary-dk: #134e87;
-      --primary-lt: #2278c5;
-      --accent:     #2f8f4e;
-      --accent-lt:  #3aa76d;
-      --surface:    #f5f8fc;
-      --surface-2:  #e8f0f8;
-      --ink:        #0a1628;
-      --text:       #111827;
-      --muted:      #3d5a7a;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html  { scroll-behavior: smooth; }
-    body  { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--surface); color: var(--text); overflow-x: hidden; }
-    h1, h2, h3 { font-family: 'Noto Serif', serif; }
-    a { text-decoration: none; }
-    img { display: block; }
-
-    /* ─── Scroll progress bar ─── */
-    #scroll-progress {
-      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
-      background: var(--accent); z-index: 9999; transition: width .1s linear;
-    }
-
-    /* ─── Nav ─── */
-    #site-header {
-      border-top: 4px solid transparent;
-      border-image: linear-gradient(to right, #1a65a8, #2f8f4e) 1;
-    }
-    #site-header.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,.1); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-    .nav-link {
-      font-size: .82rem; font-weight: 800; text-transform: uppercase; letter-spacing: .09em;
-      color: #1f2937; transition: color .2s;
-      position: relative; padding-bottom: 3px;
-    }
-    .nav-link::after {
-      content: ''; position: absolute; bottom: -3px; left: 0; right: 0; height: 2px;
-      background: var(--primary); transform: scaleX(0); transform-origin: left;
-      transition: transform .25s cubic-bezier(.4,0,.2,1);
-    }
-    .nav-link:hover { color: var(--primary); }
-    .nav-link:hover::after { transform: scaleX(1); }
-    .nav-link-accent { color: var(--accent) !important; }
-    .nav-link-accent::after { background: var(--accent) !important; }
-
-    /* ─── Hamburger ─── */
-    .hamburger span { display: block; width: 24px; height: 2px; background: var(--text); transition: .3s; margin-bottom: 5px; }
-    .hamburger span:last-child { margin-bottom: 0; }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    /* ─── Mobile nav drawer ─── */
-    #mobile-nav {
-      position: fixed; top: 0; right: -100%; width: min(320px, 85vw); height: 100vh;
-      background: #fff; z-index: 200; padding: 5rem 2rem 2rem;
-      transition: right .35s cubic-bezier(.4,0,.2,1);
-      box-shadow: -4px 0 30px rgba(0,0,0,.12);
-      display: flex; flex-direction: column; gap: .25rem;
-    }
-    #mobile-nav.open { right: 0; }
-    #mobile-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 199;
-      opacity: 0; pointer-events: none; transition: opacity .3s;
-    }
-    #mobile-overlay.active { opacity: 1; pointer-events: all; }
-    .mob-link {
-      display: block; padding: .85rem 0; font-size: 1rem; font-weight: 600;
-      color: #111827; border-bottom: 1px solid #f0f0f0; transition: color .2s;
-    }
-    .mob-link:hover { color: var(--primary); }
-
-    /* ─── Eyebrow ─── */
-    .eyebrow {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: .7rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .18em;
-      color: var(--primary);
-      display: inline-flex; align-items: center; gap: .6rem;
-    }
-    .eyebrow::before {
-      content: ''; display: inline-block; width: 24px; height: 2px;
-      background: var(--primary); flex-shrink: 0;
-    }
-    .eyebrow-green {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: .7rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .18em;
-      color: var(--accent-lt);
-      display: inline-flex; align-items: center; gap: .6rem;
-    }
-    .eyebrow-green::before {
-      content: ''; display: inline-block; width: 24px; height: 2px;
-      background: var(--accent-lt); flex-shrink: 0;
-    }
-    /* keep old name as alias for contact section */
-    .eyebrow-gold {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: .7rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .18em;
-      color: var(--accent-lt);
-      display: inline-flex; align-items: center; gap: .6rem;
-    }
-    .eyebrow-gold::before {
-      content: ''; display: inline-block; width: 24px; height: 2px;
-      background: var(--accent-lt); flex-shrink: 0;
-    }
-
-    /* ─── Buttons ─── */
-    .btn-primary {
-      background: var(--primary); color: #fff;
-      padding: .75rem 1.8rem; font-weight: 700; font-size: .85rem;
-      letter-spacing: .05em; text-transform: uppercase;
-      display: inline-flex; align-items: center; gap: .5rem;
-      transition: background .2s, box-shadow .2s; cursor: pointer; border: none;
-      border-radius: 6px;
-    }
-    .btn-primary:hover { background: var(--primary-dk); box-shadow: 5px 5px 0 var(--accent); }
-
-    .btn-green {
-      background: var(--accent); color: #fff;
-      padding: .75rem 1.8rem; font-weight: 700; font-size: .85rem;
-      letter-spacing: .05em; text-transform: uppercase;
-      display: inline-flex; align-items: center; gap: .5rem;
-      transition: background .2s, box-shadow .2s; cursor: pointer; border: none;
-      border-radius: 6px;
-    }
-    .btn-green:hover { background: #247a40; box-shadow: 5px 5px 0 var(--primary); }
-
-    .btn-outline {
-      border: 2px solid var(--primary); color: var(--primary);
-      padding: .7rem 1.6rem; font-weight: 700; font-size: .85rem;
-      letter-spacing: .05em; text-transform: uppercase;
-      display: inline-flex; align-items: center; gap: .5rem;
-      transition: background .2s, color .2s, box-shadow .2s;
-      border-radius: 6px;
-    }
-    .btn-outline:hover { background: var(--primary); color: #fff; box-shadow: 4px 4px 0 var(--accent); }
-
-    .btn-ghost-white {
-      border: 2px solid rgba(255,255,255,.45); color: #fff;
-      padding: .7rem 1.6rem; font-weight: 700; font-size: .85rem;
-      letter-spacing: .05em; text-transform: uppercase;
-      display: inline-flex; align-items: center; gap: .5rem;
-      transition: border-color .2s, background .2s;
-      border-radius: 6px;
-    }
-    .btn-ghost-white:hover { border-color: #fff; background: rgba(255,255,255,.1); }
-
-    /* ─── Hero noise texture (zesílená) ─── */
-    .hero-noise {
-      position: absolute; inset: 0; pointer-events: none; z-index: 2; opacity: .09;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
-
-    /* ─── Grass texture for sections ─── */
-    .grass-texture {
-      position: relative;
-    }
-    .grass-texture::before {
-      content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: .025;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='turbulence' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-    }
-    .grass-texture > * { position: relative; z-index: 1; }
-
-    /* ─── Stats strip ─── */
-    .stat-val  { font-family: 'Noto Serif', serif; font-size: 2.5rem; font-weight: 900; color: #fff; line-height: 1; }
-    .stat-unit { font-size: .85rem; font-weight: 700; color: var(--accent-lt); }
-    .stat-lab  { font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-top: .2rem; }
-    .stat-div  { width: 1px; height: 2rem; background: rgba(26,101,168,.18); flex-shrink: 0; }
-
-    /* ─── Match banner ─── */
-    .match-banner {
-      background: var(--primary); color: #fff;
-      border-left: 4px solid var(--accent);
-    }
-    .match-score-win  { background: #16a34a; color: #fff; }
-    .match-score-loss { background: #dc2626; color: #fff; }
-    .match-score-draw { background: #ca8a04; color: #fff; }
-    .result-row { border-bottom: 1px solid rgba(58,167,109,.12); }
-    .result-row:last-child { border-bottom: none; }
-    .result-row:hover { background: rgba(26,101,168,.25); }
-
-    /* ─── Team cards ─── */
-    .team-card {
-      background: #fff; border: 1px solid rgba(26,101,168,.1);
-      position: relative; overflow: hidden;
-      transition: transform .25s, box-shadow .25s;
-      border-radius: 12px;
-    }
-    .team-card:hover { transform: translateY(-6px); box-shadow: 0 8px 24px rgba(26,101,168,0.18); }
-    .team-card:hover .card-icon { background: var(--accent) !important; }
-    .team-card:hover .card-icon span { color: #fff !important; }
-    .card-num {
-      font-family: 'Noto Serif', serif; font-size: 4rem; font-weight: 900;
-      color: var(--surface-2); position: absolute; top: .25rem; right: .75rem;
-      line-height: 1; user-select: none; pointer-events: none;
-    }
-
-    /* ─── Gallery ─── */
-    .gallery-item { position: relative; overflow: hidden; cursor: pointer; }
-    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
-    .gallery-item:hover img { transform: scale(1.06); }
-    .gallery-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(10,22,40,.85) 0%, rgba(26,101,168,.45) 100%);
-      display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end;
-      padding: 1rem 1.2rem;
-      opacity: 0; transition: opacity .3s;
-    }
-    .gallery-item:hover .gallery-overlay { opacity: 1; }
-    .gallery-tag {
-      display: inline-block; background: var(--accent); color: #fff;
-      font-size: .65rem; font-weight: 800; text-transform: uppercase; letter-spacing: .12em;
-      padding: .2rem .6rem; margin-bottom: .4rem;
-    }
-    .gallery-caption { color: #fff; font-size: .8rem; font-weight: 600; }
-
-    /* ─── Testi cards — méně glossy ─── */
-    .testi-card {
-      background: #fff;
-      border: 1px solid rgba(26,101,168,.12);
-      border-top: 3px solid var(--accent);
-    }
-
-    /* ─── Reveal animation ─── */
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
-    .reveal.active { opacity: 1; transform: translateY(0); }
-    .d1 { transition-delay: .1s; }
-    .d2 { transition-delay: .2s; }
-    .d3 { transition-delay: .3s; }
-    .d4 { transition-delay: .4s; }
-
-    /* ─── Section defaults ─── */
-    section { padding: 5rem 0; }
-
-    /* ─── Footer ─── */
-    footer { background: var(--ink); color: rgba(255,255,255,.65); border-top: 3px solid var(--primary); }
-
-    /* ─── Material icons ─── */
-    .material-symbols-outlined { font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; vertical-align: middle; }
-    .ms-fill { font-variation-settings: 'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24; }
-
-    /* ─── Form inputs ─── */
-    .field {
-      width: 100%; border: 1px solid #d1d5db; padding: .75rem 1rem;
-      font-family: 'Plus Jakarta Sans', sans-serif; font-size: .875rem;
-      color: var(--text); background: #fff; outline: none;
-      transition: border-color .2s;
-    }
-    .field:focus { border-color: var(--primary); }
-    .field::placeholder { color: #9ca3af; }
-
-    /* ─── Club logo in nav ─── */
-    .logo-img {
-      height: 44px; width: auto; object-fit: contain;
-    }
-
-    /* ─── Hero match info line ─── */
-    .hero-match-line {
-      display: inline-flex; align-items: center; gap: .55rem;
-      color: var(--primary-dk); font-weight: 800; font-size: .9rem;
-      padding: .35rem 0 .35rem .75rem;
-      border-left: 3px solid var(--accent);
-      line-height: 1.3; letter-spacing: .01em;
-    }
-    .hero-match-line .match-icon {
-      color: var(--accent); flex-shrink: 0;
-    }
-
-
-    /* --- Live dot pulse --- */
-    .live-dot {
-      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
-      background: var(--accent-lt); flex-shrink: 0;
-      animation: pulse-dot 1.8s ease-in-out infinite;
-    }
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(58,167,109,.6); }
-      50% { opacity: .7; transform: scale(1.2); box-shadow: 0 0 0 5px rgba(58,167,109,0); }
-    }
-
-    /* --- Match day strip --- */
-    .match-day-strip {
-      background: rgba(8,18,30,.75);
-      border: 1px solid rgba(58,167,109,.25);
-      border-left: 3px solid var(--accent-lt);
-      padding: 1rem 1.25rem;
-      box-shadow: 4px 4px 0 rgba(47,143,78,.35);
-      backdrop-filter: blur(4px);
-    }
-    /* ─── Match CTA badge ─── */
-    .match-cta-badge {
-      display: inline-flex; align-items: center; gap: .6rem;
-      background: var(--primary); color: #fff;
-      font-weight: 700; font-size: .9rem;
-      padding: .8rem 1.4rem;
-      box-shadow: 3px 3px 0 rgba(26,101,168,.25);
-      transition: background .2s, box-shadow .2s;
-      margin-bottom: 1.5rem;
-    }
-    .match-cta-badge:hover {
-      background: var(--primary-dk);
-      box-shadow: 4px 4px 0 var(--accent);
-    }
-
-    /* ─── Contact split ─── */
-    .contact-dark { background: var(--primary); }
-
-    /* ─── Section h2 text-shadow ─── */
-    section h2 { text-shadow: 0 1px 0 rgba(0,0,0,.06); }
-
-    /* ─── Hero diagonal stripe ─── */
-    .hero-stripe {
-      position: absolute; inset: 0; pointer-events: none; z-index: 1; opacity: .045;
-      background-image: repeating-linear-gradient(
-        135deg,
-        #0a1c35 0px,
-        #0a1c35 12px,
-        #1a3a60 12px,
-        #1a3a60 24px
-      );
-    }
-  </style>
+  <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
 
@@ -374,13 +47,26 @@
 
 <!-- ══ MOBILE NAV DRAWER ══ -->
 <nav id="mobile-nav" aria-label="Mobilní navigace">
-  <a href="#zapasy"   class="mob-link font-bold" style="color:var(--accent)">⚽ Zápasy</a>
-  <a href="#oddiely"  class="mob-link">Oddíly</a>
-  <a href="#o-klubu"  class="mob-link">O klubu</a>
-  <a href="#galerie"  class="mob-link">Galerie</a>
-  <a href="#kontakt"  class="mob-link">Kontakt</a>
+  <a href="#o-klubu" class="mob-link">O klubu</a>
+  <button class="mob-link mob-expand-btn" data-target="mob-sub-oddiely">
+    Oddíly <span class="mob-chevron">▾</span>
+  </button>
+  <div class="mob-submenu" id="mob-sub-oddiely">
+    <a href="atym.html" class="mob-sublink">
+      <span class="material-symbols-outlined ms-fill" style="font-size:1rem;color:var(--primary)">sports_soccer</span>
+      A-tým
+    </a>
+    <a href="pripravka.html" class="mob-sublink">
+      <span class="material-symbols-outlined ms-fill" style="font-size:1rem;color:var(--primary)">emoji_people</span>
+      Mladší přípravka
+    </a>
+  </div>
+  <a href="aktuality.html" class="mob-link">Aktuality</a>
+  <a href="galerie.html" class="mob-link">Galerie</a>
+  <a href="#partneri" class="mob-link">Partneři</a>
+  <a href="kontakt.html" class="mob-link">Kontakt</a>
   <div class="mt-6 flex flex-col gap-3">
-    <a href="#kontakt" class="btn-primary justify-center">Napsat nám</a>
+    <a href="kontakt.html" class="btn-primary justify-center">Napsat nám</a>
     <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener"
        class="flex items-center gap-2 text-sm font-semibold" style="color:var(--primary)">
       <span class="material-symbols-outlined ms-fill" style="font-size:1.2rem">group</span>
@@ -404,11 +90,26 @@
 
     <!-- Desktop nav -->
     <nav class="hidden lg:flex items-center gap-8" aria-label="Hlavní navigace">
-      <a href="#zapasy"   class="nav-link nav-link-accent">Zápasy</a>
-      <a href="#oddiely"  class="nav-link">Oddíly</a>
-      <a href="#o-klubu"  class="nav-link">O klubu</a>
-      <a href="#galerie"  class="nav-link">Galerie</a>
-      <a href="#kontakt"  class="nav-link">Kontakt</a>
+      <a href="#o-klubu" class="nav-link">O klubu</a>
+      <div class="nav-dropdown">
+        <button class="nav-link nav-dropdown-btn" aria-expanded="false" aria-haspopup="true">
+          Oddíly <span class="nav-dropdown-chevron">▾</span>
+        </button>
+        <div class="nav-dropdown-menu" role="menu">
+          <a href="atym.html" class="nav-dropdown-item" role="menuitem">
+            <span class="material-symbols-outlined ms-fill" style="font-size:1rem;color:var(--primary)">sports_soccer</span>
+            A-tým
+          </a>
+          <a href="pripravka.html" class="nav-dropdown-item" role="menuitem">
+            <span class="material-symbols-outlined ms-fill" style="font-size:1rem;color:var(--primary)">emoji_people</span>
+            Mladší přípravka
+          </a>
+        </div>
+      </div>
+      <a href="aktuality.html" class="nav-link">Aktuality</a>
+      <a href="galerie.html" class="nav-link">Galerie</a>
+      <a href="#partneri" class="nav-link">Partneři</a>
+      <a href="kontakt.html" class="nav-link">Kontakt</a>
     </nav>
 
     <!-- CTA + Hamburger -->
@@ -418,9 +119,9 @@
         <span class="material-symbols-outlined ms-fill" style="font-size:1.25rem">group</span>
         <span class="hidden lg:inline">Facebook</span>
       </a>
-      <a href="#zapasy" class="hidden sm:inline-flex btn-green py-2 px-4 text-xs">
-        <span class="material-symbols-outlined ms-fill" style="font-size:1rem">sports_soccer</span>
-        Zápasy
+      <a href="kontakt.html" class="hidden sm:inline-flex btn-green py-2 px-4 text-xs">
+        <span class="material-symbols-outlined ms-fill" style="font-size:1rem">mail</span>
+        Kontakt
       </a>
       <button id="hamburger-btn" class="hamburger lg:hidden p-2 flex flex-col justify-center"
               aria-label="Otevřít menu" aria-expanded="false">
@@ -697,12 +398,12 @@
           </span>
         </div>
         <div class="text-xs font-bold uppercase tracking-widest mb-2" style="color:var(--accent)">Dospělí</div>
-        <h3 class="font-headline text-xl font-bold mb-3" style="color:var(--text)">Muži</h3>
+        <h3 class="font-headline text-xl font-bold mb-3" style="color:var(--text)">A-tým</h3>
         <p class="text-sm leading-relaxed" style="color:var(--muted)">
           Hlavní tým klubu soutěžící v okresní lize. Hledáme nové posily — přijďte vyzkoušet trénink!
         </p>
         <hr style="border:none;border-top:1px solid var(--surface-2);margin:1.25rem 0 .75rem" />
-        <a href="#kontakt" class="text-sm font-semibold" style="color:var(--primary)">→ Více informací</a>
+        <a href="atym.html" class="text-sm font-semibold" style="color:var(--primary)">→ Více informací o A-týmu</a>
       </div>
 
       <!-- Přípravka -->
@@ -714,12 +415,12 @@
           </span>
         </div>
         <div class="text-xs font-bold uppercase tracking-widest mb-2" style="color:var(--accent)">5–9 let</div>
-        <h3 class="font-headline text-xl font-bold mb-3" style="color:var(--text)">Přípravka</h3>
+        <h3 class="font-headline text-xl font-bold mb-3" style="color:var(--text)">Mladší přípravka</h3>
         <p class="text-sm leading-relaxed" style="color:var(--muted)">
           Zábavné tréninky pro nejmenší. Základy fotbalu, pohyb a radost ze hry v přátelské atmosféře.
         </p>
         <hr style="border:none;border-top:1px solid var(--surface-2);margin:1.25rem 0 .75rem" />
-        <a href="#kontakt" class="text-sm font-semibold" style="color:var(--primary)">→ Více informací</a>
+        <a href="pripravka.html" class="text-sm font-semibold" style="color:var(--primary)">→ Více informací o přípravce</a>
       </div>
 
     </div>
@@ -804,7 +505,7 @@
           </div>
         </div>
 
-        <a href="#kontakt" class="btn-primary">
+        <a href="kontakt.html" class="btn-primary">
           <span class="material-symbols-outlined ms-fill" style="font-size:1.2rem">sports_soccer</span>
           Chci hrát fotbal
         </a>
@@ -878,10 +579,14 @@
 
     </div>
 
-    <div class="text-center mt-10 reveal">
+    <div class="text-center mt-10 reveal flex flex-wrap gap-3 justify-center">
+      <a href="galerie.html" class="btn-primary">
+        <span class="material-symbols-outlined ms-fill" style="font-size:1.2rem">collections</span>
+        Celá galerie
+      </a>
       <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener" class="btn-outline">
         <span class="material-symbols-outlined ms-fill" style="font-size:1.2rem">photo_library</span>
-        Více fotek na Facebooku
+        Facebook
       </a>
     </div>
 
@@ -957,6 +662,38 @@
         Připoj se ke komunitě na Facebooku →
       </a>
     </div>
+  </div>
+</section>
+
+<!-- ══ PARTNERŘI ══ -->
+<section id="partneri" style="background:#fff">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-14 reveal">
+      <span class="eyebrow mb-4 flex justify-center">Partneři</span>
+      <h2 class="font-headline text-4xl lg:text-5xl font-bold" style="color:var(--text)">Podporují nás</h2>
+      <p class="mt-4 text-lg max-w-2xl mx-auto" style="color:var(--muted)">
+        Děkujeme všem partnerům a sponzorům, kteří pomáhají udržovat fotbal ve Vrbové Lhotě živý.
+      </p>
+    </div>
+
+    <div id="partneri-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-14"></div>
+
+    <div class="reveal">
+      <div class="mx-auto max-w-xl p-8 text-center" style="background:var(--surface-2);border-radius:12px">
+        <div class="text-xs font-bold uppercase tracking-widest mb-2" style="color:var(--primary)">Staňte se partnerem</div>
+        <h3 class="font-headline text-2xl font-bold mb-3" style="color:var(--text)">Podpořte místní fotbal</h3>
+        <p class="text-sm leading-relaxed mb-6" style="color:var(--muted)">
+          Hledáme partnery, kteří chtějí podpořit sport a komunitu ve Vrbové Lhotě.
+          Kontaktujte nás pro více informací o možnostech spolupráce.
+        </p>
+        <a href="kontakt.html" class="btn-primary">
+          <span class="material-symbols-outlined ms-fill" style="font-size:1.1rem">handshake</span>
+          Chci být partnerem
+        </a>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1122,11 +859,12 @@
       </div>
 
       <nav class="flex flex-wrap gap-6" aria-label="Patičková navigace">
-        <a href="#zapasy"   class="text-sm font-semibold transition-colors" style="color:var(--accent-lt)">Zápasy</a>
-        <a href="#oddiely"  class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Oddíly</a>
-        <a href="#o-klubu"  class="text-sm font-medium text-gray-400 hover:text-white transition-colors">O klubu</a>
-        <a href="#galerie"  class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Galerie</a>
-        <a href="#kontakt"  class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Kontakt</a>
+        <a href="#o-klubu"       class="text-sm font-medium text-gray-400 hover:text-white transition-colors">O klubu</a>
+        <a href="#oddiely"       class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Oddíly</a>
+        <a href="aktuality.html" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Aktuality</a>
+        <a href="galerie.html"   class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Galerie</a>
+        <a href="#partneri"      class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Partneři</a>
+        <a href="kontakt.html"   class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Kontakt</a>
         <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener"
            class="text-sm font-semibold transition-colors hover:text-white" style="color:var(--accent-lt)">Facebook →</a>
       </nav>
@@ -1153,97 +891,9 @@
 </footer>
 
 <!-- ══ JAVASCRIPT ══ -->
+<script src="js/base.js"></script>
 <script>
-  // ─── 1. Scroll progress bar ───
-  const progressBar = document.getElementById('scroll-progress');
-  function updateProgress() {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    progressBar.style.width = pct + '%';
-  }
-
-  // ─── 2. Nav scrolled class ───
-  const siteHeader = document.getElementById('site-header');
-  function updateNav() {
-    siteHeader.classList.toggle('scrolled', window.scrollY > 60);
-  }
-
-  window.addEventListener('scroll', () => {
-    updateProgress();
-    updateNav();
-  }, { passive: true });
-
-  updateProgress();
-  updateNav();
-
-  // ─── 3. Hamburger menu ───
-  const hamburgerBtn  = document.getElementById('hamburger-btn');
-  const mobileNav     = document.getElementById('mobile-nav');
-  const mobileOverlay = document.getElementById('mobile-overlay');
-
-  function openMenu() {
-    mobileNav.classList.add('open');
-    mobileOverlay.classList.add('active');
-    hamburgerBtn.classList.add('open');
-    hamburgerBtn.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeMenu() {
-    mobileNav.classList.remove('open');
-    mobileOverlay.classList.remove('active');
-    hamburgerBtn.classList.remove('open');
-    hamburgerBtn.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  }
-
-  hamburgerBtn.addEventListener('click', () => {
-    mobileNav.classList.contains('open') ? closeMenu() : openMenu();
-  });
-
-  mobileOverlay.addEventListener('click', closeMenu);
-
-  document.querySelectorAll('.mob-link').forEach(link => {
-    link.addEventListener('click', closeMenu);
-  });
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeMenu();
-  });
-
-  // ─── 4. Reveal on scroll (IntersectionObserver) ───
-  const revealObs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-        revealObs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
-
-  // ─── 5. Counter animation ───
-  const counterObs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const el     = entry.target;
-      const target = parseInt(el.dataset.target, 10);
-      const step   = target / (1500 / 16);
-      let   cur    = 0;
-      const tick   = setInterval(() => {
-        cur = Math.min(cur + step, target);
-        el.textContent = Math.floor(cur);
-        if (cur >= target) clearInterval(tick);
-      }, 16);
-      counterObs.unobserve(el);
-    });
-  }, { threshold: 0.5 });
-
-  document.querySelectorAll('.counter').forEach(c => counterObs.observe(c));
-
-  // ─── 6. Formspree AJAX ───
+  // ─── Formspree AJAX ───
   const form        = document.getElementById('contact-form');
   const formSuccess = document.getElementById('form-success');
   const formError   = document.getElementById('form-error');
@@ -1276,6 +926,28 @@
       btnText.textContent = 'Odeslat zprávu';
     }
   });
+
+  // ─── Partners: load from data/partneri.json ───
+  fetch('data/partneri.json')
+    .then(r => r.json())
+    .then(partners => {
+      if (!partners.length) return;
+      const grid = document.getElementById('partneri-grid');
+      grid.innerHTML = partners.map(p => {
+        const isExt = (p.url || '').startsWith('http');
+        return '<a href="' + (p.url || '#') + '" class="partner-card"' +
+          (isExt ? ' target="_blank" rel="noopener"' : '') + '>' +
+          (p.logo
+            ? '<img src="' + p.logo + '" alt="' + p.nazev + '" class="partner-logo" />'
+            : '<div class="partner-logo-placeholder"><span class="material-symbols-outlined ms-fill text-3xl" style="color:var(--primary)">business</span></div>'
+          ) +
+          '<div class="text-xs font-bold uppercase tracking-widest mb-1" style="color:var(--accent)">' + (p.kategorie || 'Partner') + '</div>' +
+          '<p class="font-semibold text-sm mb-1" style="color:var(--text)">' + p.nazev + '</p>' +
+          (p.popis ? '<p class="text-xs" style="color:var(--muted)">' + p.popis + '</p>' : '') +
+          '</a>';
+      }).join('');
+    })
+    .catch(() => {});
 </script>
 
 </body>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kontaktujte SK Vrbová Lhota z.s. — telefon, e-mail, adresa hřiště a kontaktní formulář." />
+  <title>Kontakt — SK Vrbová Lhota z.s.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary:  { DEFAULT: '#1a65a8', dark: '#134e87', light: '#2278c5' },
+            accent:   { DEFAULT: '#2f8f4e', light: '#3aa76d' },
+            surface:  { DEFAULT: '#f5f8fc', 2: '#e8f0f8' },
+            ink:      '#0a1628',
+            muted:    '#3d5a7a',
+          },
+          fontFamily: {
+            headline: ['"Noto Serif"', 'serif'],
+            body:     ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+
+<!-- ══ MOBILE NAV OVERLAY ══ -->
+<div id="mobile-overlay" aria-hidden="true"></div>
+
+<!-- ══ MOBILE NAV DRAWER ══ -->
+<nav id="mobile-nav" aria-label="Mobilní navigace">
+  <a href="index.html#o-klubu" class="mob-link">O klubu</a>
+  <button class="mob-link mob-expand-btn" data-target="mob-sub-oddiely">
+    Oddíly <span class="mob-chevron">▾</span>
+  </button>
+  <div class="mob-submenu" id="mob-sub-oddiely">
+    <a href="atym.html" class="mob-sublink">
+      <span class="material-symbols-outlined ms-fill" style="font-size:1rem;color:var(--primary)">sports_soccer</span>
+      A-tým
+    </a>
+    <a href="pripravka.html" class="mob-sublink">
+      <span class="material-symbols-outlined ms-fill" style="font-size:1rem;color:var(--primary)">emoji_people</span>
+      Mladší přípravka
+    </a>
+  </div>
+  <a href="aktuality.html" class="mob-link">Aktuality</a>
+  <a href="galerie.html" class="mob-link">Galerie</a>
+  <a href="index.html#partneri" class="mob-link">Partneři</a>
+  <a href="kontakt.html" class="mob-link" style="color:var(--primary)">Kontakt</a>
+  <div class="mt-6 flex flex-col gap-3">
+    <a href="kontakt.html" class="btn-primary justify-center">Napsat nám</a>
+    <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener"
+       class="flex items-center gap-2 text-sm font-semibold" style="color:var(--primary)">
+      <span class="material-symbols-outlined ms-fill" style="font-size:1.2rem">group</span>
+      Facebook skupina
+    </a>
+  </div>
+</nav>
+
+<!-- ══ HEADER ══ -->
+<header id="site-header" class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/60 transition-shadow duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="img/logo/logo-sk-vrbova-lhota.png" alt="SK Vrbová Lhota z.s. logo" class="logo-img" />
+      <div class="leading-tight hidden sm:block">
+        <div class="font-headline font-bold text-sm lg:text-base" style="color:var(--primary)">SK Vrbová Lhota z.s.</div>
+        <div class="text-xs font-semibold tracking-widest uppercase" style="color:var(--muted)">Fotbalový klub · 1998</div>
+      </div>
+    </a>
+    <nav class="hidden lg:flex items-center gap-8" aria-label="Hlavní navigace">
+      <a href="index.html#o-klubu" class="nav-link">O klubu</a>
+      <div class="nav-dropdown">
+        <button class="nav-link nav-dropdown-btn" aria-expanded="false" aria-haspopup="true">
+          Oddíly <span class="nav-dropdown-chevron">▾</span>
+        </button>
+        <div class="nav-dropdown-menu" role="menu">
+          <a href="atym.html" class="nav-dropdown-item" role="menuitem">
+            <span class="material-symbols-outlined ms-fill" style="font-size:1rem;color:var(--primary)">sports_soccer</span>
+            A-tým
+          </a>
+          <a href="pripravka.html" class="nav-dropdown-item" role="menuitem">
+            <span class="material-symbols-outlined ms-fill" style="font-size:1rem;color:var(--primary)">emoji_people</span>
+            Mladší přípravka
+          </a>
+        </div>
+      </div>
+      <a href="aktuality.html" class="nav-link">Aktuality</a>
+      <a href="galerie.html" class="nav-link">Galerie</a>
+      <a href="index.html#partneri" class="nav-link">Partneři</a>
+      <a href="kontakt.html" class="nav-link" style="color:var(--primary)">Kontakt</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener"
+         class="hidden md:flex items-center gap-1.5 text-sm font-semibold" style="color:var(--primary)">
+        <span class="material-symbols-outlined ms-fill" style="font-size:1.25rem">group</span>
+        <span class="hidden lg:inline">Facebook</span>
+      </a>
+      <a href="kontakt.html" class="hidden sm:inline-flex btn-green py-2 px-4 text-xs">
+        <span class="material-symbols-outlined ms-fill" style="font-size:1rem">mail</span>
+        Kontakt
+      </a>
+      <button id="hamburger-btn" class="hamburger lg:hidden p-2 flex flex-col justify-center"
+              aria-label="Otevřít menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ══ PAGE HEADER ══ -->
+<div class="subpage-header">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav class="breadcrumb">
+      <a href="index.html">Domů</a>
+      <span>›</span>
+      <span class="breadcrumb-current">Kontakt</span>
+    </nav>
+    <h1 class="font-headline text-4xl sm:text-5xl font-bold text-white mb-3">Kontakt</h1>
+    <p class="text-blue-100 text-lg max-w-xl">Napište nám nebo přijďte osobně — vždy rádi přivítáme.</p>
+  </div>
+</div>
+
+<!-- ══ KONTAKT ══ -->
+<section class="p-0" style="background:var(--surface)">
+  <div class="max-w-7xl mx-auto w-full flex flex-col lg:flex-row min-h-[640px]">
+
+    <!-- Dark info side -->
+    <div class="contact-dark lg:w-[42%] p-10 lg:p-16 text-white flex flex-col justify-between">
+      <div>
+        <span class="eyebrow-gold mb-5 flex">Kontaktujte nás</span>
+        <h2 class="font-headline text-4xl font-bold text-white mb-4">Spojme se</h2>
+        <p class="text-blue-100 leading-relaxed mb-10 text-base">
+          Máte zájem o členství, chcete sponzorovat klub nebo se jen přijít podívat
+          na zápas? Napište nebo zavolejte — rádi odpovíme.
+        </p>
+
+        <div class="space-y-7">
+          <div class="flex items-start gap-4">
+            <span class="material-symbols-outlined ms-fill flex-shrink-0 mt-0.5" style="color:var(--accent-lt);font-size:1.5rem">phone</span>
+            <div>
+              <div class="text-xs font-bold uppercase tracking-wider mb-1 text-blue-200">Telefon</div>
+              <a href="tel:+420773940809" class="text-white text-lg font-semibold hover:text-green-300 transition-colors">
+                +420 773 940 809
+              </a>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <span class="material-symbols-outlined ms-fill flex-shrink-0 mt-0.5" style="color:var(--accent-lt);font-size:1.5rem">email</span>
+            <div>
+              <div class="text-xs font-bold uppercase tracking-wider mb-1 text-blue-200">E-mail</div>
+              <a href="mailto:info@fkvrbovalhotacz" class="text-white text-lg font-semibold hover:text-green-300 transition-colors">
+                info@fkvrbovalhotacz
+              </a>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <span class="material-symbols-outlined ms-fill flex-shrink-0 mt-0.5" style="color:var(--accent-lt);font-size:1.5rem">location_on</span>
+            <div>
+              <div class="text-xs font-bold uppercase tracking-wider mb-1 text-blue-200">Hřiště</div>
+              <div class="text-white font-semibold">U Lindovy 191, Vrbová Lhota</div>
+              <div class="text-sm mt-0.5 text-blue-200">289 11 · Okres Nymburk</div>
+              <a href="https://maps.google.com/?q=Vrbová+Lhota+U+Lindovy+191" target="_blank" rel="noopener"
+                 class="text-xs font-semibold mt-1 inline-block hover:underline" style="color:var(--accent-lt)">Zobrazit na mapě →</a>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <span class="material-symbols-outlined ms-fill flex-shrink-0 mt-0.5" style="color:var(--accent-lt);font-size:1.5rem">group</span>
+            <div>
+              <div class="text-xs font-bold uppercase tracking-wider mb-1 text-blue-200">Sociální sítě</div>
+              <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener"
+                 class="inline-flex items-center gap-1.5 text-white font-semibold hover:text-green-300 transition-colors">
+                Facebook komunita
+                <span class="material-symbols-outlined" style="font-size:1rem">open_in_new</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-14 pt-8 border-t border-white/15">
+        <div class="flex items-center gap-4">
+          <img src="img/logo/logo-sk-vrbova-lhota.png" alt="Logo SK Vrbová Lhota z.s." style="height:44px;width:auto;filter:brightness(0) invert(1);opacity:.85" />
+          <div>
+            <div class="font-headline font-bold text-white text-sm">Sportovní klub Vrbová Lhota 98</div>
+            <div class="text-xs tracking-widest uppercase" style="color:var(--accent-lt)">Fotbalový klub · Nymburk</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form side -->
+    <div class="lg:w-[58%] bg-white p-10 lg:p-16 flex flex-col justify-center">
+      <h3 class="font-headline text-3xl font-bold mb-2" style="color:var(--text)">Napište nám</h3>
+      <p class="text-sm mb-8" style="color:var(--muted)">Vyplňte formulář a ozveme se vám co nejdříve.</p>
+
+      <form id="contact-form" action="https://formspree.io/f/XXXXXXXX" method="POST" novalidate>
+        <div class="grid sm:grid-cols-2 gap-4 mb-4">
+          <div>
+            <label for="jmeno" class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:var(--text)">
+              Jméno a příjmení <span class="text-red-500">*</span>
+            </label>
+            <input type="text" id="jmeno" name="jmeno" required placeholder="Jan Novák" class="field" />
+          </div>
+          <div>
+            <label for="telefon" class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:var(--text)">Telefon</label>
+            <input type="tel" id="telefon" name="telefon" placeholder="+420 000 000 000" class="field" />
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="email" class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:var(--text)">
+            E-mail <span class="text-red-500">*</span>
+          </label>
+          <input type="email" id="email" name="email" required placeholder="jan@email.cz" class="field" />
+        </div>
+
+        <div class="mb-4">
+          <label for="kategorie" class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:var(--text)">Zájem o kategorii</label>
+          <select id="kategorie" name="kategorie" class="field">
+            <option value="">— vyberte kategorii —</option>
+            <option value="muzi">Muži (dospělí)</option>
+            <option value="dorost">Dorost (15–18 let)</option>
+            <option value="zaci">Žáci (10–14 let)</option>
+            <option value="pripravka">Přípravka (5–9 let)</option>
+            <option value="partnerstvi">Partnerství / sponzoring</option>
+            <option value="jine">Jiný dotaz</option>
+          </select>
+        </div>
+
+        <div class="mb-6">
+          <label for="zprava" class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:var(--text)">
+            Zpráva <span class="text-red-500">*</span>
+          </label>
+          <textarea id="zprava" name="zprava" required rows="4"
+            placeholder="Popište stručně váš zájem — kategorie, věk hráče, případné otázky…"
+            class="field resize-none"></textarea>
+        </div>
+
+        <div id="form-success" class="hidden mb-4 p-4 text-sm font-semibold text-blue-800 bg-blue-50 border border-blue-200">
+          ✓ Zpráva odeslána! Ozveme se vám co nejdříve.
+        </div>
+        <div id="form-error" class="hidden mb-4 p-4 text-sm font-semibold text-red-800 bg-red-50 border border-red-200">
+          Něco se pokazilo. Zkuste to prosím znovu nebo nás kontaktujte přímo.
+        </div>
+
+        <button type="submit" id="form-submit" class="btn-primary w-full justify-center text-sm py-4">
+          <span class="material-symbols-outlined ms-fill" style="font-size:1.2rem">send</span>
+          <span id="btn-text">Odeslat zprávu</span>
+        </button>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 py-12 border-b border-white/10">
+      <div class="max-w-sm">
+        <div class="flex items-center gap-4 mb-4">
+          <img src="img/logo/logo-sk-vrbova-lhota.png" alt="Logo SK Vrbová Lhota z.s." style="height:44px;width:auto" />
+          <div>
+            <div class="font-headline font-bold text-white">Sportovní klub Vrbová Lhota 98</div>
+            <div class="text-xs font-semibold tracking-widest uppercase" style="color:var(--accent)">Fotbalový klub · Nymburk</div>
+          </div>
+        </div>
+        <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,.5)">
+          Místní fotbalový klub ve Vrbové Lhotě. Sport, přátelství a fair play od roku 1998.
+        </p>
+      </div>
+      <nav class="flex flex-wrap gap-6" aria-label="Patičková navigace">
+        <a href="index.html#o-klubu" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">O klubu</a>
+        <a href="index.html#oddiely" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Oddíly</a>
+        <a href="aktuality.html" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Aktuality</a>
+        <a href="galerie.html" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Galerie</a>
+        <a href="index.html#partneri" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Partneři</a>
+        <a href="kontakt.html" class="text-sm font-semibold transition-colors" style="color:var(--accent-lt)">Kontakt</a>
+        <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener"
+           class="text-sm font-semibold transition-colors hover:text-white" style="color:var(--accent-lt)">Facebook →</a>
+      </nav>
+    </div>
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-3 py-6 text-sm" style="color:rgba(255,255,255,.4)">
+      <div class="flex flex-wrap gap-5">
+        <span class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined" style="font-size:1rem">phone</span>
+          +420 773 940 809
+        </span>
+        <span class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined" style="font-size:1rem">location_on</span>
+          U Lindovy 191, Vrbová Lhota, 289 11
+        </span>
+      </div>
+      <div class="text-xs" style="color:rgba(255,255,255,.3)">
+        © 2025 Sportovní klub Vrbová Lhota 98 · Všechna práva vyhrazena
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/base.js"></script>
+<script>
+  const form        = document.getElementById('contact-form');
+  const formSuccess = document.getElementById('form-success');
+  const formError   = document.getElementById('form-error');
+  const submitBtn   = document.getElementById('form-submit');
+  const btnText     = document.getElementById('btn-text');
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    formSuccess.classList.add('hidden');
+    formError.classList.add('hidden');
+    submitBtn.disabled = true;
+    btnText.textContent = 'Odesílám…';
+
+    try {
+      const res = await fetch(form.action, {
+        method:  'POST',
+        body:    new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      if (res.ok) { formSuccess.classList.remove('hidden'); form.reset(); }
+      else { formError.classList.remove('hidden'); }
+    } catch {
+      formError.classList.remove('hidden');
+    } finally {
+      submitBtn.disabled  = false;
+      btnText.textContent = 'Odeslat zprávu';
+    }
+  });
+</script>
+</body>
+</html>

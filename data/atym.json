@@ -1,0 +1,16 @@
+{
+  "nazev": "A-tým",
+  "podtitulek": "Muži — dospělí",
+  "soutez": "III. třída sk. B, Středočeský kraj",
+  "trener": "—",
+  "treninky": [
+    { "den": "Úterý", "cas": "17:30", "misto": "Hřiště U Lindovy" },
+    { "den": "Čtvrtek", "cas": "17:30", "misto": "Hřiště U Lindovy" }
+  ],
+  "foto": "img/galerie/tym-02.jpg",
+  "popis": "Hlavní tým SK Vrbová Lhota z.s. soutěžící v III. třídě Středočeského krajského fotbalového svazu. Hledáme nové posily — přijďte vyzkoušet trénink!",
+  "hledame": true,
+  "hledame_text": "Hledáme posily pro jarní část sezóny 2025. Vítáme hráče všech výkonnostních úrovní.",
+  "kontakt_jmeno": "Trenér A-týmu",
+  "kontakt_tel": "+420 773 940 809"
+}

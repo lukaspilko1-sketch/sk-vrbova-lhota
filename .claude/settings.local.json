@@ -14,7 +14,10 @@
       "Bash(python3 /tmp/replace_hero.py)",
       "Bash(python3 /c/Users/lukas/AppData/Local/Temp/replace_hero.py)",
       "Bash(python3 -c ':*)",
-      "Bash(find *)"
+      "Bash(find *)",
+      "Bash(python update_index.py)",
+      "Bash(python3 -c ' *)",
+      "Bash(git add *)"
     ]
   }
 }

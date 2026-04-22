@@ -1,0 +1,40 @@
+[
+  {
+    "src": "img/galerie/tym-02.jpg",
+    "alt": "Tým SK Vrbová Lhota z.s.",
+    "tag": "Tým",
+    "caption": "Domácí zápas · jaro 2025",
+    "wide": true
+  },
+  {
+    "src": "img/galerie/hriste-01.jpg",
+    "alt": "Hřiště Vrbová Lhota",
+    "tag": "Hřiště",
+    "caption": "Náš domov · Vrbová Lhota"
+  },
+  {
+    "src": "img/galerie/hospudka-01.jpg",
+    "alt": "Hospůdka u hřiště",
+    "tag": "Pohoda",
+    "caption": "Hospůdka u hřiště"
+  },
+  {
+    "src": "img/galerie/tym-03.jpg",
+    "alt": "Fotbalový tým",
+    "tag": "Parta",
+    "caption": "Parta na celý život"
+  },
+  {
+    "src": "img/galerie/deti-01.jpg",
+    "alt": "Mládež SK Vrbová Lhota z.s.",
+    "tag": "Mládež",
+    "caption": "Malí fotbalisté v akci"
+  },
+  {
+    "src": "img/galerie/deti-02.jpg",
+    "alt": "Fotbal mládež",
+    "tag": "Budoucnost",
+    "caption": "Každá sobota je svátek",
+    "wide": true
+  }
+]
