@@ -1,2 +1,23 @@
 [
+  {
+    "nazev": "Louda Auto",
+    "kategorie": "Generální partner",
+    "popis": "Autorizovaný prodej a servis vozidel",
+    "logo": "img/partneri/louda-auto.svg",
+    "url": "https://autolouda.cz/"
+  },
+  {
+    "nazev": "Obec Vrbová Lhota",
+    "kategorie": "Hlavní partner",
+    "popis": "Obecní úřad Vrbová Lhota, okres Nymburk",
+    "logo": "img/partneri/vrbova-lhota-znak.png",
+    "url": "https://www.vrbova-lhota.cz/"
+  },
+  {
+    "nazev": "Střechy Sixta",
+    "kategorie": "Partner",
+    "popis": "Pokrývačství a klempířství, Vrbová Lhota",
+    "logo": "img/partneri/strechy-sixta.png",
+    "url": "https://www.strechy-sixta.cz/"
+  }
 ]

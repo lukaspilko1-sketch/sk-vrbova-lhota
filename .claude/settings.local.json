@@ -21,7 +21,13 @@
       "Bash(git commit -m ' *)",
       "Bash(git push *)",
       "Bash(python update2.py)",
-      "Bash(python fix3.py)"
+      "Bash(python fix3.py)",
+      "WebFetch(domain:www.vrbova-lhota.cz)",
+      "WebFetch(domain:www.strechy-sixta.cz)",
+      "WebFetch(domain:autolouda.cz)",
+      "Bash(curl -L -o \"C:\\\\Users\\\\lukas\\\\Documents\\\\PRACOVNÍ\\\\Weby\\\\sk-vrbova-lhota\\\\img\\\\partneri\\\\louda-auto.svg\" \"https://content.louda.cz/www-automotive/logo_lg.svg\" -w \"louda: %{http_code}\\\\n\" --silent)",
+      "Bash(curl -L -o \"C:\\\\Users\\\\lukas\\\\Documents\\\\PRACOVNÍ\\\\Weby\\\\sk-vrbova-lhota\\\\img\\\\partneri\\\\vrbova-lhota-znak.png\" \"https://www.vrbova-lhota.cz/images/upload/system/znak.png\" -w \"vrbova-lhota: %{http_code}\\\\n\" --silent)",
+      "Bash(curl -L -o \"C:\\\\Users\\\\lukas\\\\Documents\\\\PRACOVNÍ\\\\Weby\\\\sk-vrbova-lhota\\\\img\\\\partneri\\\\strechy-sixta.png\" \"https://www.strechy-sixta.cz/wp-content/uploads/2021/10/logo2.png\" -w \"strechy-sixta: %{http_code}\\\\n\" --silent)"
     ]
   }
 }
