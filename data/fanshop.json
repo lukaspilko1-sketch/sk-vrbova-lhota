@@ -1,0 +1,42 @@
+[
+  {
+    "id": "tricko",
+    "nazev": "Tričko SK Vrbová Lhota",
+    "popis": "Kvalitní bavlněné tričko s logem klubu. Dostupné ve velikostech S–3XL.",
+    "cena": 299,
+    "cena_text": "299 Kč",
+    "obrazek": null,
+    "velikosti": ["S", "M", "L", "XL", "2XL", "3XL"],
+    "dostupne": true
+  },
+  {
+    "id": "mikina",
+    "nazev": "Mikina SK Vrbová Lhota",
+    "popis": "Pohodlná mikina s kapucí a výšivkou loga klubu. Ideální na tréninky i volný čas.",
+    "cena": 599,
+    "cena_text": "599 Kč",
+    "obrazek": null,
+    "velikosti": ["S", "M", "L", "XL", "2XL"],
+    "dostupne": true
+  },
+  {
+    "id": "siltovka",
+    "nazev": "Kšiltovka SK Vrbová Lhota",
+    "popis": "Nastavitelná kšiltovka s vyšitým logem klubu. Univerzální velikost.",
+    "cena": 249,
+    "cena_text": "249 Kč",
+    "obrazek": null,
+    "velikosti": [],
+    "dostupne": true
+  },
+  {
+    "id": "sacek",
+    "nazev": "Pytlík na záda SK Vrbová Lhota",
+    "popis": "Lehký sportovní pytlík s logem klubu. Ideální na tréninky.",
+    "cena": 199,
+    "cena_text": "199 Kč",
+    "obrazek": null,
+    "velikosti": [],
+    "dostupne": true
+  }
+]

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Fotogalerie SK Vrbová Lhota z.s. — fotky ze zápasů, tréninků a klubového života." />
-  <title>Galerie — SK Vrbová Lhota z.s.</title>
+  <meta name="description" content="Fanshop SK Vrbová Lhota z.s. — oblečení a doplňky s logem klubu." />
+  <title>Fanshop — SK Vrbová Lhota z.s.</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -31,29 +31,6 @@
     };
   </script>
   <link rel="stylesheet" href="css/main.css" />
-  <style>
-    /* Lightbox */
-    #lightbox {
-      position: fixed; inset: 0; z-index: 1000;
-      background: rgba(10,22,40,.95);
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; pointer-events: none; transition: opacity .25s;
-    }
-    #lightbox.open { opacity: 1; pointer-events: all; }
-    #lightbox img { max-width: 90vw; max-height: 88vh; object-fit: contain; border-radius: 4px; }
-    #lightbox-close {
-      position: absolute; top: 1.25rem; right: 1.5rem;
-      color: rgba(255,255,255,.7); font-size: 2rem; cursor: pointer;
-      background: none; border: none; transition: color .2s;
-      line-height: 1;
-    }
-    #lightbox-close:hover { color: #fff; }
-    #lightbox-caption {
-      position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
-      color: rgba(255,255,255,.7); font-size: .85rem; font-weight: 600;
-      white-space: nowrap;
-    }
-  </style>
 </head>
 <body>
 
@@ -79,7 +56,7 @@
     </a>
   </div>
   <a href="aktuality.html" class="mob-link">Aktuality</a>
-  <a href="galerie.html" class="mob-link" style="color:var(--primary)">Galerie</a>
+  <a href="galerie.html" class="mob-link">Galerie</a>
   <a href="index.html#partneri" class="mob-link">Partneři</a>
   <a href="kontakt.html" class="mob-link">Kontakt</a>
   <a href="fanshop.html" class="mob-link" style="color:var(--accent);font-weight:700">⚽ Fanshop</a>
@@ -121,10 +98,10 @@
         </div>
       </div>
       <a href="aktuality.html" class="nav-link">Aktuality</a>
-      <a href="galerie.html" class="nav-link" style="color:var(--primary)">Galerie</a>
+      <a href="galerie.html" class="nav-link">Galerie</a>
       <a href="index.html#partneri" class="nav-link">Partneři</a>
       <a href="kontakt.html" class="nav-link">Kontakt</a>
-      <a href="fanshop.html" class="nav-link" style="color:var(--accent)">Fanshop</a>
+      <a href="fanshop.html" class="nav-link" style="color:var(--accent);font-weight:700">Fanshop</a>
     </nav>
     <div class="flex items-center gap-3">
       <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener"
@@ -150,40 +127,52 @@
     <nav class="breadcrumb">
       <a href="index.html">Domů</a>
       <span>›</span>
-      <span class="breadcrumb-current">Galerie</span>
+      <span>Fanshop</span>
     </nav>
-    <h1 class="font-headline text-4xl sm:text-5xl font-bold text-white mb-3">Fotogalerie</h1>
-    <p class="text-blue-100 text-lg max-w-xl">Ze zápasů, tréninků i zákulisí SK Vrbová Lhota z.s.</p>
+    <h1 class="font-headline font-black text-white mt-3">Fanshop</h1>
+    <p class="mt-2 text-blue-100 text-sm font-medium">Oblečení a doplňky s logem SK Vrbová Lhota z.s.</p>
   </div>
 </div>
 
-<!-- ══ GALERIE ══ -->
-<section style="background:var(--surface-2)">
+<!-- ══ FANSHOP ══ -->
+<section class="py-16 lg:py-24" style="background:var(--surface)">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    <div id="gallery-loading" class="text-center py-16" style="color:var(--muted)">
-      <span class="material-symbols-outlined ms-fill text-4xl mb-3" style="color:var(--surface-2);display:block">photo_library</span>
-      Načítám galerii…
+    <!-- Intro -->
+    <div class="text-center mb-12 reveal">
+      <span class="eyebrow-green">Klubové zboží</span>
+      <h2 class="font-headline font-black text-3xl lg:text-4xl mt-3" style="color:var(--ink)">Noste barvy klubu</h2>
+      <p class="mt-4 text-base max-w-xl mx-auto" style="color:var(--muted)">
+        Vyberte si zboží, zvolte velikost a klikněte na Objednat — my vám odpovíme e-mailem.
+      </p>
     </div>
 
-    <div id="gallery-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-3 hidden"></div>
+    <!-- Product grid -->
+    <div id="product-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Loaded via JS -->
+    </div>
 
-    <div class="text-center mt-10">
-      <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener" class="btn-outline">
-        <span class="material-symbols-outlined ms-fill" style="font-size:1.2rem">photo_library</span>
-        Více fotek na Facebooku
-      </a>
+    <!-- Empty state (hidden by default) -->
+    <div id="shop-empty" class="hidden text-center py-20">
+      <span class="material-symbols-outlined text-5xl mb-4" style="color:var(--primary);opacity:.3">shopping_bag</span>
+      <p class="text-lg font-semibold" style="color:var(--muted)">Fanshop se připravuje</p>
+      <p class="text-sm mt-1" style="color:var(--muted)">Brzy zde najdete klubové zboží.</p>
     </div>
 
   </div>
 </section>
 
-<!-- Lightbox -->
-<div id="lightbox" role="dialog" aria-modal="true" aria-label="Náhled fotografie">
-  <button id="lightbox-close" aria-label="Zavřít">&times;</button>
-  <img id="lightbox-img" src="" alt="" />
-  <div id="lightbox-caption"></div>
-</div>
+<!-- ══ ORDER INFO STRIP ══ -->
+<section class="py-10" style="background:var(--primary)">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
+    <span class="material-symbols-outlined text-4xl mb-3 block" style="color:rgba(255,255,255,.5)">mail</span>
+    <h3 class="font-headline font-bold text-xl text-white mb-2">Jak objednávka funguje?</h3>
+    <p class="text-sm text-blue-100 leading-relaxed max-w-lg mx-auto">
+      Klikněte na tlačítko <strong>Objednat</strong> u vybraného produktu. Otevře se vám e-mail s předvyplněnou objednávkou.
+      Po odeslání vás budeme kontaktovat s potvrzením a informacemi o platbě a vyzvednutí.
+    </p>
+  </div>
+</section>
 
 <!-- ══ FOOTER ══ -->
 <footer>
@@ -205,9 +194,10 @@
         <a href="index.html#o-klubu" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">O klubu</a>
         <a href="index.html#oddiely" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Oddíly</a>
         <a href="aktuality.html" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Aktuality</a>
-        <a href="galerie.html" class="text-sm font-semibold transition-colors" style="color:var(--accent-lt)">Galerie</a>
+        <a href="galerie.html" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Galerie</a>
         <a href="index.html#partneri" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Partneři</a>
         <a href="kontakt.html" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Kontakt</a>
+        <a href="fanshop.html" class="text-sm font-semibold transition-colors hover:text-white" style="color:var(--accent-lt)">Fanshop</a>
         <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener"
            class="text-sm font-semibold transition-colors hover:text-white" style="color:var(--accent-lt)">Facebook →</a>
       </nav>
@@ -232,58 +222,85 @@
 
 <script src="js/base.js"></script>
 <script>
-  // Load gallery from JSON
-  fetch('data/galerie.json')
-    .then(r => r.json())
-    .then(items => {
-      document.getElementById('gallery-loading').classList.add('hidden');
-      const grid = document.getElementById('gallery-grid');
-      grid.classList.remove('hidden');
+  const ORDER_EMAIL = 'info@fkvrbovalhotacz';
 
-      grid.innerHTML = items.map(item => `
-        <div class="gallery-item reveal ${item.wide ? 'col-span-2' : ''}"
-             style="aspect-ratio:${item.wide ? '16/9' : '4/3'}"
-             data-src="${item.src}" data-caption="${item.caption}">
-          <img src="${item.src}" alt="${item.alt}" loading="lazy" />
-          <div class="gallery-overlay">
-            <span class="gallery-tag">${item.tag}</span>
-            <span class="gallery-caption">${item.caption}</span>
+  function buildMailto(product, size) {
+    const subject = encodeURIComponent('Objednávka Fanshop — ' + product.nazev);
+    const sizeStr = size ? '\nVelikost: ' + size : '';
+    const body = encodeURIComponent(
+      'Dobrý den,\n\nrád/a bych objednal/a:\n\nProdukt: ' + product.nazev +
+      sizeStr +
+      '\nCena: ' + product.cena_text +
+      '\n\nJméno: \nTelefon: \nZpůsob vyzvednutí: \n\nDěkuji'
+    );
+    return 'mailto:' + ORDER_EMAIL + '?subject=' + subject + '&body=' + body;
+  }
+
+  function renderProducts(products) {
+    const grid = document.getElementById('product-grid');
+    const empty = document.getElementById('shop-empty');
+    const visible = products.filter(p => p.dostupne);
+
+    if (!visible.length) {
+      empty.classList.remove('hidden');
+      return;
+    }
+
+    grid.innerHTML = visible.map(p => {
+      const hasSizes = p.velikosti && p.velikosti.length > 0;
+      const sizeSelect = hasSizes
+        ? `<div class="mb-4">
+            <label class="text-xs font-semibold uppercase tracking-wider mb-1 block" style="color:var(--muted)">Velikost</label>
+            <select id="size-${p.id}" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-primary" style="font-family:inherit">
+              ${p.velikosti.map(s => `<option value="${s}">${s}</option>`).join('')}
+            </select>
+          </div>`
+        : '';
+
+      const imgBlock = p.obrazek
+        ? `<img src="${p.obrazek}" alt="${p.nazev}" class="w-full h-48 object-cover" />`
+        : `<div class="w-full h-48 flex items-center justify-center" style="background:var(--surface-2)">
+            <span class="material-symbols-outlined" style="font-size:3.5rem;color:var(--primary);opacity:.25">shopping_bag</span>
+          </div>`;
+
+      return `
+        <div class="product-card reveal">
+          ${imgBlock}
+          <div class="p-5 flex flex-col flex-1">
+            <h3 class="font-headline font-bold text-base mb-1" style="color:var(--ink)">${p.nazev}</h3>
+            <p class="text-xs leading-relaxed mb-4 flex-1" style="color:var(--muted)">${p.popis}</p>
+            <div class="product-price">${p.cena_text}</div>
+            ${sizeSelect}
+            <a id="order-${p.id}" href="#" class="btn-primary w-full justify-center text-sm mt-auto" onclick="orderProduct(event, '${p.id}')">
+              <span class="material-symbols-outlined ms-fill" style="font-size:1rem">shopping_cart</span>
+              Objednat
+            </a>
           </div>
-        </div>
-      `).join('');
+        </div>`;
+    }).join('');
 
-      window.observeReveal(grid);
+    // Store products for onclick handler
+    window.__fanshopProducts = {};
+    visible.forEach(p => { window.__fanshopProducts[p.id] = p; });
 
-      // Lightbox
-      grid.querySelectorAll('.gallery-item').forEach(el => {
-        el.addEventListener('click', () => openLightbox(el.dataset.src, el.dataset.caption));
-      });
-    })
+    if (window.observeReveal) window.observeReveal(grid);
+  }
+
+  function orderProduct(e, id) {
+    e.preventDefault();
+    const p = window.__fanshopProducts[id];
+    if (!p) return;
+    const sel = document.getElementById('size-' + id);
+    const size = sel ? sel.value : null;
+    window.location.href = buildMailto(p, size);
+  }
+
+  fetch('data/fanshop.json')
+    .then(r => r.json())
+    .then(renderProducts)
     .catch(() => {
-      document.getElementById('gallery-loading').classList.add('hidden');
+      document.getElementById('shop-empty').classList.remove('hidden');
     });
-
-  // Lightbox logic
-  const lightbox   = document.getElementById('lightbox');
-  const lbImg      = document.getElementById('lightbox-img');
-  const lbCaption  = document.getElementById('lightbox-caption');
-  const lbClose    = document.getElementById('lightbox-close');
-
-  function openLightbox(src, caption) {
-    lbImg.src = src;
-    lbCaption.textContent = caption || '';
-    lightbox.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeLightbox() {
-    lightbox.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  lbClose.addEventListener('click', closeLightbox);
-  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 </script>
 </body>
 </html>

@@ -413,6 +413,73 @@ footer { background: var(--ink); color: rgba(255,255,255,.65); border-top: 3px s
 /* ─── Section h2 text-shadow ─── */
 section h2 { text-shadow: 0 1px 0 rgba(0,0,0,.06); }
 
+/* ─── Hero image animation (Ken Burns) ─── */
+.hero-img {
+  animation: hero-kenburns 20s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes hero-kenburns {
+  0%   { transform: translateX(20%) scale(1);    opacity: .85; }
+  100% { transform: translateX(16%) scale(1.08); opacity: .88; }
+}
+@media (max-width: 1023px) {
+  .hero-img { animation: hero-kenburns-mob 16s ease-in-out infinite alternate; }
+  @keyframes hero-kenburns-mob {
+    0%   { transform: scale(1.03) translateX(0);    opacity: .85; }
+    100% { transform: scale(1.10) translateX(-2%);  opacity: .90; }
+  }
+}
+
+/* ─── Player roster ─── */
+.player-card {
+  background: #fff; border: 1px solid rgba(26,101,168,.1);
+  border-radius: 10px; padding: 1rem 1.25rem;
+  display: flex; align-items: center; gap: 1rem;
+  transition: box-shadow .2s, transform .2s;
+}
+.player-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(26,101,168,.12); }
+.player-num {
+  font-family: 'Noto Serif', serif; font-size: 1.5rem; font-weight: 900;
+  color: var(--surface-2); min-width: 2.2rem; line-height: 1;
+}
+.player-pos {
+  display: inline-block; font-size: .62rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .1em; padding: .18rem .55rem; border-radius: 4px;
+  background: var(--surface-2); color: var(--primary);
+}
+
+/* ─── Contact person cards ─── */
+.contact-person-card {
+  background: #fff; border: 1px solid rgba(26,101,168,.1);
+  border-radius: 12px; padding: 1.5rem;
+  border-top: 3px solid var(--primary);
+  transition: box-shadow .2s, transform .2s;
+}
+.contact-person-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(26,101,168,.12); }
+
+/* ─── Fanshop product cards ─── */
+.product-card {
+  background: #fff; border: 1px solid rgba(26,101,168,.1);
+  border-radius: 12px; overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: transform .25s, box-shadow .25s;
+}
+.product-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(26,101,168,.13); }
+.product-img-placeholder {
+  background: var(--surface-2); display: flex; align-items: center; justify-content: center;
+  height: 200px;
+}
+.product-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; }
+.product-price {
+  font-family: 'Noto Serif', serif; font-size: 1.5rem; font-weight: 900;
+  color: var(--primary); margin-bottom: .5rem;
+}
+.product-badge-unavailable {
+  display: inline-block; background: #fee2e2; color: #dc2626;
+  font-size: .65rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .1em; padding: .2rem .6rem; border-radius: 4px;
+}
+
 /* ─── Hero diagonal stripe ─── */
 .hero-stripe {
   position: absolute; inset: 0; pointer-events: none; z-index: 1; opacity: .045;

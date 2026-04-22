@@ -65,6 +65,7 @@
   <a href="galerie.html" class="mob-link">Galerie</a>
   <a href="#partneri" class="mob-link">Partneři</a>
   <a href="kontakt.html" class="mob-link">Kontakt</a>
+  <a href="fanshop.html" class="mob-link" style="color:var(--accent);font-weight:700">⚽ Fanshop</a>
   <div class="mt-6 flex flex-col gap-3">
     <a href="kontakt.html" class="btn-primary justify-center">Napsat nám</a>
     <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener"
@@ -110,6 +111,7 @@
       <a href="galerie.html" class="nav-link">Galerie</a>
       <a href="#partneri" class="nav-link">Partneři</a>
       <a href="kontakt.html" class="nav-link">Kontakt</a>
+      <a href="fanshop.html" class="nav-link" style="color:var(--accent)">Fanshop</a>
     </nav>
 
     <!-- CTA + Hamburger -->
@@ -138,8 +140,8 @@
   <div class="absolute inset-0 z-0" style="overflow:hidden">
     <img src="img/hero/tym-01.jpg"
          alt="Tým SK Vrbová Lhota z.s."
-         class="w-full h-full object-cover"
-         style="object-position:right center;opacity:.85;transform:translateX(20%)" />
+         class="w-full h-full object-cover hero-img"
+         style="object-position:right center" />
   </div>
 
   <!-- Horizontální gradient: plné pozadí vlevo → průhledné vpravo -->
@@ -192,9 +194,13 @@
 
         <!-- CTA -->
         <div class="flex flex-wrap gap-3">
-          <a href="#zapasy" class="btn-primary w-full sm:w-auto justify-center">
-            <span class="material-symbols-outlined ms-fill" style="font-size:1.1rem">calendar_month</span>
-            Rozpis zápasů
+          <a href="aktuality.html" class="btn-primary w-full sm:w-auto justify-center">
+            <span class="material-symbols-outlined ms-fill" style="font-size:1.1rem">newspaper</span>
+            Aktuality
+          </a>
+          <a href="#zapasy" class="btn-outline w-full sm:w-auto justify-center">
+            <span class="material-symbols-outlined ms-fill" style="font-size:1.1rem">sports_soccer</span>
+            Zápasy
           </a>
         </div>
 
@@ -213,8 +219,8 @@
       </div>
       <div class="stat-div mx-4 sm:mx-6"></div>
       <div class="flex flex-col items-center px-6 sm:px-10">
-        <div class="font-headline font-black leading-none" style="color:var(--ink);font-size:2.5rem"><span class="counter" data-target="4">0</span></div>
-        <div class="text-xs uppercase tracking-widest mt-0.5" style="font-size:.6rem;letter-spacing:.12em;color:var(--muted)">kategorie</div>
+        <div class="font-headline font-black leading-none" style="color:var(--ink);font-size:2.5rem"><span class="counter" data-target="2">0</span></div>
+        <div class="text-xs uppercase tracking-widest mt-0.5" style="font-size:.6rem;letter-spacing:.12em;color:var(--muted)">oddíly</div>
       </div>
       <div class="stat-div mx-4 sm:mx-6"></div>
       <div class="flex flex-col items-center px-6 sm:px-10">
@@ -236,142 +242,79 @@
 </div>
 
 <!-- ══ ZÁPASY ══ -->
-<section id="zapasy" class="p-0 grass-texture" style="background:#0a1c35">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <div class="grid lg:grid-cols-[1fr_auto_1fr] gap-6 items-start">
+<section id="zapasy" class="grass-texture" style="background:#0a1c35;padding:4rem 0">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      <!-- ── Nejbližší zápas ── -->
-      <div class="reveal">
-        <div class="text-xs font-bold uppercase tracking-widest mb-4 flex items-center gap-2" style="color:var(--accent-lt)">
-          <span class="material-symbols-outlined ms-fill" style="font-size:1rem">upcoming</span>
-          Nejbližší zápas
-        </div>
-        <div class="match-banner p-6 sm:p-8">
-          <!-- Date / time -->
-          <div class="flex items-center gap-3 mb-5">
-            <div class="px-3 py-1.5 text-center" style="background:var(--accent);min-width:52px">
-              <div class="text-white font-black text-xl leading-none">19</div>
-              <div class="text-green-100 text-xs font-bold uppercase tracking-wide">dub</div>
-            </div>
-            <div>
-              <div class="text-white font-bold text-sm">Sobota · 15:00</div>
-              <div class="text-blue-200 text-xs flex items-center gap-1 mt-0.5">
-                <span class="material-symbols-outlined" style="font-size:.9rem">location_on</span>
-                Hřiště Vrbová Lhota
-              </div>
-            </div>
-            <div class="ml-auto">
-              <span class="px-2 py-1 text-xs font-bold uppercase tracking-wider text-white" style="background:rgba(0,0,0,.25)">Domácí</span>
-            </div>
-          </div>
-
-          <!-- Teams -->
-          <div class="flex items-center justify-between gap-4">
-            <div class="flex items-center gap-3 flex-1">
-              <img src="img/logo/logo-sk-vrbova-lhota.png" alt="SK Vrbová Lhota z.s." class="w-10 h-10 object-contain flex-shrink-0" />
-              <div>
-                <div class="text-white font-bold text-sm leading-tight">SK Vrbová Lhota z.s.</div>
-                <div class="text-blue-200 text-xs">Domácí</div>
-              </div>
-            </div>
-            <div class="text-white font-black text-2xl font-headline px-4">VS</div>
-            <div class="flex items-center gap-3 flex-1 justify-end text-right">
-              <div>
-                <div class="text-white font-bold text-sm leading-tight">TJ Sokol Písty</div>
-                <div class="text-blue-200 text-xs">Hosté</div>
-              </div>
-              <span class="material-symbols-outlined ms-fill text-green-300 flex-shrink-0" style="font-size:2rem">sports_soccer</span>
-            </div>
-          </div>
-
-          <!-- CTA -->
-          <div class="mt-6 pt-4 border-t border-white/20 flex items-center justify-between">
-            <span class="text-blue-200 text-xs">III. třída sk. B · Středočeský kraj</span>
-            <a href="#kontakt" class="inline-flex items-center gap-1.5 bg-white text-green-800 font-bold text-xs uppercase tracking-wider px-4 py-2 hover:bg-green-50 transition-colors">
-              <span class="material-symbols-outlined ms-fill" style="font-size:1rem">groups</span>
-              Přijď fandit
-            </a>
-          </div>
-        </div>
+    <!-- Nejbližší zápas -->
+    <div class="text-center mb-6 reveal">
+      <div class="text-xs font-bold uppercase tracking-widest mb-2 flex items-center justify-center gap-2" style="color:var(--accent-lt)">
+        <span class="material-symbols-outlined ms-fill" style="font-size:1rem">upcoming</span>
+        Nejbližší zápas
       </div>
-
-      <!-- ── Divider ── -->
-      <div class="hidden lg:flex flex-col items-center justify-center self-stretch gap-3 py-4">
-        <div class="w-px flex-1" style="background:rgba(58,167,109,.2)"></div>
-        <span class="material-symbols-outlined ms-fill" style="color:var(--accent-lt);font-size:1.5rem">sports_soccer</span>
-        <div class="w-px flex-1" style="background:rgba(58,167,109,.2)"></div>
-      </div>
-
-      <!-- ── Poslední výsledky ── -->
-      <div class="reveal">
-        <div class="text-xs font-bold uppercase tracking-widest mb-4 flex items-center gap-2" style="color:var(--accent-lt)">
-          <span class="material-symbols-outlined ms-fill" style="font-size:1rem">history</span>
-          Poslední výsledky
-        </div>
-
-        <!-- Poslední zápas — zvýrazněný -->
-        <div class="p-4 mb-4 flex items-center justify-between gap-4" style="background:rgba(255,255,255,.05);border:1px solid rgba(26,101,168,.35);border-left:3px solid var(--accent)">
-          <div class="flex-1 min-w-0">
-            <div class="text-xs text-blue-300 mb-1">12. 4. 2025 · Domácí</div>
-            <div class="text-white font-semibold text-sm truncate">SK VL vs TJ Hlaváčov</div>
-          </div>
-          <div class="match-score-win px-3 py-1.5 text-center flex-shrink-0">
-            <div class="font-black text-lg leading-none text-white">2:1</div>
-            <div class="text-xs text-green-200 font-bold uppercase tracking-wide">Výhra</div>
-          </div>
-        </div>
-
-        <!-- Přehled posledních zápasů -->
-        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(26,101,168,.2)">
-          <div class="result-row flex items-center gap-3 px-4 py-3 transition-colors">
-            <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:#16a34a"></span>
-            <div class="flex-1 min-w-0">
-              <div class="text-white text-xs font-semibold truncate">vs Bohemia Poděbrady B</div>
-              <div class="text-blue-300 text-xs">5. 4. 2025 · Venku</div>
-            </div>
-            <div class="match-score-win text-xs font-black px-2 py-1 flex-shrink-0">3:0</div>
-          </div>
-          <div class="result-row flex items-center gap-3 px-4 py-3 transition-colors">
-            <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:#ca8a04"></span>
-            <div class="flex-1 min-w-0">
-              <div class="text-white text-xs font-semibold truncate">vs SK Sokoleč</div>
-              <div class="text-blue-300 text-xs">29. 3. 2025 · Doma</div>
-            </div>
-            <div class="match-score-draw text-xs font-black px-2 py-1 flex-shrink-0">1:1</div>
-          </div>
-          <div class="result-row flex items-center gap-3 px-4 py-3 transition-colors">
-            <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:#dc2626"></span>
-            <div class="flex-1 min-w-0">
-              <div class="text-white text-xs font-semibold truncate">vs TJ Třebestovice</div>
-              <div class="text-blue-300 text-xs">22. 3. 2025 · Venku</div>
-            </div>
-            <div class="match-score-loss text-xs font-black px-2 py-1 flex-shrink-0">0:2</div>
-          </div>
-          <div class="result-row flex items-center gap-3 px-4 py-3 transition-colors">
-            <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:#16a34a"></span>
-            <div class="flex-1 min-w-0">
-              <div class="text-white text-xs font-semibold truncate">vs Slovan Mcely</div>
-              <div class="text-blue-300 text-xs">15. 3. 2025 · Doma</div>
-            </div>
-            <div class="match-score-win text-xs font-black px-2 py-1 flex-shrink-0">4:1</div>
-          </div>
-        </div>
-
-        <div class="mt-4 flex items-center justify-between gap-4 flex-wrap">
-          <a href="https://www.fotbal.cz/souteze/turnaje/hlavni/26809f2b-5859-4129-a4e8-891d1dc7cdf3" target="_blank" rel="noopener"
-             class="text-xs font-bold uppercase tracking-widest hover:text-white transition-colors flex items-center gap-1" style="color:var(--accent-lt)">
-            <span class="material-symbols-outlined" style="font-size:.9rem">history</span>
-            Všechny výsledky →
-          </a>
-          <a href="https://www.fotbal.cz/souteze/turnaje/table/26809f2b-5859-4129-a4e8-891d1dc7cdf3" target="_blank" rel="noopener"
-             class="text-xs font-bold uppercase tracking-widest hover:text-white transition-colors flex items-center gap-1" style="color:var(--accent-lt)">
-            <span class="material-symbols-outlined" style="font-size:.9rem">leaderboard</span>
-            Tabulka pořadí →
-          </a>
-        </div>
-      </div>
-
     </div>
+
+    <div class="match-banner p-6 sm:p-10 reveal mb-8">
+      <!-- Date / time -->
+      <div class="flex items-center gap-3 mb-6">
+        <div class="px-3 py-1.5 text-center flex-shrink-0" style="background:var(--accent);min-width:56px">
+          <div class="text-white font-black text-2xl leading-none">19</div>
+          <div class="text-green-100 text-xs font-bold uppercase tracking-wide">dub</div>
+        </div>
+        <div>
+          <div class="text-white font-bold">Sobota · 15:00</div>
+          <div class="text-blue-200 text-sm flex items-center gap-1 mt-0.5">
+            <span class="material-symbols-outlined" style="font-size:.9rem">location_on</span>
+            Hřiště Vrbová Lhota
+          </div>
+        </div>
+        <div class="ml-auto flex-shrink-0">
+          <span class="px-2 py-1 text-xs font-bold uppercase tracking-wider text-white" style="background:rgba(0,0,0,.25)">Domácí</span>
+        </div>
+      </div>
+
+      <!-- Teams -->
+      <div class="flex items-center justify-between gap-4 py-4 border-t border-b border-white/15 mb-4">
+        <div class="flex items-center gap-3 flex-1">
+          <img src="img/logo/logo-sk-vrbova-lhota.png" alt="SK Vrbová Lhota z.s." class="w-12 h-12 object-contain flex-shrink-0" />
+          <div>
+            <div class="text-white font-bold leading-tight">SK Vrbová Lhota z.s.</div>
+            <div class="text-blue-200 text-xs">Domácí</div>
+          </div>
+        </div>
+        <div class="text-white font-black text-3xl font-headline px-6">VS</div>
+        <div class="flex items-center gap-3 flex-1 justify-end text-right">
+          <div>
+            <div class="text-white font-bold leading-tight">TJ Sokol Písty</div>
+            <div class="text-blue-200 text-xs">Hosté</div>
+          </div>
+          <span class="material-symbols-outlined ms-fill text-green-300 flex-shrink-0" style="font-size:2.5rem">sports_soccer</span>
+        </div>
+      </div>
+
+      <div class="text-center text-blue-200 text-xs">III. třída sk. B · Středočeský kraj</div>
+    </div>
+
+    <!-- Sledujte nás -->
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-5 p-5 sm:p-7 reveal"
+         style="background:rgba(255,255,255,.05);border:1px solid rgba(58,167,109,.2);border-radius:8px">
+      <div>
+        <div class="text-xs font-bold uppercase tracking-widest mb-1" style="color:var(--accent-lt)">Sledujte nás</div>
+        <p class="text-white font-semibold">Aktuální výsledky a tabulka na fotbal.cz</p>
+      </div>
+      <div class="flex flex-wrap gap-3 flex-shrink-0">
+        <a href="https://www.fotbal.cz/souteze/turnaje/hlavni/26809f2b-5859-4129-a4e8-891d1dc7cdf3"
+           target="_blank" rel="noopener" class="btn-ghost-white">
+          <span class="material-symbols-outlined ms-fill" style="font-size:1rem">history</span>
+          Výsledky
+        </a>
+        <a href="https://www.fotbal.cz/souteze/turnaje/table/26809f2b-5859-4129-a4e8-891d1dc7cdf3"
+           target="_blank" rel="noopener" class="btn-green">
+          <span class="material-symbols-outlined ms-fill" style="font-size:1rem">leaderboard</span>
+          Tabulka
+        </a>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -865,6 +808,7 @@
         <a href="galerie.html"   class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Galerie</a>
         <a href="#partneri"      class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Partneři</a>
         <a href="kontakt.html"   class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Kontakt</a>
+        <a href="fanshop.html"   class="text-sm font-semibold transition-colors" style="color:var(--accent-lt)">Fanshop</a>
         <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener"
            class="text-sm font-semibold transition-colors hover:text-white" style="color:var(--accent-lt)">Facebook →</a>
       </nav>

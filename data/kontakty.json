@@ -1,0 +1,9 @@
+{
+  "osoby": [
+    { "funkce": "Předseda",       "jmeno": "", "tel": "", "email": "" },
+    { "funkce": "Místopředseda",  "jmeno": "", "tel": "", "email": "" },
+    { "funkce": "Manažer",        "jmeno": "", "tel": "", "email": "" },
+    { "funkce": "Skaut",          "jmeno": "", "tel": "", "email": "" },
+    { "funkce": "Základna 98",    "jmeno": "", "tel": "", "email": "" }
+  ]
+}

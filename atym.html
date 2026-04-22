@@ -59,6 +59,7 @@
   <a href="galerie.html" class="mob-link">Galerie</a>
   <a href="index.html#partneri" class="mob-link">Partneři</a>
   <a href="kontakt.html" class="mob-link">Kontakt</a>
+  <a href="fanshop.html" class="mob-link" style="color:var(--accent);font-weight:700">⚽ Fanshop</a>
   <div class="mt-6 flex flex-col gap-3">
     <a href="kontakt.html" class="btn-primary justify-center">Napsat nám</a>
     <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener"
@@ -100,6 +101,7 @@
       <a href="galerie.html" class="nav-link">Galerie</a>
       <a href="index.html#partneri" class="nav-link">Partneři</a>
       <a href="kontakt.html" class="nav-link">Kontakt</a>
+      <a href="fanshop.html" class="nav-link" style="color:var(--accent)">Fanshop</a>
     </nav>
     <div class="flex items-center gap-3">
       <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener"
@@ -172,12 +174,6 @@
           </div>
         </div>
 
-        <!-- Tréninky -->
-        <div class="mb-8">
-          <div class="text-xs font-bold uppercase tracking-wider mb-3" style="color:var(--muted)">Tréninky</div>
-          <div id="treninky-list" class="space-y-2"></div>
-        </div>
-
         <!-- Hledáme posily -->
         <div id="hledame-banner" class="hidden p-5 mb-8 reveal" style="background:rgba(47,143,78,.08);border-left:4px solid var(--accent);border-radius:0 8px 8px 0">
           <div class="text-xs font-bold uppercase tracking-wider mb-1" style="color:var(--accent)">Hledáme posily</div>
@@ -191,6 +187,27 @@
       </div>
 
     </div>
+  </div>
+</section>
+
+<!-- ══ SOUPISKA ══ -->
+<section id="soupiska" style="background:var(--surface-2)">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-10 reveal">
+      <span class="eyebrow mb-4 flex justify-center">Soupiska</span>
+      <h2 class="font-headline text-3xl lg:text-4xl font-bold" style="color:var(--text)">Hráči A-týmu</h2>
+    </div>
+
+    <div id="soupiska-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      <!-- Loaded from data/atym.json -->
+    </div>
+
+    <div id="soupiska-empty" class="hidden text-center py-12" style="color:var(--muted)">
+      <span class="material-symbols-outlined ms-fill text-5xl mb-3" style="color:var(--surface-2);display:block">group</span>
+      Soupiska bude brzy doplněna.
+    </div>
+
   </div>
 </section>
 
@@ -276,16 +293,6 @@
 
       if (d.foto) document.getElementById('team-foto').src = d.foto;
 
-      const tList = document.getElementById('treninky-list');
-      tList.innerHTML = d.treninky.map(t => `
-        <div class="flex items-center gap-3 p-3" style="background:var(--surface-2);border-radius:8px">
-          <span class="material-symbols-outlined ms-fill flex-shrink-0" style="color:var(--accent)">schedule</span>
-          <div>
-            <span class="font-semibold text-sm" style="color:var(--text)">${t.den}</span>
-            <span class="text-sm" style="color:var(--muted)"> · ${t.cas} · ${t.misto}</span>
-          </div>
-        </div>
-      `).join('');
 
       if (d.hledame) {
         const banner = document.getElementById('hledame-banner');
