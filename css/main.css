@@ -430,6 +430,20 @@ section h2 { text-shadow: 0 1px 0 rgba(0,0,0,.06); }
   }
 }
 
+/* ─── Hero logo animation ─── */
+.hero-logo {
+  animation: hero-logo-float 4s ease-in-out infinite;
+  will-change: transform, filter;
+}
+@keyframes hero-logo-float {
+  0%   { transform: translateY(0)    scale(1);    filter: drop-shadow(0 4px 12px rgba(0,0,0,.18)); }
+  50%  { transform: translateY(-9px) scale(1.04); filter: drop-shadow(0 14px 22px rgba(0,0,0,.22)); }
+  100% { transform: translateY(0)    scale(1);    filter: drop-shadow(0 4px 12px rgba(0,0,0,.18)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-logo { animation: none; }
+}
+
 /* ─── Player roster ─── */
 .player-card {
   background: #fff; border: 1px solid rgba(26,101,168,.1);
