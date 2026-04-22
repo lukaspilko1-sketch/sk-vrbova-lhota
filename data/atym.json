@@ -4,22 +4,69 @@
   "soutez": "III. třída sk. B, Středočeský kraj",
   "trener": "—",
   "foto": "img/galerie/tym-02.jpg",
-  "popis": "Hlavní tým SK Vrbová Lhota z.s. soutěžící v III. třídě Středočeského krajského fotbalového svazu. Hledáme nové posily — přijďte vyzkoušet trénink!",
-  "hledame": true,
-  "hledame_text": "Hledáme posily pro jarní část sezóny 2025. Vítáme hráče všech výkonnostních úrovní.",
+  "popis": "Hlavní tým SK Vrbová Lhota z.s. soutěžící v III. třídě Středočeského krajského fotbalového svazu.",
   "kontakt_jmeno": "Trenér A-týmu",
   "kontakt_tel": "+420 773 940 809",
   "soupiska": [
-    { "jmeno": "", "pozice": "Brankář" },
-    { "jmeno": "", "pozice": "Obránce" },
-    { "jmeno": "", "pozice": "Obránce" },
-    { "jmeno": "", "pozice": "Obránce" },
-    { "jmeno": "", "pozice": "Obránce" },
-    { "jmeno": "", "pozice": "Záložník" },
-    { "jmeno": "", "pozice": "Záložník" },
-    { "jmeno": "", "pozice": "Záložník" },
-    { "jmeno": "", "pozice": "Záložník" },
-    { "jmeno": "", "pozice": "Útočník" },
-    { "jmeno": "", "pozice": "Útočník" }
+    {
+      "jmeno": "Tomáš Kovář",
+      "pozice": "Brankář"
+    },
+    {
+      "jmeno": "Martin Novotný",
+      "pozice": "Obránce"
+    },
+    {
+      "jmeno": "Jakub Procházka",
+      "pozice": "Obránce"
+    },
+    {
+      "jmeno": "Lukáš Horák",
+      "pozice": "Obránce"
+    },
+    {
+      "jmeno": "Petr Beneš",
+      "pozice": "Obránce"
+    },
+    {
+      "jmeno": "Ondřej Blažek",
+      "pozice": "Záložník"
+    },
+    {
+      "jmeno": "Radek Dvořák",
+      "pozice": "Záložník"
+    },
+    {
+      "jmeno": "Michal Kratochvíl",
+      "pozice": "Záložník"
+    },
+    {
+      "jmeno": "Filip Šimánek",
+      "pozice": "Záložník"
+    },
+    {
+      "jmeno": "Vojtěch Pospíšil",
+      "pozice": "Záložník"
+    },
+    {
+      "jmeno": "Jan Kolář",
+      "pozice": "Záložník"
+    },
+    {
+      "jmeno": "Pavel Svoboda",
+      "pozice": "Útočník"
+    },
+    {
+      "jmeno": "Marek Kříž",
+      "pozice": "Útočník"
+    },
+    {
+      "jmeno": "Tomáš Veselý",
+      "pozice": "Útočník"
+    },
+    {
+      "jmeno": "Stanislav Černý",
+      "pozice": "Útočník"
+    }
   ]
 }

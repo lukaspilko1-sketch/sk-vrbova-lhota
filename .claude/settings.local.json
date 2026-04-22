@@ -20,7 +20,8 @@
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
       "Bash(git push *)",
-      "Bash(python update2.py)"
+      "Bash(python update2.py)",
+      "Bash(python fix3.py)"
     ]
   }
 }
