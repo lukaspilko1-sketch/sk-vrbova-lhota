@@ -286,6 +286,25 @@
 
       if (d.foto) document.getElementById('team-foto').src = d.foto;
 
+      // Soupiska
+      const grid  = document.getElementById('soupiska-grid');
+      const empty = document.getElementById('soupiska-empty');
+      const hrace = (d.soupiska || []).filter(h => h.jmeno);
+      if (hrace.length) {
+        const poziceBarva = { 'Brankář': '#e67e22', 'Obránce': '#2980b9', 'Záložník': '#27ae60', 'Útočník': '#c0392b' };
+        grid.innerHTML = hrace.map((h, i) => `
+          <div class="player-card reveal" style="transition-delay:${(i % 6) * 50}ms">
+            <div class="player-num">${String(i + 1).padStart(2, '0')}</div>
+            <div>
+              <div class="font-semibold text-sm" style="color:var(--text)">${h.jmeno}</div>
+              <span class="player-pos" style="background:${(poziceBarva[h.pozice] || 'var(--primary)') + '18'};color:${poziceBarva[h.pozice] || 'var(--primary)'}">${h.pozice}</span>
+            </div>
+          </div>`).join('');
+        if (window.observeReveal) window.observeReveal(grid);
+      } else {
+        empty.classList.remove('hidden');
+      }
+
     })
     .catch(() => {});
 </script>
