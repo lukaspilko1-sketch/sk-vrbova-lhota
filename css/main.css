@@ -542,8 +542,16 @@ footer { background: var(--ink); color: rgba(255,255,255,.65); border-top: 3px s
 }
 
 /* ─── Partners ─── */
-.partner-logo {
-  filter: grayscale(100%) opacity(.5);
-  transition: filter .3s;
+.partner-card {
+  background: #fff; border: 1px solid rgba(26,101,168,.1);
+  border-radius: 10px; padding: 1.5rem;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  transition: box-shadow .2s, transform .2s;
 }
-.partner-logo:hover { filter: grayscale(0%) opacity(1); }
+.partner-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(26,101,168,.1); }
+.partner-logo {
+  height: 64px; width: auto; max-width: 160px;
+  object-fit: contain; margin-bottom: 1rem;
+  transition: opacity .2s;
+}
+.partner-logo:hover { opacity: .85; }
