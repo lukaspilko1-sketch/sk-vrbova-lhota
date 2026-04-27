@@ -81,13 +81,12 @@
   <a href="aktuality.html" class="mob-link">Aktuality</a>
   <a href="galerie.html" class="mob-link" style="color:var(--primary)">Galerie</a>
   <a href="index.html#partneri" class="mob-link">Partneři</a>
-  <a href="fanshop.html" class="mob-link" style="color:var(--accent);font-weight:700">⚽ Fanshop</a>
   <div class="mt-6 flex flex-col gap-3">
     <a href="kontakt.html" class="btn-primary justify-center">Napsat nám</a>
     <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener"
        class="flex items-center gap-2 text-sm font-semibold" style="color:var(--primary)">
-      <span class="material-symbols-outlined ms-fill" style="font-size:1.2rem">group</span>
-      Facebook skupina
+      <img src="img/logo/logo-facebook.svg" alt="Facebook" style="height:20px;width:20px;flex-shrink:0" />
+      Facebook komunita
     </a>
   </div>
 </nav>
@@ -97,9 +96,9 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
     <a href="index.html" class="flex items-center gap-3">
       <img src="img/logo/logo-sk-vrbova-lhota.png" alt="SK Vrbová Lhota z.s. logo" class="logo-img" />
-      <div class="leading-tight hidden sm:block">
+      <div class="leading-tight">
         <div class="font-headline font-bold text-sm lg:text-base" style="color:var(--primary)">SK Vrbová Lhota z.s.</div>
-        <div class="text-xs font-semibold tracking-widest uppercase" style="color:var(--muted)">Fotbalový klub · 1998</div>
+        <div class="text-xs font-semibold tracking-widest uppercase hidden sm:block" style="color:var(--muted)">Fotbalový klub · 1998</div>
       </div>
     </a>
     <nav class="hidden lg:flex items-center gap-8" aria-label="Hlavní navigace">
@@ -122,13 +121,11 @@
       <a href="aktuality.html" class="nav-link">Aktuality</a>
       <a href="galerie.html" class="nav-link" style="color:var(--primary)">Galerie</a>
       <a href="index.html#partneri" class="nav-link">Partneři</a>
-      <a href="fanshop.html" class="nav-link" style="color:var(--accent)">Fanshop</a>
     </nav>
     <div class="flex items-center gap-3">
       <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener"
-         class="hidden md:flex items-center gap-1.5 text-sm font-semibold" style="color:var(--primary)">
-        <span class="material-symbols-outlined ms-fill" style="font-size:1.25rem">group</span>
-        <span class="hidden lg:inline">Facebook</span>
+         class="hidden md:flex items-center" title="Facebook komunita SK Vrbová Lhota z.s.">
+        <img src="img/logo/logo-facebook.svg" alt="Facebook" style="height:26px;width:26px" />
       </a>
       <a href="kontakt.html" class="hidden sm:inline-flex btn-green py-2 px-4 text-xs">
         <span class="material-symbols-outlined ms-fill" style="font-size:1rem">mail</span>
@@ -159,12 +156,28 @@
 <section style="background:var(--surface-2)">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
+    <!-- Sekce CTA -->
+    <div class="flex flex-wrap gap-3 justify-center mb-12 reveal">
+      <a href="#sekce-atym" class="btn-outline" style="font-size:.8rem;padding:.6rem 1.4rem">
+        <span class="material-symbols-outlined ms-fill" style="font-size:1rem">sports_soccer</span>
+        A-tým
+      </a>
+      <a href="#sekce-pripravka" class="btn-outline" style="font-size:.8rem;padding:.6rem 1.4rem">
+        <span class="material-symbols-outlined ms-fill" style="font-size:1rem">emoji_people</span>
+        Mladší přípravka
+      </a>
+      <a href="#sekce-ostatni" class="btn-outline" style="font-size:.8rem;padding:.6rem 1.4rem">
+        <span class="material-symbols-outlined ms-fill" style="font-size:1rem">photo_camera</span>
+        Ostatní
+      </a>
+    </div>
+
     <div id="gallery-loading" class="text-center py-16" style="color:var(--muted)">
       <span class="material-symbols-outlined ms-fill text-4xl mb-3" style="color:var(--surface-2);display:block">photo_library</span>
       Načítám galerii…
     </div>
 
-    <div id="gallery-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-3 hidden"></div>
+    <div id="gallery-sections" class="hidden"></div>
 
     <div class="text-center mt-10">
       <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener" class="btn-outline">
@@ -230,30 +243,56 @@
 
 <script src="js/base.js"></script>
 <script>
-  // Load gallery from JSON
+  // Load gallery from JSON — grouped by sekce
+  const sectionConfig = [
+    { id: 'atym',      label: 'A-tým',            icon: 'sports_soccer' },
+    { id: 'pripravka', label: 'Mladší přípravka',  icon: 'emoji_people'  },
+    { id: 'ostatni',   label: 'Ostatní',           icon: 'photo_camera'  },
+  ];
+
   fetch('data/galerie.json')
     .then(r => r.json())
     .then(items => {
       document.getElementById('gallery-loading').classList.add('hidden');
-      const grid = document.getElementById('gallery-grid');
-      grid.classList.remove('hidden');
+      const container = document.getElementById('gallery-sections');
+      container.classList.remove('hidden');
 
-      grid.innerHTML = items.map(item => `
-        <div class="gallery-item reveal ${item.wide ? 'col-span-2' : ''}"
-             style="aspect-ratio:${item.wide ? '16/9' : '4/3'}"
-             data-src="${item.src}" data-caption="${item.caption}">
-          <img src="${item.src}" alt="${item.alt}" loading="lazy" />
-          <div class="gallery-overlay">
-            <span class="gallery-tag">${item.tag}</span>
-            <span class="gallery-caption">${item.caption}</span>
+      const grouped = {};
+      sectionConfig.forEach(s => { grouped[s.id] = []; });
+      items.forEach(item => {
+        const key = item.sekce || 'ostatni';
+        (grouped[key] || grouped['ostatni']).push(item);
+      });
+
+      container.innerHTML = sectionConfig.map(sec => {
+        const sItems = grouped[sec.id];
+        if (!sItems.length) return '';
+        return `
+          <div id="sekce-${sec.id}" class="mb-14">
+            <div class="flex items-center gap-3 mb-6">
+              <span class="material-symbols-outlined ms-fill text-2xl" style="color:var(--primary)">${sec.icon}</span>
+              <h2 class="font-headline text-2xl font-bold" style="color:var(--text)">${sec.label}</h2>
+            </div>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              ${sItems.map(item => `
+                <div class="gallery-item reveal ${item.wide ? 'col-span-2' : ''}"
+                     style="aspect-ratio:${item.wide ? '16/9' : '4/3'}"
+                     data-src="${item.src}" data-caption="${item.caption}">
+                  <img src="${item.src}" alt="${item.alt}" loading="lazy" />
+                  <div class="gallery-overlay">
+                    <span class="gallery-tag">${item.tag}</span>
+                    <span class="gallery-caption">${item.caption}</span>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
 
-      window.observeReveal(grid);
+      window.observeReveal(container);
 
-      // Lightbox
-      grid.querySelectorAll('.gallery-item').forEach(el => {
+      container.querySelectorAll('.gallery-item').forEach(el => {
         el.addEventListener('click', () => openLightbox(el.dataset.src, el.dataset.caption));
       });
     })

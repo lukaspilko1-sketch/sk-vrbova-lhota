@@ -33,7 +33,7 @@ img { display: block; }
 #site-header.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,.1); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 .nav-link {
   font-size: .82rem; font-weight: 800; text-transform: uppercase; letter-spacing: .09em;
-  color: #1f2937; transition: color .2s;
+  color: var(--accent); transition: color .2s;
   position: relative; padding-bottom: 3px;
   background: none; border: none; cursor: pointer; font-family: inherit;
 }
@@ -293,6 +293,28 @@ img { display: block; }
 
 /* ─── Section h2 text-shadow ─── */
 section h2 { text-shadow: 0 1px 0 rgba(0,0,0,.06); }
+
+/* ─── Hero: desktop layout ─── */
+@media (min-width: 1024px) {
+  #hero { display: flex; align-items: flex-end; min-height: 76svh; }
+}
+
+/* ─── Hero: mobile — text first, image below ─── */
+@media (max-width: 1023px) {
+  #hero { display: flex; flex-direction: column; min-height: auto; }
+  #hero-img-wrap {
+    position: relative !important;
+    inset: auto !important;
+    order: 2;
+    height: 250px;
+    flex-shrink: 0;
+    overflow: hidden;
+    z-index: 0 !important;
+  }
+  .hero-content-wrap { order: 1; background: #eef6f0; }
+  .hero-overlay-h, .hero-overlay-v,
+  .hero-stripe, .hero-noise { display: none; }
+}
 
 /* ─── Hero image animation (Ken Burns) ─── */
 .hero-img {
