@@ -8,11 +8,21 @@ Kontakty: Jméno + Příjmení + pozice + telefon + e-mail
 Kontakty na hlavní straně dole - "hlavní telefon, e-mail" (kam budou chodit i zprávy z toho kontaktního formuláře dole
 
 
-Fanshop - zatím skrýt
+
 Fotogalerie - rozdělit na 3 sekce: A-tým, Mladší přípravka, Ostatní (z dění okolo klubu) --- umístit nahoru stránky 3 CTA odkazy
 
 Aktuality - umístit hymnu z Youtube
 
 Hlavička - v mobilním zobrazení dát vedle loga "SK Vrbová Lhota z.s."
+Hlavička - nahradit text "facebook" logem (stáhnout ho do složky "img/logo" lokálně)
+Hlavička - horní menu obarvit na zelenou barvu, hover nechat
+Fanshop - dočasně skrýt
+Udělat ji trochu modernější, atraktivnější, čistší, ale stále v duchu vesnického fotbalu
+
+Design - upravit CTA tlačítka - hover na zelenou není hezký, retro - vymyslet něco modernějšího
+
+- HERO - v mobilním zobrazení není moc čitelný text na obrázku - co to rozdělit a nejdřív dát text na jednobarevné pozadí a hero foku dát pod to?
+- HERO - nadpis "Hrajeme za Vrbovku" - obarvi na systémovou modrou
 
 
+- Kontaktní formulář - změnit kategorie pouze na: "Muži (dospělí), "Přípravka", "Jiný dotaz"
