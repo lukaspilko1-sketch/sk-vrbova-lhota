@@ -1,0 +1,18 @@
+27.4.26
+
+Dodat SK Vrbovka:
+
+Soupiska A-tým: Jméno + Příjmení + pozice
+
+Kontakty: Jméno + Příjmení + pozice + telefon + e-mail
+Kontakty na hlavní straně dole - "hlavní telefon, e-mail" (kam budou chodit i zprávy z toho kontaktního formuláře dole
+
+
+Fanshop - zatím skrýt
+Fotogalerie - rozdělit na 3 sekce: A-tým, Mladší přípravka, Ostatní (z dění okolo klubu) --- umístit nahoru stránky 3 CTA odkazy
+
+Aktuality - umístit hymnu z Youtube
+
+Hlavička - v mobilním zobrazení dát vedle loga "SK Vrbová Lhota z.s."
+
+
