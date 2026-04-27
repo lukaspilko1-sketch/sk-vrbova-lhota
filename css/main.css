@@ -27,10 +27,16 @@ img { display: block; }
 
 /* ─── Nav ─── */
 #site-header {
-  border-top: 4px solid transparent;
-  border-image: linear-gradient(to right, #1a65a8, #2f8f4e) 1;
+  background: rgba(255,255,255,.97);
+  border: none !important;
+  box-shadow: 0 1px 0 rgba(0,0,0,.06);
 }
-#site-header.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,.1); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+#site-header.scrolled {
+  background: rgba(255,255,255,.99);
+  box-shadow: 0 4px 20px rgba(0,0,0,.09);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
 .nav-link {
   font-size: .82rem; font-weight: 800; text-transform: uppercase; letter-spacing: .09em;
   color: var(--accent); transition: color .2s;
@@ -149,18 +155,18 @@ img { display: block; }
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: .7rem; font-weight: 700;
   text-transform: uppercase; letter-spacing: .18em;
-  color: var(--accent-lt);
+  color: var(--primary);
   display: inline-flex; align-items: center; gap: .6rem;
 }
 .eyebrow-green::before {
   content: ''; display: inline-block; width: 24px; height: 2px;
-  background: var(--accent-lt); flex-shrink: 0;
+  background: var(--primary); flex-shrink: 0;
 }
 .eyebrow-gold {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: .7rem; font-weight: 700;
   text-transform: uppercase; letter-spacing: .18em;
-  color: var(--accent-lt);
+  color: rgba(255,255,255,.8);
   display: inline-flex; align-items: center; gap: .6rem;
 }
 .eyebrow-gold::before {
