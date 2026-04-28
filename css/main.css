@@ -5,8 +5,8 @@
   --primary-lt: #2278c5;
   --accent:     #2f8f4e;
   --accent-lt:  #3aa76d;
-  --surface:    #f5f8fc;   /* neutrální světlé — střídá se s #fff */
-  --surface-2:  #e8f0f8;   /* o stupeň tmavší, pro vnitřní prvky */
+  --surface:    #f5f8fc;   /* opraveno zpět z #f3f9f5 */
+  --surface-2:  #e8f0f8;   /* opraveno zpět z #e5f0e9 */
   --ink:        #0a1628;
   --text:       #111827;
   --muted:      #3d5a7a;
@@ -25,12 +25,11 @@ img { display: block; }
   background: var(--accent); z-index: 9999; transition: width .1s linear;
 }
 
-/* ─── Nav ─── */
+/* ─── Nav — zachováno přesně jak bylo v repo ─── */
 #site-header {
   background: rgba(255,255,255,.97);
-  border-bottom: 1px solid rgba(0,0,0,.06);
-  border-top: 4px solid transparent;
-  border-image: linear-gradient(to right, #1a65a8, #2f8f4e) 1;
+  border: none !important;
+  box-shadow: 0 1px 0 rgba(0,0,0,.06);
 }
 #site-header.scrolled {
   background: rgba(255,255,255,.99);
@@ -39,8 +38,8 @@ img { display: block; }
   -webkit-backdrop-filter: blur(16px);
 }
 
-/* Nav-link: tmavá v klidu → modrá na hover.
-   Zelená zůstává jen tam, kde stránka explicitně přidá inline style nebo .nav-link-accent */
+/* Nav-link: opraveno zpět na tmavou — zelená byla jen důsledek
+   změny --surface na zelené pozadí, ne záměr */
 .nav-link {
   font-size: .82rem; font-weight: 800; text-transform: uppercase; letter-spacing: .09em;
   color: #1f2937; transition: color .2s;
@@ -137,11 +136,11 @@ img { display: block; }
 .mob-sublink:last-child { border-bottom: none; }
 .mob-sublink:hover { color: var(--primary); }
 
-/* ─── Eyebrow labels ───────────────────────────────────────────────
-   .eyebrow       — MODRÁ primary — pro sekce na bílém / surface pozadí
-   .eyebrow-green — ZELENÁ accent — alternativa na bílém pozadí
-   .eyebrow-gold  — bílá/zelená — pouze na tmavém pozadí (subpage-header, zápasy)
-   ─────────────────────────────────────────────────────────────────── */
+/* ─── Eyebrow labels ───
+   .eyebrow      — modrá primary (výchozí na světlém pozadí)
+   .eyebrow-green — zelená accent (alternativa na bílém pozadí)
+   .eyebrow-gold  — bílá/zelená (pouze na tmavém pozadí)
+*/
 .eyebrow {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .18em;
@@ -398,6 +397,22 @@ section h2 { text-shadow: 0 1px 0 rgba(0,0,0,.06); }
 /* ─── Testimonial cards ─── */
 .testi-card { background: #fff; border: 1px solid rgba(26,101,168,.12); border-top: 3px solid var(--accent); }
 
+/* ─── Partner cards — zachováno přesně z repo, BEZ grayscale ─── */
+.partner-card {
+  background: #fff; border: 1px solid rgba(26,101,168,.1);
+  border-radius: 12px; padding: 2rem 1.5rem;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  transition: transform .25s, box-shadow .25s;
+}
+.partner-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(26,101,168,.13); }
+.partner-logo { max-height: 60px; width: auto; max-width: 140px; object-fit: contain; margin-bottom: 1rem; }
+.partner-logo-placeholder {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--surface-2);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1rem;
+}
+
 /* ─── News cards ─── */
 .news-card {
   background: #fff; border: 1px solid rgba(26,101,168,.1);
@@ -508,7 +523,3 @@ footer { background: var(--ink); color: rgba(255,255,255,.65); border-top: 3px s
   font-size: .65rem; font-weight: 800; text-transform: uppercase;
   letter-spacing: .1em; padding: .2rem .6rem; border-radius: 4px;
 }
-
-/* ─── Partners ─── */
-.partner-logo { filter: grayscale(100%) opacity(.5); transition: filter .3s; }
-.partner-logo:hover { filter: grayscale(0%) opacity(1); }
