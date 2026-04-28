@@ -9,20 +9,34 @@ Kontakty na hlavní straně dole - "hlavní telefon, e-mail" (kam budou chodit i
 
 
 
-Fotogalerie - rozdělit na 3 sekce: A-tým, Mladší přípravka, Ostatní (z dění okolo klubu) --- umístit nahoru stránky 3 CTA odkazy
+- Fotogalerie - rozdělit na 3 sekce: "A-tým", "Mladší přípravka",  "Z dění okolo klubu" --- umístit nahoru stránky 3 CTA odkazy
 
-Aktuality - umístit hymnu z Youtube
+- Aktuality - stáhni lokálně hymnu klubu z Youtube a umísti jako aktualitu - 1. https://www.youtube.com/watch?v=fl9_3GqrY80 (dospělí), 2. https://youtu.be/UatWiE2YNu0 (děti)
 
-Hlavička - v mobilním zobrazení dát vedle loga "SK Vrbová Lhota z.s."
-Hlavička - nahradit text "facebook" logem (stáhnout ho do složky "img/logo" lokálně)
-Hlavička - horní menu obarvit na zelenou barvu, hover nechat
-Fanshop - dočasně skrýt
-Udělat ji trochu modernější, atraktivnější, čistší, ale stále v duchu vesnického fotbalu
+- Hlavička - v mobilním zobrazení dát vedle loga text "SK Vrbová Lhota z.s."
+- Hlavička - nahradit text "facebook" logem (stáhnout ho do složky "img/logo" lokálně)
+- Hlavička - horní menu obarvit na zelenou barvu, hover nechat
+- Hlavička - Fanshop - dočasně skrýt
 
-Design - upravit CTA tlačítka - hover na zelenou není hezký, retro - vymyslet něco modernějšího
+
+- Design celkový - upravit CTA tlačítka - hover na zelenou není hezký, retro - vymyslet něco modernějšího
+- Design Hlavička - Udělat ji trochu modernější, atraktivnější, čistší, ale stále v duchu vesnického fotbalu
 
 - HERO - v mobilním zobrazení není moc čitelný text na obrázku - co to rozdělit a nejdřív dát text na jednobarevné pozadí a hero foku dát pod to?
 - HERO - nadpis "Hrajeme za Vrbovku" - obarvi na systémovou modrou
 
 
 - Kontaktní formulář - změnit kategorie pouze na: "Muži (dospělí), "Přípravka", "Jiný dotaz"
+
+
+28.4.2026
+
+- HEADER - upravit název na "SK Vrbová Lhota 98 z.s." / pod tím "FOTBALOVÝ KLUB"
+- HERO - odstranit "📍Vrbová Lhota · Nymbursko · od roku 1998"
+- HERO - text "Místní fotbalový klub s 25 lety tradice na Nymbursku. Přijďte hrát nebo fandit." nahradit za "Místní fotbalový klub. Tradice na Nymbursku. Od roku 1998."
+- HERO - přesuň info o příštím zápasu nad logo klubu
+- Pozadí sekcí, které jsou světle modré, zkus změnit na světle zelenou pro kontrast s modrými nadpisy. To platí pro všechny stránky
+- Názvy sekcí jako "oddíly", "komunita" atd. zkus změnit na systémovou zelenou barvu. To platí pro všechny stránky
+- FOOTER - doplň všude do názvu "Sportovní klub Vrbová Lhota 98 z.s."
+- FOOTER - text "Facebook" nahraď ikonou
+- stránka AKTUALITY - odstraň zatím odkaz "číst více"
