@@ -5,8 +5,8 @@
   --primary-lt: #2278c5;
   --accent:     #2f8f4e;
   --accent-lt:  #3aa76d;
-  --surface:    #f3f9f5;
-  --surface-2:  #e5f0e9;
+  --surface:    #f5f8fc;   /* neutrální světlé — střídá se s #fff */
+  --surface-2:  #e8f0f8;   /* o stupeň tmavší, pro vnitřní prvky */
   --ink:        #0a1628;
   --text:       #111827;
   --muted:      #3d5a7a;
@@ -28,8 +28,9 @@ img { display: block; }
 /* ─── Nav ─── */
 #site-header {
   background: rgba(255,255,255,.97);
-  border: none !important;
-  box-shadow: 0 1px 0 rgba(0,0,0,.06);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  border-top: 4px solid transparent;
+  border-image: linear-gradient(to right, #1a65a8, #2f8f4e) 1;
 }
 #site-header.scrolled {
   background: rgba(255,255,255,.99);
@@ -37,9 +38,12 @@ img { display: block; }
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
+
+/* Nav-link: tmavá v klidu → modrá na hover.
+   Zelená zůstává jen tam, kde stránka explicitně přidá inline style nebo .nav-link-accent */
 .nav-link {
   font-size: .82rem; font-weight: 800; text-transform: uppercase; letter-spacing: .09em;
-  color: var(--accent); transition: color .2s;
+  color: #1f2937; transition: color .2s;
   position: relative; padding-bottom: 3px;
   background: none; border: none; cursor: pointer; font-family: inherit;
 }
@@ -50,19 +54,15 @@ img { display: block; }
 }
 .nav-link:hover { color: var(--primary); }
 .nav-link:hover::after { transform: scaleX(1); }
-.nav-link-accent { color: var(--accent) !important; }
-.nav-link-accent::after { background: var(--accent) !important; }
 .nav-link.active { color: var(--primary); }
 .nav-link.active::after { transform: scaleX(1); }
+.nav-link-accent { color: var(--accent) !important; }
+.nav-link-accent::after { background: var(--accent) !important; }
 
 /* ─── Nav Dropdown ─── */
 .nav-dropdown { position: relative; display: flex; align-items: center; }
-.nav-dropdown-btn {
-  display: inline-flex; align-items: center; gap: .35rem;
-}
-.nav-dropdown-chevron {
-  font-size: .65rem; transition: transform .2s; display: inline-block; opacity: .7;
-}
+.nav-dropdown-btn { display: inline-flex; align-items: center; gap: .35rem; }
+.nav-dropdown-chevron { font-size: .65rem; transition: transform .2s; display: inline-block; opacity: .7; }
 .nav-dropdown.open .nav-dropdown-chevron { transform: rotate(180deg); }
 .nav-dropdown-menu {
   position: absolute; top: calc(100% + 14px); left: 50%;
@@ -112,22 +112,20 @@ img { display: block; }
 .mob-link {
   display: block; padding: .85rem 0; font-size: 1rem; font-weight: 600;
   color: #111827; border-bottom: 1px solid #f0f0f0; transition: color .2s;
-  width: 100%; text-align: left; background: none; border-top: none; border-left: none; border-right: none;
+  width: 100%; text-align: left; background: none;
+  border-top: none; border-left: none; border-right: none;
   font-family: inherit; cursor: pointer;
 }
 .mob-link:hover { color: var(--primary); }
 
 /* ─── Mobile submenu ─── */
-.mob-expand-btn {
-  display: flex; justify-content: space-between; align-items: center;
-}
+.mob-expand-btn { display: flex; justify-content: space-between; align-items: center; }
 .mob-chevron { font-size: .7rem; transition: transform .25s; opacity: .6; }
 .mob-submenu {
   max-height: 0; overflow: hidden;
   transition: max-height .3s ease;
   background: var(--surface);
-  margin: 0 -2rem;
-  padding: 0 2rem;
+  margin: 0 -2rem; padding: 0 2rem;
 }
 .mob-submenu.open { max-height: 200px; }
 .mob-sublink {
@@ -139,22 +137,24 @@ img { display: block; }
 .mob-sublink:last-child { border-bottom: none; }
 .mob-sublink:hover { color: var(--primary); }
 
-/* ─── Eyebrow ─── */
+/* ─── Eyebrow labels ───────────────────────────────────────────────
+   .eyebrow       — MODRÁ primary — pro sekce na bílém / surface pozadí
+   .eyebrow-green — ZELENÁ accent — alternativa na bílém pozadí
+   .eyebrow-gold  — bílá/zelená — pouze na tmavém pozadí (subpage-header, zápasy)
+   ─────────────────────────────────────────────────────────────────── */
 .eyebrow {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: .7rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .18em;
-  color: var(--accent);
+  font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .18em;
+  color: var(--primary);
   display: inline-flex; align-items: center; gap: .6rem;
 }
 .eyebrow::before {
   content: ''; display: inline-block; width: 24px; height: 2px;
-  background: var(--accent); flex-shrink: 0;
+  background: var(--primary); flex-shrink: 0;
 }
 .eyebrow-green {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: .7rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .18em;
+  font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .18em;
   color: var(--accent);
   display: inline-flex; align-items: center; gap: .6rem;
 }
@@ -164,8 +164,7 @@ img { display: block; }
 }
 .eyebrow-gold {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: .7rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .18em;
+  font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .18em;
   color: rgba(255,255,255,.8);
   display: inline-flex; align-items: center; gap: .6rem;
 }
@@ -176,9 +175,7 @@ img { display: block; }
 
 /* ═══════════════════════════════════════════
    BUTTONS — moderní elevační hover
-   Bez retro box-shadow: 5px 5px 0
    ═══════════════════════════════════════════ */
-
 .btn-primary {
   background: var(--primary); color: #fff;
   padding: .75rem 1.8rem; font-weight: 700; font-size: .85rem;
@@ -235,21 +232,14 @@ img { display: block; }
   border-radius: 6px; background: transparent;
 }
 .btn-ghost-white:hover {
-  border-color: #fff;
-  background: rgba(255,255,255,.12);
+  border-color: #fff; background: rgba(255,255,255,.12);
   transform: translateY(-2px);
 }
 .btn-ghost-white:active { transform: translateY(0); }
 
-/* ─── Club logo in nav ─── */
+/* ─── Club logo ─── */
 .logo-img { height: 44px; width: auto; object-fit: contain; }
-
-/* ─── Logo text divider ─── */
-.logo-text-divider {
-  width: 1px; height: 28px;
-  background: rgba(26,101,168,.18);
-  flex-shrink: 0;
-}
+.logo-text-divider { width: 1px; height: 28px; background: rgba(26,101,168,.18); flex-shrink: 0; }
 
 /* ─── Hero match info line ─── */
 .hero-match-line {
@@ -288,11 +278,15 @@ img { display: block; }
   background: var(--primary); color: #fff;
   font-weight: 700; font-size: .9rem;
   padding: .8rem 1.4rem;
-  box-shadow: 3px 3px 0 rgba(26,101,168,.25);
-  transition: background .2s, box-shadow .2s;
+  transition: background .18s, transform .18s, box-shadow .18s;
+  box-shadow: 0 2px 8px rgba(26,101,168,.22);
   margin-bottom: 1.5rem;
 }
-.match-cta-badge:hover { background: var(--primary-dk); box-shadow: 4px 4px 0 var(--accent); }
+.match-cta-badge:hover {
+  background: var(--primary-dk);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(26,101,168,.35);
+}
 
 /* ─── Contact split ─── */
 .contact-dark { background: var(--primary); }
@@ -309,24 +303,15 @@ section h2 { text-shadow: 0 1px 0 rgba(0,0,0,.06); }
 @media (max-width: 1023px) {
   #hero { display: flex; flex-direction: column; min-height: auto; }
   #hero-img-wrap {
-    position: relative !important;
-    inset: auto !important;
-    order: 2;
-    height: 250px;
-    flex-shrink: 0;
-    overflow: hidden;
-    z-index: 0 !important;
+    position: relative !important; inset: auto !important;
+    order: 2; height: 250px; flex-shrink: 0; overflow: hidden; z-index: 0 !important;
   }
   .hero-content-wrap { order: 1; background: #eef6f0; }
-  .hero-overlay-h, .hero-overlay-v,
-  .hero-stripe, .hero-noise { display: none; }
+  .hero-overlay-h, .hero-overlay-v, .hero-stripe, .hero-noise { display: none; }
 }
 
 /* ─── Hero image animation (Ken Burns) ─── */
-.hero-img {
-  animation: hero-kenburns 20s ease-in-out infinite alternate;
-  will-change: transform;
-}
+.hero-img { animation: hero-kenburns 20s ease-in-out infinite alternate; will-change: transform; }
 @keyframes hero-kenburns {
   0%   { transform: translateX(20%) scale(1);    opacity: .85; }
   100% { transform: translateX(16%) scale(1.08); opacity: .88; }
@@ -334,23 +319,20 @@ section h2 { text-shadow: 0 1px 0 rgba(0,0,0,.06); }
 @media (max-width: 1023px) {
   .hero-img { animation: hero-kenburns-mob 16s ease-in-out infinite alternate; }
   @keyframes hero-kenburns-mob {
-    0%   { transform: scale(1.03) translateX(0);    opacity: .85; }
-    100% { transform: scale(1.10) translateX(-2%);  opacity: .90; }
+    0%   { transform: scale(1.03) translateX(0);   opacity: .85; }
+    100% { transform: scale(1.10) translateX(-2%); opacity: .90; }
   }
 }
 
 /* ─── Hero logo animation ─── */
-.hero-logo {
-  animation: hero-logo-float 4s ease-in-out infinite;
-  will-change: transform, filter;
-}
+.hero-logo { animation: hero-logo-float 4s ease-in-out infinite; will-change: transform, filter; }
 @keyframes hero-logo-float {
   0%   { transform: translateY(0)    scale(1);    filter: drop-shadow(0 4px 12px rgba(0,0,0,.18)); }
   50%  { transform: translateY(-9px) scale(1.04); filter: drop-shadow(0 14px 22px rgba(0,0,0,.22)); }
   100% { transform: translateY(0)    scale(1);    filter: drop-shadow(0 4px 12px rgba(0,0,0,.18)); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-logo { animation: none; }
+  .hero-logo, .hero-img { animation: none; }
 }
 
 /* ─── Hero noise ─── */
@@ -362,13 +344,7 @@ section h2 { text-shadow: 0 1px 0 rgba(0,0,0,.06); }
 /* ─── Hero diagonal stripe ─── */
 .hero-stripe {
   position: absolute; inset: 0; pointer-events: none; z-index: 1; opacity: .045;
-  background-image: repeating-linear-gradient(
-    135deg,
-    #0a1c35 0px,
-    #0a1c35 12px,
-    #1a3a60 12px,
-    #1a3a60 24px
-  );
+  background-image: repeating-linear-gradient(135deg, #0a1c35 0px, #0a1c35 12px, #1a3a60 12px, #1a3a60 24px);
 }
 
 /* ─── Stats strip ─── */
@@ -390,8 +366,7 @@ section h2 { text-shadow: 0 1px 0 rgba(0,0,0,.06); }
 .team-card {
   background: #fff; border: 1px solid rgba(26,101,168,.1);
   position: relative; overflow: hidden;
-  transition: transform .25s, box-shadow .25s;
-  border-radius: 12px;
+  transition: transform .25s, box-shadow .25s; border-radius: 12px;
 }
 .team-card:hover { transform: translateY(-6px); box-shadow: 0 8px 24px rgba(26,101,168,.18); }
 .team-card:hover .card-icon { background: var(--accent) !important; }
@@ -421,11 +396,7 @@ section h2 { text-shadow: 0 1px 0 rgba(0,0,0,.06); }
 .gallery-caption { color: #fff; font-size: .8rem; font-weight: 600; }
 
 /* ─── Testimonial cards ─── */
-.testi-card {
-  background: #fff;
-  border: 1px solid rgba(26,101,168,.12);
-  border-top: 3px solid var(--accent);
-}
+.testi-card { background: #fff; border: 1px solid rgba(26,101,168,.12); border-top: 3px solid var(--accent); }
 
 /* ─── News cards ─── */
 .news-card {
@@ -488,14 +459,10 @@ footer { background: var(--ink); color: rgba(255,255,255,.65); border-top: 3px s
 .field {
   width: 100%; border: 1px solid #d1d5db; padding: .75rem 1rem;
   font-family: 'Plus Jakarta Sans', sans-serif; font-size: .875rem;
-  color: var(--text); background: #fff; outline: none;
-  transition: border-color .2s;
+  color: var(--text); background: #fff; outline: none; transition: border-color .2s;
 }
 .field:focus { border-color: var(--primary); }
 .field::placeholder { color: #9ca3af; }
-
-/* ─── Club logo in nav ─── */
-.logo-img { height: 44px; width: auto; object-fit: contain; }
 
 /* ─── Player roster ─── */
 .player-card {
@@ -518,8 +485,7 @@ footer { background: var(--ink); color: rgba(255,255,255,.65); border-top: 3px s
 /* ─── Contact person cards ─── */
 .contact-person-card {
   background: #fff; border: 1px solid rgba(26,101,168,.1);
-  border-radius: 12px; padding: 1.5rem;
-  border-top: 3px solid var(--primary);
+  border-radius: 12px; padding: 1.5rem; border-top: 3px solid var(--primary);
   transition: box-shadow .2s, transform .2s;
 }
 .contact-person-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(26,101,168,.12); }
@@ -533,14 +499,10 @@ footer { background: var(--ink); color: rgba(255,255,255,.65); border-top: 3px s
 }
 .product-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(26,101,168,.13); }
 .product-img-placeholder {
-  background: var(--surface-2); display: flex; align-items: center; justify-content: center;
-  height: 200px;
+  background: var(--surface-2); display: flex; align-items: center; justify-content: center; height: 200px;
 }
 .product-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; }
-.product-price {
-  font-family: 'Noto Serif', serif; font-size: 1.5rem; font-weight: 900;
-  color: var(--primary); margin-bottom: .5rem;
-}
+.product-price { font-family: 'Noto Serif', serif; font-size: 1.5rem; font-weight: 900; color: var(--primary); margin-bottom: .5rem; }
 .product-badge-unavailable {
   display: inline-block; background: #fee2e2; color: #dc2626;
   font-size: .65rem; font-weight: 800; text-transform: uppercase;
@@ -548,16 +510,5 @@ footer { background: var(--ink); color: rgba(255,255,255,.65); border-top: 3px s
 }
 
 /* ─── Partners ─── */
-.partner-card {
-  background: #fff; border: 1px solid rgba(26,101,168,.1);
-  border-radius: 10px; padding: 1.5rem;
-  display: flex; flex-direction: column; align-items: center; text-align: center;
-  transition: box-shadow .2s, transform .2s;
-}
-.partner-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(26,101,168,.1); }
-.partner-logo {
-  height: 64px; width: auto; max-width: 160px;
-  object-fit: contain; margin-bottom: 1rem;
-  transition: opacity .2s;
-}
-.partner-logo:hover { opacity: .85; }
+.partner-logo { filter: grayscale(100%) opacity(.5); transition: filter .3s; }
+.partner-logo:hover { filter: grayscale(0%) opacity(1); }

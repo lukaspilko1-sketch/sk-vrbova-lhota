@@ -7,11 +7,11 @@
 
 ## 📋 Přehled projektu
 
-**Název:** SK Vrbová Lhota z.s. — Fotbalový klub  
-**Typ:** Single-page website (SPA v jednom HTML souboru)  
-**Účel:** Prezentační web místního fotbalového klubu z Nymburska  
-**Provozovatel:** SK Vrbová Lhota z.s. (III. třída sk. B, Středočeský kraj)  
-**Stav:** V aktivním vývoji — design vyladěn, obsah částečně placeholder  
+**Název:** Sportovní klub Vrbová Lhota 98 z.s. — Fotbalový klub
+**Typ:** Multi-page statický web (HTML + externí CSS + externí JS)
+**Účel:** Prezentační web místního fotbalového klubu z Nymburska
+**Provozovatel:** SK Vrbová Lhota z.s. (9. liga sk. B, Středočeský kraj)
+**Stav:** V aktivním vývoji — základní struktura hotová, obsah průběžně doplňován
 
 ---
 
@@ -19,26 +19,39 @@
 
 ```
 /
-├── index.html                  # Hlavní (a jediný) HTML soubor — vše je zde
-├── facr.svg                    # Logo FAČR — Fotbalová asociace ČR
-├── CLAUDE.md                   # Tento soubor
-├── .gitattributes              # LF normalizace
+├── index.html              # Hlavní stránka — hero, zápasy, oddíly, o klubu, galerie, komunita
+├── atym.html               # Stránka A-týmu (soupiska, info o týmu, výsledky CTA)
+├── pripravka.html          # Stránka Mladší přípravky
+├── aktuality.html          # Aktuality — hymna klubu (YouTube embed), novinky
+├── galerie.html            # Fotogalerie — 3 sekce (A-tým, Přípravka, Ostatní), lightbox
+├── kontakt.html            # Kontakt — kontaktní osoby, formulář Formspree
+├── fanshop.html            # Fanshop — dočasně skryt z navigace
+├── facr.svg                # Logo FAČR
+├── CLAUDE.md               # Tento soubor
+├── .gitattributes
 ├── .claude/
-│   └── settings.local.json     # Povolené domény pro WebFetch
+│   └── settings.local.json
+├── css/
+│   ├── main.css            # Hlavní stylesheet — sdílený všemi stránkami
+│   └── main_v1.css         # Záloha předchozí verze (lze smazat)
+├── js/
+│   └── base.js             # Sdílený JS — scroll progress, nav dropdown, hamburger, reveal, counter
+├── data/
+│   └── galerie.json        # Data pro galerii — src, alt, tag, caption, wide, sekce
 ├── img/
 │   ├── logo/
-│   │   ├── logo-sk-vrbova-lhota.png   # Hlavní logo klubu (používá se na více místech)
-│   │   └── logo-facr.png              # ⚠️ BROKEN — Wikimedia 429, nahrazeno facr.svg
+│   │   ├── logo-sk-vrbova-lhota.png   # Hlavní logo klubu
+│   │   ├── logo-facebook.svg          # Facebook ikona (stažena lokálně)
+│   │   └── logo-facr.png              # ⚠️ BROKEN — nahrazeno facr.svg
 │   ├── hero/
 │   │   └── tym-01.jpg                 # Hero fotka týmu
-│   └── galerie/
-│       ├── tym-02.jpg                 # Tým — sekce O klubu + galerie
-│       ├── tym-03.jpg                 # Tým — galerie
-│       ├── hriste-01.jpg              # Hřiště
-│       ├── hospudka-01.jpg            # Hospůdka u hřiště
-│       ├── deti-01.jpg                # Mládež
-│       └── deti-02.jpg                # Mládež
-└── upravy.txt                  # Changelog změn (aktuálně prázdný — doplnit)
+│   ├── galerie/
+│   │   ├── tym-02.jpg, tym-03.jpg
+│   │   ├── hriste-01.jpg, hospudka-01.jpg
+│   │   └── deti-01.jpg, deti-02.jpg
+│   └── partneri/
+│       └── louda-auto.svg             # Logo partnera
+└── upravy.txt              # Poznámky k úpravám (neformální changelog)
 ```
 
 ---
@@ -47,141 +60,153 @@
 
 | Vrstva | Technologie | Poznámka |
 |--------|-------------|----------|
-| HTML | HTML5, single-file | Vše v `index.html` |
-| CSS | Vlastní CSS + Tailwind CDN | Tailwind 3 přes CDN s pluginy `forms`, `container-queries` |
-| JavaScript | Vanilla JS (ES2020+) | Žádný framework, žádný build step |
-| Formulář | Formspree AJAX | Endpoint `https://formspree.io/f/XXXXXXXX` — **PLACEHOLDER** |
+| HTML | HTML5, multi-page | Sdílená hlavička/nav na každé stránce inline |
+| CSS | Vlastní CSS + Tailwind CDN | `css/main.css` sdílený, Tailwind 3 přes CDN |
+| JavaScript | Vanilla JS | `js/base.js` sdílený; galerie má inline JS |
+| Formulář | Formspree AJAX | Endpoint zatím placeholder |
 | Fonty | Google Fonts | Noto Serif + Plus Jakarta Sans |
 | Ikony | Material Symbols Outlined | Google Fonts CDN |
-| Hosting | Neuvedeno | Statický soubor — kompatibilní s GitHub Pages, Netlify, atd. |
-
-### Tailwind konfigurace (inline v `<script>`)
-```js
-tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        primary:  { DEFAULT: '#1a65a8', dark: '#134e87', light: '#2278c5' },
-        accent:   { DEFAULT: '#2f8f4e', light: '#3aa76d' },
-        surface:  { DEFAULT: '#f5f8fc', 2: '#e8f0f8' },
-        ink:      '#0a1628',
-        muted:    '#3d5a7a',
-      },
-      fontFamily: {
-        headline: ['"Noto Serif"', 'serif'],
-        body:     ['"Plus Jakarta Sans"', 'sans-serif'],
-      },
-    },
-  },
-};
-```
+| Hosting | GitHub Pages / Netlify | Statický web, auto-deploy z main větve |
 
 ---
 
 ## 🎨 Design systém
 
-### Barvy (CSS Custom Properties)
+### Barvy (CSS Custom Properties v `css/main.css`)
 
 ```css
---primary:    #1a65a8   /* Hlavní modrá — NEMĚNIT, identita klubu */
---primary-dk: #134e87   /* Tmavší varianta primary */
---primary-lt: #2278c5   /* Světlejší varianta primary */
+--primary:    #1a65a8   /* Hlavní modrá — NIKDY NEMĚNIT, identita klubu */
+--primary-dk: #134e87   /* Tmavší varianta */
+--primary-lt: #2278c5   /* Světlejší varianta */
 --accent:     #2f8f4e   /* Zelená — akcentová barva */
 --accent-lt:  #3aa76d   /* Světlejší zelená */
---surface:    #f5f8fc   /* Světlé pozadí sekcí */
---surface-2:  #e8f0f8   /* O stupeň tmavší surface */
+--surface:    #f5f8fc   /* Světlé pozadí sekcí — střídá se s #fff */
+--surface-2:  #e8f0f8   /* Tmavší surface — pro vnitřní prvky, info boxy */
 --ink:        #0a1628   /* Téměř černá — footer, texty */
 --text:       #111827   /* Základní barva textu */
 --muted:      #3d5a7a   /* Tlumená modrošedá pro subtexty */
 ```
 
+**Hero sekce** má vlastní zelené pozadí `#eef6f0` nastavené inline v `index.html` — záměrně odlišné od `--surface`.
+
+### Sekce — pravidlo střídání pozadí
+
+Aby stránka měla vizuální rytmus a oko mohlo odpočinout:
+
+| Sekce | Pozadí | Poznámka |
+|-------|--------|----------|
+| Hero | `#eef6f0` | Zelené — unikátní, nepoužívat jinde |
+| Zápasy | `#0a1c35` (tmavá) | Tmavý panel — záměrně |
+| Oddíly | `var(--surface)` = `#f5f8fc` | Světlé |
+| O klubu | `#fff` | Bílé |
+| Galerie | `var(--surface)` | Světlé |
+| Komunita | `#fff` | Bílé |
+| Kontakt | Levý panel: `var(--primary)` | Modrý — split layout |
+| Footer | `var(--ink)` | Tmavé |
+
 ### Fonty
 
 | Rodina | Použití | Váhy |
 |--------|---------|------|
-| `Noto Serif` | `font-headline` — nadpisy h1–h3, čísla v stats | 400, 700, 900 |
-| `Plus Jakarta Sans` | `font-body` — vše ostatní | 300, 400, 500, 600, 700, 800 |
+| `Noto Serif` | `font-headline` — h1–h3, čísla v stats | 400, 700, 900 |
+| `Plus Jakarta Sans` | `font-body` — vše ostatní | 300–800 |
 
-### Tlačítka (CSS třídy)
+### Eyebrow labely (malé nápisy nad nadpisy)
+
+| Třída | Barva | Kdy použít |
+|-------|-------|------------|
+| `.eyebrow` | Modrá `--primary` | Výchozí — na bílém nebo surface pozadí |
+| `.eyebrow-green` | Zelená `--accent` | Alternativa na bílém pozadí |
+| `.eyebrow-gold` | Bílá/zelená | Pouze na tmavém pozadí (subpage-header, zápasy) |
+
+**Pravidlo:** Na `var(--surface)` pozadí používej `.eyebrow` (modrá). Na `#fff` pozadí lze střídat. Na tmavém vždy `.eyebrow-gold`.
+
+### Tlačítka
 
 | Třída | Styl | Hover |
 |-------|------|-------|
-| `.btn-primary` | Modrá výplň, bílý text, `border-radius: 6px` | Tmavší + shadow accent |
-| `.btn-green` | Zelená výplň, bílý text, `border-radius: 6px` | Tmavší + shadow primary |
-| `.btn-outline` | Modrý border, `border-radius: 6px` | Výplň primary |
-| `.btn-ghost-white` | Bílý border (pro tmavá pozadí) | Jemná bílá výplň |
+| `.btn-primary` | Modrá výplň, bílý text, radius 6px | `translateY(-2px)` + modrý shadow |
+| `.btn-green` | Zelená výplň, bílý text, radius 6px | `translateY(-2px)` + zelený shadow |
+| `.btn-outline` | Modrý border, radius 6px | Fill primary + shadow |
+| `.btn-ghost-white` | Bílý border (tmavé pozadí) | Bílá výplň + `translateY(-2px)` |
 
-### Komponenty
+### Navigace
 
-- **`.team-card`** — Bílá karta s border-radius 12px, hover translateY(-6px) + shadow
-- **`.testi-card`** — Testimonial karta, border-top accent
-- **`.gallery-item`** — Fotka s overlay efektem
-- **`.match-banner`** — Tmavě modrý banner zápasu
-- **`.stat-div`** — Svislý separator v stats stripu (1px, rgba opacity)
-- **`.reveal`** — Animace při scrollu (IntersectionObserver)
-- **`.eyebrow`** / **`.eyebrow-green`** — Popisek sekce (uppercase, malé, s linkou vlevo)
-- **`.hero-stripe`** — Diagonální stripe pattern v hero (CSS gradient, opacity .045)
-
-### Animace a interaktivita
-
-- **Scroll progress bar** — `#scroll-progress` (zelená linka nahoře)
-- **Nav scrolled** — třída `.scrolled` přidána při scroll > 60px → blur backdrop
-- **Hamburger menu** — mobilní drawer `#mobile-nav`, overlay `#mobile-overlay`
-- **Reveal on scroll** — `.reveal` + `.d1`–`.d4` (transition-delay)
-- **Counter animace** — `.counter[data-target="N"]` spustí se při zobrazení
-- **Formspree AJAX** — asynchronní odeslání formuláře bez reload
+- Nav-link výchozí barva: `#1f2937` (tmavá)
+- Hover/active: `var(--primary)` modrá s podtržením
+- Aktuální stránka: přidej `style="color:var(--accent)"` inline nebo třídu `.nav-link-accent`
+- Fanshop: dočasně skryt z navigace (`hidden` třída nebo komentář)
 
 ---
 
-## 📊 Struktura dat / Sekce
+## 📊 Stránky a sekce
 
-| ID sekce | Obsah | Stav |
-|----------|-------|------|
-| `#hero` | Fotka týmu, H1, CTA tlačítko, info o nejbližším zápase | ✅ Hotovo |
-| Stats strip | 25+ let, 4 kategorie, 100+ členů, FAČR logo | ✅ Hotovo |
-| `#zapasy` | Nejbližší zápas + poslední výsledky | ⚠️ Hardcoded data |
-| `#oddiely` | Muži + Přípravka (karty), CTA banner | ✅ Hotovo |
-| `#o-klubu` | Text o klubu, fotka, trust bullets | ✅ Hotovo |
-| `#galerie` | 6 fotek v CSS gridu | ✅ Hotovo |
-| `#komunita` | 3 testimonials | ✅ Hotovo (fiktivní jména) |
-| `#kontakt` | Kontaktní info + formulář Formspree | ⚠️ Placeholder endpoint |
-| Footer | Logo, navigace, copyright 2025, adresa, Google Maps link | ✅ Hotovo |
+### index.html
+| Sekce | ID / třída | Stav |
+|-------|-----------|------|
+| Hero | `#hero` | ✅ Ken Burns, plovoucí logo, mobilní split layout |
+| Stats strip | (inline) | ✅ 25+ let, 4 kategorie, 100+ členů, FAČR |
+| Zápasy | `#zapasy` | ⚠️ Hardcoded data |
+| Oddíly | `#oddiely` | ✅ Muži + Přípravka |
+| O klubu | `#o-klubu` | ✅ |
+| Galerie | `#galerie` | ✅ |
+| Komunita | `#komunita` | ✅ (fiktivní jména) |
+| Partneři | `#partneri` | ✅ Louda Auto |
+| Footer | — | ✅ |
+
+### atym.html / pripravka.html
+- Subpage header (modrý gradient) + breadcrumb
+- Data načítána z `data/atym.json` / `data/pripravka.json` (pokud existují) nebo inline
+- Soupiska hráčů — zatím placeholder
+
+### aktuality.html
+- YouTube embed hymny klubu: `fl9_3GqrY80` (dospělí), `UatWiE2YNu0` (děti)
+- Odkaz "číst více" byl odstraněn
+
+### galerie.html
+- Data z `data/galerie.json` — pole s `src, alt, tag, caption, wide, sekce`
+- Sekce: `atym`, `pripravka`, `ostatni`
+- Lightbox inline JS
+
+### kontakt.html
+- Formulář Formspree — endpoint placeholder
+- Kategorie: "Muži (dospělí)", "Přípravka", "Jiný dotaz"
 
 ---
 
 ## ⚠️ Stav placeholderů
 
-| Placeholder | Umístění | Co udělat |
-|-------------|----------|-----------|
-| `https://formspree.io/f/XXXXXXXX` | `<form action=...>` v kontaktu | Nahradit reálným Formspree endpoint ID |
-| Zápas 19. 4. · SK VL vs TJ Sokol Písty | Hero + `#zapasy` sekce | Aktualizovat ručně před každým zápasem |
-| Výsledky (2:1, 3:0, 1:1, 0:2, 4:1) | `#zapasy` poslední výsledky | Aktualizovat ručně nebo napojit na API |
-| `info@fkvrbovalhotacz` | Kontakt | Chybí tečka — opravit na `info@fkvrbovalhotacz` nebo správnou adresu |
-| `logo-facr.png` | `img/logo/` | Soubor nefunguje — používá se `facr.svg` místo toho |
-| Testimonials (Markéta N., Tomáš K., Jan P.) | `#komunita` | Potvrdit nebo nahradit reálnými |
+| Placeholder | Umístění | Priorita |
+|-------------|----------|----------|
+| `https://formspree.io/f/XXXXXXXX` | `kontakt.html` | 🔴 Vysoká |
+| E-mail kontaktu | `kontakt.html` | 🔴 Vysoká — ověřit správnou adresu |
+| Zápas 19. 4. · SK VL vs TJ Sokol Písty | `index.html` hero + zapasy | 🟡 Aktualizovat ručně |
+| Výsledky zápasů | `#zapasy` | 🟡 Hardcoded, aktualizovat ručně |
+| Soupiska A-týmu | `atym.html` | 🟡 Dodat jména + pozice |
+| Kontaktní osoby | `kontakt.html` | 🟡 Dodat jména, telefony, e-maily |
+| Testimonials (Markéta N. atd.) | `#komunita` | 🟢 Potvrdit nebo nahradit reálnými |
 
 ---
 
 ## ✅ TODO seznam
 
 ### Vysoká priorita
-- [ ] **Formspree endpoint** — zaregistrovat na formspree.io a vložit reálné ID formuláře
-- [ ] **E-mail oprava** — `info@fkvrbovalhotacz` vypadá jako překlep, zkontrolovat správnou adresu
-- [ ] **Aktualizace zápasů** — data zápasů jsou hardcoded, před každou sezonou aktualizovat
+- [ ] **Formspree endpoint** — zaregistrovat a vložit reálné ID
+- [ ] **E-mail** — ověřit správnou adresu klubu
+- [ ] **Soupiska A-týmu** — doplnit jméno, příjmení, pozice
+- [ ] **Kontaktní osoby** — jméno, pozice, telefon, e-mail pro vedení klubu
 
 ### Střední priorita
-- [ ] **Dorost a Žáci** — v kontaktním formuláři jsou kategorie "Dorost" a "Žáci", ale v sekci Oddíly chybí jejich karty
-- [ ] **Google Analytics / Plausible** — přidat měření návštěvnosti
-- [ ] **OG meta tagy** — přidat `og:image`, `og:title`, `og:description` pro sdílení na FB
-- [ ] **Favicon** — přidat favicon (ideálně z loga klubu)
-- [ ] **Aktualizovat `upravy.txt`** — zapsat provedené změny
+- [ ] **Aktualizace zápasů** — před každým zápasem aktualizovat v `index.html`
+- [ ] **OG meta tagy** — `og:image`, `og:title`, `og:description` pro sdílení na FB
+- [ ] **Favicon** — z loga klubu
+- [ ] **Google Analytics / Plausible** — měření návštěvnosti
 
 ### Nízká priorita
-- [ ] **Lightbox pro galerii** — fotky se zatím neotevírají v plné velikosti
-- [ ] **Mapa Google Maps** — zvážit embed mapy přímo na stránce (iframe)
-- [ ] **Automatická aktualizace zápasů** — zvážit napojení na fotbal.cz API nebo KFIS
-- [ ] **PWA manifest** — přidat `manifest.json` pro mobilní uložení na plochu
-- [ ] **Print stylesheet** — pro případ tisku kontaktů
+- [ ] **Smazat `css/main_v1.css`** — záložní soubor, již nepotřebný
+- [ ] **PWA manifest** — `manifest.json` pro mobilní uložení na plochu
+- [ ] **Mapa Google Maps** — iframe embed na kontakt stránce
+- [ ] **Automatická aktualizace zápasů** — napojení na fotbal.cz API nebo KFIS
 
 ---
 
@@ -189,50 +214,53 @@ tailwind.config = {
 
 ### Základní pravidla
 
-1. **NIKDY nemeň barvu `#1a65a8`** — je to identita klubu
-2. **Zachovej single-file strukturu** — vše musí zůstat v `index.html`
-3. **Zachovej Google Fonts** — Noto Serif + Plus Jakarta Sans
-4. **Zachovej všechny JS funkce** — scroll progress, hamburger, reveal, counter, Formspree
+1. **NIKDY nemeň `#1a65a8`** — primární modrá, identita klubu
+2. **CSS sdíleno přes `css/main.css`** — změny se projeví na všech stránkách
+3. **JS sdíleno přes `js/base.js`** — scroll, nav, hamburger, reveal, counter
+4. **Hero zelené pozadí `#eef6f0`** — pouze v `index.html` inline, neměnit na `--surface`
 5. **Neměň texty ani kontaktní údaje** bez explicitního souhlasu
-6. **Testuj mobilní zobrazení** — web musí fungovat na 320px+
+6. **Zachovej Google Fonts** — Noto Serif + Plus Jakarta Sans
+7. **Tailwind Tailwind config** je inline v `<script>` v každém HTML souboru — při přidávání nové stránky zkopírovat
 
 ### Workflow pro změny
 
 ```
 1. Přečti CLAUDE.md (tento soubor)
-2. Identifikuj sekci k úpravě (hledej ID nebo CSS třídu)
-3. Proveď změnu
+2. Identifikuj kde je třída/komponenta (css/main.css nebo inline styl)
+3. Proveď změnu v main.css (platí pro všechny stránky) nebo inline (pouze jedna stránka)
 4. Zkontroluj, že JS funkce stále fungují
-5. Aktualizuj CHANGELOG níže
-6. ⚠️  NEZAPOMEŇ: git add . && git commit -m "popis" && git push
+5. git add . && git commit -m "feat: popis změny" && git push
 ```
 
 ### Jak najít části kódu
 
-- Sekce jsou označeny komentáři `<!-- ══ NÁZEV ══ -->`
-- CSS custom properties jsou na začátku v `:root {}`
-- Vlastní CSS je v bloku `<style>` v `<head>`
-- JavaScript je na konci `<body>` v `<script>`
-- Tailwind config je inline v `<script>` v `<head>`
+- HTML sekce: komentáře `<!-- ══ NÁZEV ══ -->`
+- CSS: bloky odděleny komentáři `/* ─── název ─── */`
+- JS sdílený: `js/base.js`
+- JS specifický pro stránku: inline `<script>` na konci `<body>`
 
-### Připomínka pro git push
+### Připomínka git push
 
-> **⚡ Po každé úpravě nezapomeň:**
+> **⚡ Po každé úpravě:**
 > ```bash
 > git add .
 > git commit -m "feat: popis změny"
 > git push origin main
 > ```
-> Web se nasadí automaticky (pokud je napojený GitHub Pages / Netlify).
 
 ---
 
 ## 📝 Changelog
 
-| Datum | Verze | Změna | Autor |
-|-------|-------|-------|-------|
-| 2025-04 | 1.0.0 | Prvotní verze webu | — |
-| 2025-04 | 1.1.0 | Vizuální modernizace — hero stripe, stat čísla 2.5rem, team karty radius 12px, "→ Více informací" linky, footer border-top, Google Maps link, CTA border-radius 6px, nav gradient border, backdrop-filter scrolled, section h2 text-shadow | Claude |
+| Datum | Verze | Změna |
+|-------|-------|-------|
+| 2025-04 | 1.0.0 | Prvotní verze — single-page HTML |
+| 2025-04 | 1.1.0 | Vizuální modernizace — hero stripe, stat čísla 2.5rem, team karty, footer |
+| 2026-04-27 | 2.0.0 | Refaktor na multi-page; CSS → `css/main.css`; JS → `js/base.js`; nové stránky: atym, pripravka, aktuality, galerie, kontakt, fanshop |
+| 2026-04-27 | 2.1.0 | Galerie — 3 sekce + lightbox + `data/galerie.json`; hymna klubu na aktuality |
+| 2026-04-27 | 2.2.0 | Hlavička: logo Facebook SVG, název "SK Vrbová Lhota 98 z.s.", FOTBALOVÝ KLUB |
+| 2026-04-28 | 2.3.0 | Hero: split layout na mobilu (text nahoře, foto dole); "Hrajeme za Vrbovku" modrá; perex zkrácen |
+| 2026-04-28 | 2.4.0 | Pozadí sekcí sjednoceno — `--surface` #f5f8fc + bílé střídání; eyebrow zpět na modrou; nav-link tmavá; tlačítka elevační hover |
 
 ---
 
@@ -240,14 +268,16 @@ tailwind.config = {
 
 | Zdroj | URL |
 |-------|-----|
-| Web fotbalu (výsledky) | https://www.fotbal.cz/souteze/turnaje/hlavni/26809f2b-5859-4129-a4e8-891d1dc7cdf3 |
+| Výsledky fotbal.cz | https://www.fotbal.cz/souteze/turnaje/hlavni/26809f2b-5859-4129-a4e8-891d1dc7cdf3 |
 | Tabulka pořadí | https://www.fotbal.cz/souteze/turnaje/table/26809f2b-5859-4129-a4e8-891d1dc7cdf3 |
 | Facebook skupina | https://www.facebook.com/groups/3040897976040534/ |
 | Hřiště na mapě | https://maps.google.com/?q=Vrbová+Lhota+U+Lindovy+191 |
+| Hymna dospělí (YT) | https://www.youtube.com/watch?v=fl9_3GqrY80 |
+| Hymna děti (YT) | https://youtu.be/UatWiE2YNu0 |
 | Formspree | https://formspree.io |
 | Tailwind CDN docs | https://tailwindcss.com/docs |
 | Material Symbols | https://fonts.google.com/icons |
 
 ---
 
-*Poslední aktualizace CLAUDE.md: duben 2025*
+*Poslední aktualizace CLAUDE.md: 28. dubna 2026*
