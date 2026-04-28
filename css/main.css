@@ -5,8 +5,8 @@
   --primary-lt: #2278c5;
   --accent:     #2f8f4e;
   --accent-lt:  #3aa76d;
-  --surface:    #f5f8fc;   /* opraveno zpět z #f3f9f5 */
-  --surface-2:  #e8f0f8;   /* opraveno zpět z #e5f0e9 */
+  --surface:    #f5f8fc;
+  --surface-2:  #e8f0f8;
   --ink:        #0a1628;
   --text:       #111827;
   --muted:      #3d5a7a;
@@ -25,7 +25,7 @@ img { display: block; }
   background: var(--accent); z-index: 9999; transition: width .1s linear;
 }
 
-/* ─── Nav — zachováno přesně jak bylo v repo ─── */
+/* ─── Nav ─── */
 #site-header {
   background: rgba(255,255,255,.97);
   border: none !important;
@@ -37,23 +37,22 @@ img { display: block; }
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
-
-/* Nav-link: opraveno zpět na tmavou — zelená byla jen důsledek
-   změny --surface na zelené pozadí, ne záměr */
 .nav-link {
   font-size: .82rem; font-weight: 800; text-transform: uppercase; letter-spacing: .09em;
-  color: #1f2937; transition: color .2s;
+  color: var(--primary);          /* ← modrá v klidu */
+  transition: color .2s;
   position: relative; padding-bottom: 3px;
   background: none; border: none; cursor: pointer; font-family: inherit;
 }
 .nav-link::after {
   content: ''; position: absolute; bottom: -3px; left: 0; right: 0; height: 2px;
-  background: var(--primary); transform: scaleX(0); transform-origin: left;
+  background: var(--accent);      /* ← zelená podtrhávací linka */
+  transform: scaleX(0); transform-origin: left;
   transition: transform .25s cubic-bezier(.4,0,.2,1);
 }
-.nav-link:hover { color: var(--primary); }
+.nav-link:hover { color: var(--accent); }          /* ← hover zelená */
 .nav-link:hover::after { transform: scaleX(1); }
-.nav-link.active { color: var(--primary); }
+.nav-link.active { color: var(--accent); }
 .nav-link.active::after { transform: scaleX(1); }
 .nav-link-accent { color: var(--accent) !important; }
 .nav-link-accent::after { background: var(--accent) !important; }
@@ -136,11 +135,7 @@ img { display: block; }
 .mob-sublink:last-child { border-bottom: none; }
 .mob-sublink:hover { color: var(--primary); }
 
-/* ─── Eyebrow labels ───
-   .eyebrow      — modrá primary (výchozí na světlém pozadí)
-   .eyebrow-green — zelená accent (alternativa na bílém pozadí)
-   .eyebrow-gold  — bílá/zelená (pouze na tmavém pozadí)
-*/
+/* ─── Eyebrow labels ─── */
 .eyebrow {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .18em;
@@ -397,15 +392,20 @@ section h2 { text-shadow: 0 1px 0 rgba(0,0,0,.06); }
 /* ─── Testimonial cards ─── */
 .testi-card { background: #fff; border: 1px solid rgba(26,101,168,.12); border-top: 3px solid var(--accent); }
 
-/* ─── Partner cards — zachováno přesně z repo, BEZ grayscale ─── */
+/* ─── Partner cards ─── */
 .partner-card {
   background: #fff; border: 1px solid rgba(26,101,168,.1);
-  border-radius: 12px; padding: 2rem 1.5rem;
+  border-radius: 10px; padding: 1.5rem;
   display: flex; flex-direction: column; align-items: center; text-align: center;
-  transition: transform .25s, box-shadow .25s;
+  transition: box-shadow .2s, transform .2s;
 }
-.partner-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(26,101,168,.13); }
-.partner-logo { max-height: 60px; width: auto; max-width: 140px; object-fit: contain; margin-bottom: 1rem; }
+.partner-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(26,101,168,.1); }
+.partner-logo {
+  height: 64px; width: auto; max-width: 160px;
+  object-fit: contain; margin-bottom: 1rem;
+  transition: opacity .2s;
+}
+.partner-logo:hover { opacity: .85; }
 .partner-logo-placeholder {
   width: 64px; height: 64px; border-radius: 50%;
   background: var(--surface-2);
@@ -478,6 +478,9 @@ footer { background: var(--ink); color: rgba(255,255,255,.65); border-top: 3px s
 }
 .field:focus { border-color: var(--primary); }
 .field::placeholder { color: #9ca3af; }
+
+/* ─── Club logo ─── */
+.logo-img { height: 44px; width: auto; object-fit: contain; }
 
 /* ─── Player roster ─── */
 .player-card {
