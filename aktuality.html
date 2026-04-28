@@ -74,8 +74,8 @@
     <a href="index.html" class="flex items-center gap-3">
       <img src="img/logo/logo-sk-vrbova-lhota.png" alt="SK Vrbová Lhota z.s. logo" class="logo-img" />
       <div class="leading-tight">
-        <div class="font-headline font-bold text-sm lg:text-base" style="color:var(--primary)">SK Vrbová Lhota z.s.</div>
-        <div class="text-xs font-semibold tracking-widest uppercase hidden sm:block" style="color:var(--muted)">Fotbalový klub · 1998</div>
+        <div class="font-headline font-bold text-sm lg:text-base" style="color:var(--primary)">SK Vrbová Lhota 98 z.s.</div>
+        <div class="text-xs font-semibold tracking-widest uppercase hidden sm:block" style="color:var(--muted)">FOTBALOVÝ KLUB</div>
       </div>
     </a>
     <nav class="hidden lg:flex items-center gap-8" aria-label="Hlavní navigace">
@@ -186,7 +186,7 @@
         <div class="flex items-center gap-4 mb-4">
           <img src="img/logo/logo-sk-vrbova-lhota.png" alt="Logo SK Vrbová Lhota z.s." style="height:44px;width:auto" />
           <div>
-            <div class="font-headline font-bold text-white">Sportovní klub Vrbová Lhota 98</div>
+            <div class="font-headline font-bold text-white">Sportovní klub Vrbová Lhota 98 z.s.</div>
             <div class="text-xs font-semibold tracking-widest uppercase" style="color:var(--accent)">Fotbalový klub · Nymburk</div>
           </div>
         </div>
@@ -202,7 +202,9 @@
         <a href="index.html#partneri" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Partneři</a>
         <a href="kontakt.html" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Kontakt</a>
         <a href="https://www.facebook.com/groups/3040897976040534/" target="_blank" rel="noopener"
-           class="text-sm font-semibold transition-colors hover:text-white" style="color:var(--accent-lt)">Facebook →</a>
+           title="Facebook komunita" class="opacity-50 hover:opacity-100 transition-opacity">
+          <img src="img/logo/logo-facebook.svg" alt="Facebook" style="height:22px;width:22px;filter:brightness(0) invert(1)" />
+        </a>
       </nav>
     </div>
     <div class="flex flex-col sm:flex-row justify-between items-center gap-3 py-6 text-sm" style="color:rgba(255,255,255,.4)">
@@ -246,10 +248,6 @@
             <div class="news-date">${item.datum_text}</div>
             <h2 class="news-title">${item.titulek}</h2>
             <p class="news-perex">${item.perex}</p>
-            <span class="news-read-more">
-              Číst více
-              <span class="material-symbols-outlined" style="font-size:.9rem">arrow_forward</span>
-            </span>
           </div>
         </article>
       `).join('');

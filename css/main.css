@@ -5,8 +5,8 @@
   --primary-lt: #2278c5;
   --accent:     #2f8f4e;
   --accent-lt:  #3aa76d;
-  --surface:    #f5f8fc;
-  --surface-2:  #e8f0f8;
+  --surface:    #f3f9f5;
+  --surface-2:  #e5f0e9;
   --ink:        #0a1628;
   --text:       #111827;
   --muted:      #3d5a7a;
@@ -144,23 +144,23 @@ img { display: block; }
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: .7rem; font-weight: 700;
   text-transform: uppercase; letter-spacing: .18em;
-  color: var(--primary);
+  color: var(--accent);
   display: inline-flex; align-items: center; gap: .6rem;
 }
 .eyebrow::before {
   content: ''; display: inline-block; width: 24px; height: 2px;
-  background: var(--primary); flex-shrink: 0;
+  background: var(--accent); flex-shrink: 0;
 }
 .eyebrow-green {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: .7rem; font-weight: 700;
   text-transform: uppercase; letter-spacing: .18em;
-  color: var(--primary);
+  color: var(--accent);
   display: inline-flex; align-items: center; gap: .6rem;
 }
 .eyebrow-green::before {
   content: ''; display: inline-block; width: 24px; height: 2px;
-  background: var(--primary); flex-shrink: 0;
+  background: var(--accent); flex-shrink: 0;
 }
 .eyebrow-gold {
   font-family: 'Plus Jakarta Sans', sans-serif;
