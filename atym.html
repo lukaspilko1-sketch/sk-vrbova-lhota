@@ -285,20 +285,51 @@
       // Soupiska
       const grid  = document.getElementById('soupiska-grid');
       const empty = document.getElementById('soupiska-empty');
+      const poziceOrder = ['Brankář', 'Obránce', 'Záložník', 'Útočník'];
+      const poziceLabel = { 'Brankář': 'Brankáři', 'Obránce': 'Obránci', 'Záložník': 'Záložníci', 'Útočník': 'Útočníci' };
+      const poziceBarva = { 'Brankář': '#e67e22', 'Obránce': '#2980b9', 'Záložník': '#27ae60', 'Útočník': '#c0392b' };
+
       const hrace = (d.soupiska || []).filter(h => h.jmeno);
+
       if (hrace.length) {
-        const poziceBarva = { 'Brankář': '#e67e22', 'Obránce': '#2980b9', 'Záložník': '#27ae60', 'Útočník': '#c0392b' };
-        grid.innerHTML = hrace.map((h, i) => `
-          <div class="player-card reveal" style="transition-delay:${(i % 6) * 50}ms">
-            <div class="player-num">${String(i + 1).padStart(2, '0')}</div>
-            <div class="flex-1 min-w-0">
-              <div class="font-semibold text-sm" style="color:var(--text)">${h.jmeno}</div>
-              <div class="flex items-center gap-2 mt-1 flex-wrap">
-                <span class="player-pos" style="background:${(poziceBarva[h.pozice] || 'var(--primary)') + '18'};color:${poziceBarva[h.pozice] || 'var(--primary)'}">${h.pozice}</span>
-                ${h.rocnik ? `<span class="text-xs font-semibold" style="color:var(--muted)">*${h.rocnik}</span>` : ''}
+        let html = '';
+        let celkovePoradi = 0;
+
+        poziceOrder.forEach(pozice => {
+          const skupina = hrace.filter(h => h.pozice === pozice);
+          if (!skupina.length) return;
+
+          const barva = poziceBarva[pozice];
+          html += `
+            <div class="col-span-full mb-2 mt-6 first:mt-0 reveal">
+              <div class="flex items-center gap-3">
+                <span style="display:inline-block;width:4px;height:1.5rem;background:${barva};border-radius:2px;flex-shrink:0"></span>
+                <h3 class="font-headline text-lg font-bold" style="color:${barva}">${poziceLabel[pozice]}</h3>
+                <span class="text-xs font-bold px-2 py-0.5" style="background:${barva}18;color:${barva};border-radius:4px">${skupina.length}</span>
               </div>
+              <hr style="border:none;border-top:1px solid ${barva}22;margin-top:.5rem" />
             </div>
-          </div>`).join('');
+          `;
+
+          skupina.forEach((h, i) => {
+            celkovePoradi++;
+            html += `
+              <div class="player-card reveal" style="transition-delay:${(i % 6) * 50}ms;border-left:3px solid ${barva}">
+                <div class="player-num" style="color:${barva}22">${String(celkovePoradi).padStart(2, '0')}</div>
+                <div class="flex-1">
+                  <div class="font-semibold text-sm" style="color:var(--text)">${h.jmeno}</div>
+                  <div class="flex items-center gap-2 mt-0.5">
+                    <span class="player-pos" style="background:${barva}18;color:${barva}">${h.pozice}</span>
+                    ${h.rocnik ? `<span class="text-xs" style="color:var(--muted)">*${h.rocnik}</span>` : ''}
+                  </div>
+                </div>
+              </div>
+            `;
+          });
+        });
+
+        grid.innerHTML = html;
+        grid.classList.add('soupiska-grouped');
         if (window.observeReveal) window.observeReveal(grid);
       } else {
         empty.classList.remove('hidden');
