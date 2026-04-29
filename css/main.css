@@ -290,7 +290,7 @@ section h2 { text-shadow: 0 1px 0 rgba(0,0,0,.06); }
 
 /* ─── Hero: desktop layout ─── */
 @media (min-width: 1024px) {
-  #hero { display: flex; align-items: flex-end; min-height: 76svh; }
+  #hero { display: flex; align-items: center; min-height: 76svh; }
 }
 
 /* ─── Hero: mobile — text first, image below ─── */

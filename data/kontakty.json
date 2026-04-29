@@ -1,9 +1,9 @@
 {
   "osoby": [
-    { "funkce": "Předseda",       "jmeno": "", "tel": "", "email": "" },
-    { "funkce": "Místopředseda",  "jmeno": "", "tel": "", "email": "" },
-    { "funkce": "Manažer",        "jmeno": "", "tel": "", "email": "" },
-    { "funkce": "Skaut",          "jmeno": "", "tel": "", "email": "" },
-    { "funkce": "Základna 98",    "jmeno": "", "tel": "", "email": "" }
+    { "funkce": "Předseda klubu",                                    "jmeno": "Michal Vítězslav",       "tel": "+420 724 460 054", "email": "info@vrbovka98.cz" },
+    { "funkce": "Místopředseda, manažer klubu, šéftrenér mládeže",  "jmeno": "Jiří Vaněk",             "tel": "+420 773 940 809", "email": "info@vrbovka98.cz" },
+    { "funkce": "Trenér A mužstva",                                  "jmeno": "Josef Dudek",            "tel": "+420 721 459 831", "email": "info@vrbovka98.cz" },
+    { "funkce": "Skaut klubu",                                       "jmeno": "Pavel Pojikar, Mgr. Bc.", "tel": "+420 606 220 653", "email": "skaut@vrbovka98.cz" },
+    { "funkce": "Základna 98",                                       "jmeno": "",                       "tel": "",                 "email": "zakladna@vrbovka98.cz" }
   ]
 }

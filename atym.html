@@ -291,9 +291,12 @@
         grid.innerHTML = hrace.map((h, i) => `
           <div class="player-card reveal" style="transition-delay:${(i % 6) * 50}ms">
             <div class="player-num">${String(i + 1).padStart(2, '0')}</div>
-            <div>
+            <div class="flex-1 min-w-0">
               <div class="font-semibold text-sm" style="color:var(--text)">${h.jmeno}</div>
-              <span class="player-pos" style="background:${(poziceBarva[h.pozice] || 'var(--primary)') + '18'};color:${poziceBarva[h.pozice] || 'var(--primary)'}">${h.pozice}</span>
+              <div class="flex items-center gap-2 mt-1 flex-wrap">
+                <span class="player-pos" style="background:${(poziceBarva[h.pozice] || 'var(--primary)') + '18'};color:${poziceBarva[h.pozice] || 'var(--primary)'}">${h.pozice}</span>
+                ${h.rocnik ? `<span class="text-xs font-semibold" style="color:var(--muted)">*${h.rocnik}</span>` : ''}
+              </div>
             </div>
           </div>`).join('');
         if (window.observeReveal) window.observeReveal(grid);
