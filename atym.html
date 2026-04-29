@@ -318,10 +318,7 @@
                 <div class="player-num" style="color:${barva}22">${String(celkovePoradi).padStart(2, '0')}</div>
                 <div class="flex-1">
                   <div class="font-semibold text-sm" style="color:var(--text)">${h.jmeno}</div>
-                  <div class="flex items-center gap-2 mt-0.5">
-                    <span class="player-pos" style="background:${barva}18;color:${barva}">${h.pozice}</span>
-                    ${h.rocnik ? `<span class="text-xs" style="color:var(--muted)">*${h.rocnik}</span>` : ''}
-                  </div>
+                  ${h.rocnik ? `<div class="mt-0.5"><span class="text-xs" style="color:var(--muted)">*${h.rocnik}</span></div>` : ''}
                 </div>
               </div>
             `;
