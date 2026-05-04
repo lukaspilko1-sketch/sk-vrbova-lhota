@@ -60,11 +60,14 @@ img { display: block; }
 /* ─── Nav pill (Kontakt) ─── */
 .nav-link-pill {
   font-size: .82rem; font-weight: 800; text-transform: uppercase; letter-spacing: .09em;
-  color: #fff; background: var(--accent);
-  padding: .35rem .85rem; border-radius: 5px;
-  transition: background .2s;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+  padding: .3rem .75rem; border-radius: 5px;
+  transition: background .2s, color .2s;
 }
-.nav-link-pill:hover { background: var(--accent-lt); }
+.nav-link-pill:hover {
+  background: rgba(47,143,78,.1);
+}
 
 /* ─── Nav Dropdown ─── */
 .nav-dropdown { position: relative; display: flex; align-items: center; }
