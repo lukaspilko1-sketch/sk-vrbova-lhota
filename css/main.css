@@ -57,6 +57,15 @@ img { display: block; }
 .nav-link-accent { color: var(--accent) !important; }
 .nav-link-accent::after { background: var(--accent) !important; }
 
+/* ─── Nav pill (Kontakt) ─── */
+.nav-link-pill {
+  font-size: .82rem; font-weight: 800; text-transform: uppercase; letter-spacing: .09em;
+  color: #fff; background: var(--accent);
+  padding: .35rem .85rem; border-radius: 5px;
+  transition: background .2s;
+}
+.nav-link-pill:hover { background: var(--accent-lt); }
+
 /* ─── Nav Dropdown ─── */
 .nav-dropdown { position: relative; display: flex; align-items: center; }
 .nav-dropdown-btn { display: inline-flex; align-items: center; gap: .35rem; }
