@@ -158,7 +158,7 @@
         <!-- Match info — nad logem -->
         <div class="hero-match-line mb-5">
           <span class="material-symbols-outlined ms-fill match-icon" style="font-size:1rem">sports_soccer</span>
-          Neděle 10. 5. · 17:00 &nbsp;—&nbsp; SK Vrbová Lhota 98 vs SK Dobřichov
+          <span id="hero-match-line-text">Neděle 10. 5. · 17:00 &nbsp;—&nbsp; SK Vrbová Lhota 98 vs SK Dobřichov</span>
         </div>
 
         <!-- Logo SK Vrbová Lhota -->
@@ -169,12 +169,12 @@
 
         <!-- H1 -->
         <h1 class="font-headline text-5xl sm:text-6xl lg:text-[4.25rem] font-bold leading-[1.05] mt-8 mb-5">
-          <span style="color:var(--primary)">Hrajeme za Vrbovku.</span><br>
-          <span style="color:var(--accent)">Přijď mezi nás.</span>
+          <span id="hero-nadpis-modry" style="color:var(--primary)">Hrajeme za Vrbovku.</span><br>
+          <span id="hero-nadpis-zeleny" style="color:var(--accent)">Přijď mezi nás.</span>
         </h1>
 
         <!-- Perex -->
-        <p class="text-base leading-relaxed mb-3 max-w-md" style="color:var(--muted)">
+        <p id="hero-perex" class="text-base leading-relaxed mb-3 max-w-md" style="color:var(--muted)">
           Místní fotbalový klub. Tradice na Nymbursku. Od roku 1998.
         </p>
 
@@ -233,18 +233,18 @@
       <!-- Date / time -->
       <div class="flex items-center gap-3 mb-6">
         <div class="px-3 py-1.5 text-center flex-shrink-0" style="background:var(--accent);min-width:56px">
-          <div class="text-white font-black text-2xl leading-none">10</div>
-          <div class="text-green-100 text-xs font-bold uppercase tracking-wide">kvě</div>
+          <div id="zapas-den" class="text-white font-black text-2xl leading-none">10</div>
+          <div id="zapas-mesic" class="text-green-100 text-xs font-bold uppercase tracking-wide">kvě</div>
         </div>
         <div>
-          <div class="text-white font-bold">Neděle · 17:00</div>
+          <div id="zapas-cas" class="text-white font-bold">Neděle · 17:00</div>
           <div class="text-blue-200 text-sm flex items-center gap-1 mt-0.5">
             <span class="material-symbols-outlined" style="font-size:.9rem">location_on</span>
-            Hřiště Vrbová Lhota
+            <span id="zapas-misto">Hřiště Vrbová Lhota</span>
           </div>
         </div>
         <div class="ml-auto flex-shrink-0">
-          <span class="px-2 py-1 text-xs font-bold uppercase tracking-wider text-white" style="background:rgba(0,0,0,.25)">Domácí</span>
+          <span id="zapas-domaci-badge" class="px-2 py-1 text-xs font-bold uppercase tracking-wider text-white" style="background:rgba(0,0,0,.25)">Domácí</span>
         </div>
       </div>
 
@@ -260,14 +260,14 @@
         <div class="text-white font-black text-3xl font-headline px-6">VS</div>
         <div class="flex items-center gap-3 flex-1 justify-end text-right">
           <div>
-            <div class="text-white font-bold leading-tight">SK Dobřichov</div>
+            <div id="zapas-souper" class="text-white font-bold leading-tight">SK Dobřichov</div>
             <div class="text-blue-200 text-xs">Hosté</div>
           </div>
           <span class="material-symbols-outlined ms-fill text-green-300 flex-shrink-0" style="font-size:2.5rem">sports_soccer</span>
         </div>
       </div>
 
-      <div class="text-center text-blue-200 text-xs">9. liga sk. B · Středočeský kraj</div>
+      <div id="zapas-soutez" class="text-center text-blue-200 text-xs">9. liga sk. B · Středočeský kraj</div>
     </div>
 
     <!-- Sledujte nás -->
@@ -278,12 +278,12 @@
         <p class="text-white font-semibold">Aktuální výsledky a tabulka na fotbal.cz</p>
       </div>
       <div class="flex flex-wrap gap-3 flex-shrink-0">
-        <a href="https://www.fotbal.cz/souteze/turnaje/hlavni/26809f2b-5859-4129-a4e8-891d1dc7cdf3"
+        <a id="link-vysledky" href="https://www.fotbal.cz/souteze/turnaje/hlavni/26809f2b-5859-4129-a4e8-891d1dc7cdf3"
            target="_blank" rel="noopener" class="btn-ghost-white">
           <span class="material-symbols-outlined ms-fill" style="font-size:1rem">history</span>
           Výsledky
         </a>
-        <a href="https://www.fotbal.cz/souteze/turnaje/table/26809f2b-5859-4129-a4e8-891d1dc7cdf3"
+        <a id="link-tabulka" href="https://www.fotbal.cz/souteze/turnaje/table/26809f2b-5859-4129-a4e8-891d1dc7cdf3"
            target="_blank" rel="noopener" class="btn-green">
           <span class="material-symbols-outlined ms-fill" style="font-size:1rem">leaderboard</span>
           Tabulka
@@ -758,11 +758,11 @@
       <div class="flex flex-wrap gap-5">
         <span class="flex items-center gap-1.5">
           <span class="material-symbols-outlined" style="font-size:1rem">phone</span>
-          +420 773 940 809
+          <span id="footer-telefon">+420 773 940 809</span>
         </span>
         <span class="flex items-center gap-1.5">
           <span class="material-symbols-outlined" style="font-size:1rem">location_on</span>
-          U Lindovy 191, Vrbová Lhota, 289 11
+          <span id="footer-adresa">U Lindovy 191, Vrbová Lhota, 289 11</span>
         </span>
       </div>
       <div class="text-xs" style="color:rgba(255,255,255,.3)">
@@ -833,5 +833,61 @@
     .catch(() => {});
 </script>
 
+
+<script>
+  // ─── Nastavení: load from data/nastaveni.json ───
+  (async () => {
+    try {
+      const r = await fetch('data/nastaveni.json?t=' + Date.now());
+      if (!r.ok) return;
+      const d = await r.json();
+
+      // Hero
+      const set = (id, val) => { const el = document.getElementById(id); if (el && val != null) el.textContent = val; };
+
+      set('hero-match-line-text', d.nejblizsi_zapas?.match_line_text);
+      set('hero-nadpis-modry',    d.hero?.nadpis_modry);
+      set('hero-nadpis-zeleny',   d.hero?.nadpis_zeleny);
+      set('hero-perex',           d.hero?.perex);
+
+      // Nejbližší zápas
+      const z = d.nejblizsi_zapas;
+      if (z) {
+        set('zapas-den',          z.datum_den);
+        set('zapas-mesic',        z.datum_mesic);
+        set('zapas-cas',          z.den_v_tydnu + ' · ' + z.cas);
+        set('zapas-misto',        z.misto);
+        set('zapas-souper',       z.souper_nazev);
+        set('zapas-soutez',       z.soutez);
+        set('zapas-domaci-badge', z.domaci ? 'Domácí' : 'Hosté');
+      }
+
+      // Stats counters — aktualizuj data-target a reinicializuj animaci
+      if (d.stats) {
+        const targets = [d.stats.tradice_let, d.stats.pocet_oddilu, d.stats.pocet_clenu];
+        document.querySelectorAll('.counter').forEach((el, i) => {
+          if (targets[i] != null) el.dataset.target = targets[i];
+        });
+        // Reinicializuj counter animaci pokud je base.js ji vystavuje
+        if (typeof window.initCounters === 'function') window.initCounters();
+      }
+
+      // Soutěž odkazy
+      if (d.soutez_odkazy) {
+        const lv = document.getElementById('link-vysledky');
+        if (lv && d.soutez_odkazy.vysledky_url) lv.href = d.soutez_odkazy.vysledky_url;
+        const lt = document.getElementById('link-tabulka');
+        if (lt && d.soutez_odkazy.tabulka_url)  lt.href = d.soutez_odkazy.tabulka_url;
+      }
+
+      // Footer kontakt
+      set('footer-telefon', d.kontakt_global?.telefon);
+      set('footer-adresa',  d.kontakt_global?.adresa);
+
+    } catch (_) {
+      // fallback — původní pevné texty zůstanou
+    }
+  })();
+</script>
 </body>
 </html>

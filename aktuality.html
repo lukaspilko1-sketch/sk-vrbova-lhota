@@ -137,6 +137,7 @@
     <div class="reveal" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;background:var(--surface-2);box-shadow:0 4px 20px rgba(26,101,168,.1)">
       <!-- Doplňte YouTube ID: změňte YOUTUBE_VIDEO_ID na skutečné ID -->
       <iframe
+        id="hymna-iframe"
         src="https://www.youtube.com/embed/fl9_3GqrY80"
         title="Hymna SK Vrbová Lhota z.s."
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -224,6 +225,18 @@
 
 <script src="js/base.js"></script>
 <script>
+  // ─── Hymna: YouTube ID z nastaveni.json ───
+  fetch('data/nastaveni.json?t=' + Date.now())
+    .then(r => r.json())
+    .then(d => {
+      const ytId = d?.hymna?.youtube_id;
+      if (ytId) {
+        const iframe = document.getElementById('hymna-iframe');
+        if (iframe) iframe.src = 'https://www.youtube.com/embed/' + ytId;
+      }
+    })
+    .catch(() => {});
+
   fetch('data/aktuality.json')
     .then(r => r.json())
     .then(items => {
