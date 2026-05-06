@@ -479,57 +479,80 @@ section h2 { text-shadow: 0 1px 0 rgba(0,0,0,.06); }
 section { padding: 5rem 0; }
 
 /* ─── Footer ─── */
-footer { background: var(--ink); border-top: 3px solid var(--primary); }
-
-.site-footer {
-  color: rgba(255,255,255,0.65);
-  text-align: center;
-  padding: 24px 20px 20px;
-  font-size: 0.85em;
+footer {
+  background: #1a2f4a;
+  padding: 48px 40px 28px;
+  color: rgba(255,255,255,0.7);
+  font-size: 13px;
 }
 
-.footer-contact {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 6px 0;
-  margin-bottom: 8px;
-  color: rgba(255,255,255,0.85);
+.footer-inner {
+  max-width: 900px;
+  margin: 0 auto;
 }
 
-.footer-legal {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0;
-  color: rgba(255,255,255,0.5);
+.footer-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 32px;
+  border-bottom: 0.5px solid rgba(255,255,255,0.1);
 }
 
-.footer-sep {
-  margin: 0 8px;
-  opacity: 0.4;
+.footer-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.35);
+  margin: 0 0 14px;
 }
 
-.site-footer a {
-  color: inherit;
+.footer-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.9);
+  margin: 0 0 5px;
+}
+
+.footer-muted {
+  color: rgba(255,255,255,0.4);
+  margin: 0 0 4px;
+  font-size: 13px;
+}
+
+.footer-text {
+  margin: 0 0 8px;
+  color: rgba(255,255,255,0.7);
+}
+
+footer a {
+  color: rgba(255,255,255,0.7);
   text-decoration: none;
-  opacity: 0.9;
 }
 
-.site-footer a:hover {
+footer a:hover {
+  color: rgba(255,255,255,1);
   text-decoration: underline;
-  opacity: 1;
 }
 
-@media (max-width: 600px) {
-  .footer-contact,
-  .footer-legal {
-    flex-direction: column;
-    gap: 4px;
-  }
-  .footer-sep { display: none; }
+.footer-fb {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.footer-bottom {
+  padding-top: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255,255,255,0.25);
+}
+
+.footer-bottom p { margin: 0; }
+
+@media (max-width: 640px) {
+  footer { padding: 36px 20px 24px; }
+  .footer-columns { grid-template-columns: 1fr; gap: 28px; }
 }
 
 /* ─── Material icons ─── */
@@ -612,7 +635,6 @@ footer { background: var(--ink); border-top: 3px solid var(--primary); }
   text-decoration: underline;
 }
 
-/* ─── Footer legal ─── (styles moved to .site-footer block above) */
 
 /* ─── GDPR page prose ─── */
 .gdpr-prose { max-width: 720px; margin: 0 auto; }
