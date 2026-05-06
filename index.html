@@ -716,6 +716,11 @@
           Něco se pokazilo. Zkuste to prosím znovu nebo nás kontaktujte přímo.
         </div>
 
+        <label class="gdpr-souhlas">
+          <input type="checkbox" name="gdpr" id="gdpr" required>
+          Souhlasím se <a href="gdpr.html" target="_blank">zpracováním osobních údajů</a>
+        </label>
+
         <button type="submit" id="form-submit" class="btn-primary w-full justify-center text-sm py-4">
           <span class="material-symbols-outlined ms-fill" style="font-size:1.2rem">send</span>
           <span id="btn-text">Odeslat zprávu</span>
@@ -778,11 +783,17 @@
       </div>
     </div>
 
+    <div class="footer-legal">
+      <p>Sportovní klub Vrbová Lhota 98, z.s. &nbsp;|&nbsp; IČO: 69056072 &nbsp;|&nbsp; U Lindovy 191, 289 11 Vrbová Lhota</p>
+      <p><a href="gdpr.html">Ochrana osobních údajů</a></p>
+    </div>
+
   </div>
 </footer>
 
 <!-- ══ JAVASCRIPT ══ -->
 <script src="js/base.js"></script>
+<script src="js/cookies.js"></script>
 <script>
   // ─── Formspree AJAX ───
   const form        = document.getElementById('contact-form');
