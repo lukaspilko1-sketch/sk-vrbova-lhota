@@ -303,6 +303,28 @@
 - JS specifický pro stránku: inline `<script>` na konci `<body>`
 - Data pro stránky: `data/*.json`
 
+### Footer — struktura
+
+Footer je sdílený na všech stránkách, CSS v `css/main.css` (selektor `footer` + `.footer-*`).
+Barva pozadí: `#1a2f4a`. Struktura:
+
+```html
+<footer>
+  <div class="footer-inner">
+    <div class="footer-columns">
+      <div class="footer-col"> <!-- Klub: název, IČO, adresa --> </div>
+      <div class="footer-col"> <!-- Kontakt: telefon, Facebook --> </div>
+      <div class="footer-col"> <!-- Informace: GDPR, REKLAMA_PLACEHOLDER --> </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span class="js-year">2026</span> Sportovní klub Vrbová Lhota 98, z.s.</p>
+    </div>
+  </div>
+</footer>
+```
+
+`<!-- REKLAMA_PLACEHOLDER -->` v třetím sloupci je záměrné — místo pro budoucí obsah.
+
 ### Šablona nové stránky
 
 Každá nová stránka musí mít:
@@ -311,8 +333,7 @@ Každá nová stránka musí mít:
 - Identickou navigaci (header + mobile nav)
 - `<script src="js/base.js"></script>`
 - `<script src="js/cookies.js"></script>`
-- `footer-legal` blok ve footeru
-- `<span class="js-year">` v copyright textu
+- Footer dle šablony výše (zkopírovat z existující stránky)
 
 ---
 
@@ -330,6 +351,7 @@ Každá nová stránka musí mít:
 | 2026-05-06 | 2.5.0 | Admin panel (`admin/`); `data/nastaveni.json`; dynamická data v `index.html` |
 | 2026-05-06 | 2.6.0 | SEO — meta tagy, JSON-LD, `robots.txt`, `sitemap.xml`; automatický copyright rok |
 | 2026-05-06 | 2.7.0 | GDPR — `gdpr.html`, cookie bar, footer-legal, GDPR checkbox, youtube-nocookie.com |
+| 2026-05-06 | 2.8.0 | Footer — nový 3-sloupcový layout (Klub / Kontakt / Informace), pozadí `#1a2f4a` |
 
 ---
 
@@ -350,4 +372,4 @@ Každá nová stránka musí mít:
 
 ---
 
-*Poslední aktualizace CLAUDE.md: 6. května 2026*
+*Poslední aktualizace CLAUDE.md: 6. května 2026 (v2)*
