@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Admin sekce není určena pro indexaci
+Disallow: /admin/
+
+# Zálohy JSON souborů
+Disallow: /*.bak
+
+Sitemap: https://vrbovka98.cz/sitemap.xml
