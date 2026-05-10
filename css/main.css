@@ -559,10 +559,14 @@ footer a:hover {
   width: auto;
   display: block;
   opacity: 0.85;
-  transition: opacity 0.2s;
+  filter: drop-shadow(0 0 0px transparent);
+  transition: opacity 0.2s, filter 0.2s;
 }
 
-.footer-logo-link:hover img { opacity: 1; }
+.footer-logo-link:hover img {
+  opacity: 1;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.45));
+}
 .footer-logo-link:hover { text-decoration: none; }
 
 @media (max-width: 640px) {
