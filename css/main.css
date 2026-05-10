@@ -558,11 +558,11 @@ footer a:hover {
   height: 39px;
   width: auto;
   display: block;
-  opacity: 0.55;
+  opacity: 0.85;
   transition: opacity 0.2s;
 }
 
-.footer-logo-link:hover img { opacity: 0.9; }
+.footer-logo-link:hover img { opacity: 1; }
 .footer-logo-link:hover { text-decoration: none; }
 
 @media (max-width: 640px) {
