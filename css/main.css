@@ -554,7 +554,7 @@ footer a:hover {
 
 .footer-bottom p {
   margin: 0;
-  margin-left: 20px;
+  margin-left: 22px;
 }
 
 .footer-logo-link img {
@@ -575,6 +575,8 @@ footer a:hover {
 @media (max-width: 640px) {
   footer { padding: 36px 20px 24px; }
   .footer-columns { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { row-gap: 10px; }
+  .footer-bottom p { margin-left: 0; }
 }
 
 /* ─── Material icons ─── */
