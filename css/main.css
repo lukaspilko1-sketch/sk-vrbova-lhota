@@ -548,11 +548,16 @@ footer a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 0;
   flex-wrap: wrap;
 }
 
-.footer-bottom p { margin: 0; }
+.footer-bottom p {
+  margin: 0;
+  padding-left: 20px;
+  border-left: 1px solid rgba(255,255,255,0.15);
+  margin-left: 20px;
+}
 
 .footer-logo-link img {
   height: 39px;
