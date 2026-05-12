@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "nazev_klubu": "SK Vrbová Lhota 98 z.s.",
+    "popis": "Místní fotbalový klub ve Vrbové Lhotě. Sport, přátelství a fair play od roku 1998.",
+    "rok_zalozeni": 1998
+  },
+  "kontakt_global": {
+    "telefon": "+420 773 940 809",
+    "email": "info@vrbovka98.cz",
+    "adresa": "U Lindovy 191, Vrbová Lhota, 289 11",
+    "facebook_url": "https://www.facebook.com/groups/3040897976040534/",
+    "maps_url": "https://maps.google.com/?q=Vrbová+Lhota+U+Lindovy+191"
+  },
+  "hero": {
+    "nadpis_modry": "Hrajeme za Vrbovku.",
+    "nadpis_zeleny": "Přijď mezi nás.",
+    "perex": "Místní fotbalový klub. Tradice na Nymbursku. Od roku 1998."
+  },
+  "nejblizsi_zapas": {
+    "datum_den": "10",
+    "datum_mesic": "kvě",
+    "den_v_tydnu": "Neděle",
+    "cas": "17:00",
+    "domaci": true,
+    "soutez": "9. liga sk. B · Středočeský kraj",
+    "misto": "Hřiště Vrbová Lhota",
+    "souper_nazev": "SK Dobřichov",
+    "match_line_text": "Neděle 10. 5. · 17:00 — SK Vrbová Lhota 98 vs SK Dobřichov"
+  },
+  "stats": {
+    "tradice_let": 90,
+    "pocet_oddilu": 2,
+    "pocet_clenu": 50
+  },
+  "soutez_odkazy": {
+    "vysledky_url": "https://www.fotbal.cz/souteze/turnaje/hlavni/26809f2b-5859-4129-a4e8-891d1dc7cdf3",
+    "tabulka_url": "https://www.fotbal.cz/souteze/turnaje/table/26809f2b-5859-4129-a4e8-891d1dc7cdf3"
+  },
+  "hymna": {
+    "youtube_id": "fl9_3GqrY80"
+  },
+  "footer": {
+    "copyright_rok": 2025,
+    "copyright_text": "Sportovní klub Vrbová Lhota 98 · Všechna práva vyhrazena"
+  }
+}

@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin — SK Vrbová Lhota</title>
+<style>
+/* ─── Variables ─── */
+:root {
+  --sb-bg:     #0a1c35;
+  --sb-active: #1a65a8;
+  --sb-hover:  rgba(255,255,255,.07);
+  --sb-text:   rgba(255,255,255,.75);
+  --sb-muted:  rgba(255,255,255,.4);
+  --accent:    #2f8f4e;
+  --accent-lt: #3aa76d;
+  --primary:   #1a65a8;
+  --danger:    #dc2626;
+  --warning:   #d97706;
+  --bg:        #f1f5f9;
+  --card:      #ffffff;
+  --border:    #e2e8f0;
+  --text:      #111827;
+  --muted:     #6b7280;
+  --inp-focus: #1a65a8;
+  --sb-w:      240px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 14px; }
+body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; overflow-x: hidden; }
+
+/* ─── Layout ─── */
+#sidebar {
+  width: var(--sb-w); min-height: 100vh; background: var(--sb-bg);
+  display: flex; flex-direction: column; position: fixed; left: 0; top: 0; bottom: 0; z-index: 100;
+  transition: transform .3s ease;
+}
+#page { margin-left: var(--sb-w); flex: 1; display: flex; flex-direction: column; min-width: 0; }
+
+/* ─── Sidebar ─── */
+#sb-logo {
+  padding: 1.25rem 1.25rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+#sb-logo strong { display: block; color: #fff; font-size: .95rem; line-height: 1.3; }
+#sb-logo span   { color: var(--accent-lt); font-size: .7rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; }
+#sb-nav { flex: 1; padding: .75rem 0; overflow-y: auto; }
+.nav-item {
+  display: flex; align-items: center; gap: .65rem;
+  padding: .65rem 1.25rem; color: var(--sb-text);
+  font-size: .82rem; font-weight: 600; cursor: pointer;
+  border: none; background: none; width: 100%; text-align: left;
+  transition: background .15s, color .15s;
+  border-radius: 0;
+}
+.nav-item:hover { background: var(--sb-hover); color: #fff; }
+.nav-item.active { background: var(--sb-active); color: #fff; }
+.nav-item .nav-icon { font-size: 1rem; width: 1.25rem; text-align: center; flex-shrink: 0; }
+#sb-footer {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+#sb-footer a {
+  color: var(--sb-muted); font-size: .78rem; text-decoration: none;
+  display: flex; align-items: center; gap: .4rem;
+  transition: color .15s;
+}
+#sb-footer a:hover { color: #fff; }
+
+/* ─── Topbar ─── */
+#topbar {
+  position: sticky; top: 0; z-index: 50;
+  background: #fff; border-bottom: 1px solid var(--border);
+  padding: 0 1.5rem; height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+}
+#topbar-title { font-size: 1rem; font-weight: 700; color: var(--primary); }
+#topbar-toggle { display: none; background: none; border: none; cursor: pointer; font-size: 1.4rem; color: var(--text); padding: .25rem; }
+#topbar-logout { font-size: .78rem; color: var(--muted); text-decoration: none; font-weight: 600; }
+#topbar-logout:hover { color: var(--danger); }
+
+/* ─── Content ─── */
+#main-content { flex: 1; padding: 1.5rem; max-width: 960px; }
+
+/* ─── Cards ─── */
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,.04);
+}
+.card-title {
+  font-size: .82rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--primary);
+  margin-bottom: 1rem; padding-bottom: .6rem;
+  border-bottom: 2px solid var(--border);
+}
+
+/* ─── Section header ─── */
+.section-hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1.25rem; flex-wrap: wrap; gap: .5rem;
+}
+.section-hdr h2 { font-size: 1.2rem; font-weight: 800; color: var(--text); }
+.section-actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+
+/* ─── Form fields ─── */
+.field-wrap { margin-bottom: .85rem; }
+.field-wrap label { display: block; font-size: .75rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: .3rem; }
+.inp {
+  width: 100%; padding: .5rem .75rem; font-size: .88rem; font-family: inherit;
+  border: 1px solid var(--border); border-radius: 6px; background: #fff;
+  color: var(--text); transition: border-color .15s, box-shadow .15s;
+  outline: none;
+}
+.inp:focus { border-color: var(--inp-focus); box-shadow: 0 0 0 3px rgba(26,101,168,.12); }
+textarea.inp { resize: vertical; min-height: 80px; }
+select.inp { cursor: pointer; }
+.field-hint { font-size: .7rem; color: var(--muted); margin-top: .25rem; }
+.check-wrap { display: flex; align-items: center; gap: .5rem; cursor: pointer; font-size: .85rem; font-weight: 600; color: var(--text); }
+.check-wrap input[type=checkbox] { width: 15px; height: 15px; cursor: pointer; accent-color: var(--primary); }
+
+/* ─── Grid helpers ─── */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .75rem; }
+
+/* ─── Buttons ─── */
+.btn { display: inline-flex; align-items: center; gap: .4rem; padding: .45rem .9rem; font-size: .8rem; font-weight: 700; border: none; border-radius: 6px; cursor: pointer; transition: opacity .15s, transform .1s; font-family: inherit; white-space: nowrap; }
+.btn:disabled { opacity: .55; cursor: not-allowed; }
+.btn:not(:disabled):active { transform: scale(.97); }
+.btn-primary  { background: var(--primary); color: #fff; }
+.btn-primary:not(:disabled):hover { background: #134e87; }
+.btn-green    { background: var(--accent); color: #fff; }
+.btn-green:not(:disabled):hover { background: #26784f; }
+.btn-danger   { background: var(--danger); color: #fff; }
+.btn-danger:not(:disabled):hover { background: #b91c1c; }
+.btn-ghost    { background: transparent; color: var(--primary); border: 1px solid var(--border); }
+.btn-ghost:not(:disabled):hover { background: #f0f6ff; }
+.btn-sm { padding: .3rem .65rem; font-size: .75rem; }
+
+/* ─── Item cards (aktuality, galerie, …) ─── */
+.item-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; margin-bottom: .75rem; overflow: hidden;
+}
+.item-card-hdr {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+  padding: .85rem 1rem;
+}
+.item-card-hdr .meta { flex: 1; min-width: 0; }
+.item-card-hdr .meta strong { display: block; font-size: .9rem; margin-bottom: .2rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.item-card-hdr .meta small { color: var(--muted); font-size: .75rem; }
+.item-card-actions { display: flex; gap: .4rem; flex-shrink: 0; }
+.item-body { padding: 0 1rem .85rem; font-size: .82rem; color: var(--muted); }
+
+/* ─── Tag badge ─── */
+.tag-badge { display: inline-flex; align-items: center; padding: .15rem .55rem; font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; border-radius: 4px; background: #e0edff; color: var(--primary); margin-right: .4rem; }
+.tag-badge.green { background: #d1fae5; color: #065f46; }
+.tag-badge.orange { background: #fef3c7; color: #92400e; }
+
+/* ─── Edit form panel ─── */
+.edit-panel {
+  background: #f8fbff; border: 1px solid rgba(26,101,168,.15);
+  border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: .75rem;
+}
+.edit-panel h4 { font-size: .82rem; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; color: var(--primary); margin-bottom: .85rem; }
+.form-actions { display: flex; gap: .5rem; margin-top: .85rem; }
+
+/* ─── Thumb ─── */
+.thumb-wrap { position: relative; width: 72px; height: 56px; border-radius: 6px; overflow: hidden; background: var(--bg); border: 1px solid var(--border); flex-shrink: 0; }
+.thumb-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.thumb-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: var(--border); }
+
+/* ─── Table (soupiska, treninky) ─── */
+.data-table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+.data-table th { text-align: left; padding: .4rem .6rem; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); border-bottom: 2px solid var(--border); }
+.data-table td { padding: .35rem .4rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table .inp { padding: .3rem .5rem; font-size: .82rem; }
+.table-wrap { overflow-x: auto; }
+
+/* ─── States ─── */
+.loading-state { text-align: center; padding: 3rem 1rem; color: var(--muted); }
+.empty-state   { text-align: center; padding: 2rem 1rem; color: var(--muted); font-size: .9rem; }
+.error-state   { padding: 1rem; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; color: var(--danger); font-size: .85rem; }
+
+/* ─── Logo preview ─── */
+.logo-preview { max-height: 48px; max-width: 140px; object-fit: contain; margin-top: .4rem; border: 1px solid var(--border); border-radius: 4px; padding: 2px; background: #fff; }
+
+/* ─── Toast ─── */
+#toasts { position: fixed; top: 1rem; right: 1rem; z-index: 9999; display: flex; flex-direction: column; gap: .5rem; pointer-events: none; }
+.toast {
+  padding: .7rem 1.1rem; border-radius: 8px; font-size: .83rem; font-weight: 600;
+  color: #fff; box-shadow: 0 4px 16px rgba(0,0,0,.15);
+  opacity: 0; transform: translateY(-6px);
+  transition: opacity .25s, transform .25s;
+  pointer-events: auto;
+}
+.toast.visible { opacity: 1; transform: translateY(0); }
+.toast-success { background: var(--accent); }
+.toast-error   { background: var(--danger); }
+.toast-warn    { background: var(--warning); }
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  #sidebar { transform: translateX(-100%); }
+  #sidebar.open { transform: translateX(0); box-shadow: 4px 0 20px rgba(0,0,0,.3); }
+  #page { margin-left: 0; }
+  #topbar-toggle { display: block; }
+  #main-content { padding: 1rem; }
+  .g2, .g3 { grid-template-columns: 1fr; }
+  #sb-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 99; display: none; }
+  #sb-overlay.active { display: block; }
+}
+@media (max-width: 480px) {
+  .item-card-hdr { flex-direction: column; gap: .5rem; }
+  .section-actions { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<div id="toasts"></div>
+<div id="sb-overlay"></div>
+
+<!-- ══ SIDEBAR ══ -->
+<aside id="sidebar">
+  <div id="sb-logo">
+    <strong>SK Vrbová Lhota</strong>
+    <span>Správa webu</span>
+  </div>
+  <nav id="sb-nav"></nav>
+  <div id="sb-footer">
+    <a href="#" id="logout-link">&#8592; Odhlásit</a>
+  </div>
+</aside>
+
+<!-- ══ PAGE ══ -->
+<div id="page">
+  <header id="topbar">
+    <button id="topbar-toggle" aria-label="Otevřít menu">&#9776;</button>
+    <span id="topbar-title">Správa webu SK Vrbová Lhota</span>
+    <a href="#" id="topbar-logout" class="btn btn-ghost btn-sm">Odhlásit</a>
+  </header>
+  <main id="main-content">
+    <div class="loading-state">Načítám…</div>
+  </main>
+</div>
+
+<script>
+// ══ CONFIG ══
+const SECTIONS = [
+  { id: 'nastaveni', label: 'Hlavní stránka',  icon: '🏠', file: 'nastaveni.json' },
+  { id: 'aktuality', label: 'Aktuality',        icon: '📰', file: 'aktuality.json' },
+  { id: 'galerie',   label: 'Galerie',           icon: '🖼', file: 'galerie.json'   },
+  { id: 'atym',      label: 'A-tým',             icon: '⚽', file: 'atym.json'      },
+  { id: 'pripravka', label: 'Přípravka',         icon: '👦', file: 'pripravka.json' },
+  { id: 'kontakty',  label: 'Kontakty',          icon: '👥', file: 'kontakty.json'  },
+  { id: 'partneri',  label: 'Partneři',          icon: '🤝', file: 'partneri.json'  },
+];
+
+// ══ STATE ══
+let currentSection = 'nastaveni';
+let currentData    = null;
+let editIdx        = -1;
+let addingNew      = false;
+
+// ══ UTILS ══
+function esc(s) {
+  if (s == null) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function setDeep(obj, path, value) {
+  const keys = path.split('.');
+  let cur = obj;
+  for (let i = 0; i < keys.length - 1; i++) {
+    const k = isNaN(keys[i]) ? keys[i] : Number(keys[i]);
+    if (cur[k] === undefined || cur[k] === null) cur[k] = isNaN(keys[i+1]) ? {} : [];
+    cur = cur[k];
+  }
+  const last = keys[keys.length - 1];
+  cur[isNaN(last) ? last : Number(last)] = value;
+}
+
+function formatDateCz(iso) {
+  if (!iso) return '';
+  const d = new Date(iso + 'T12:00:00');
+  const m = ['ledna','února','března','dubna','května','června','července','srpna','září','října','listopadu','prosince'];
+  return `${d.getDate()}. ${m[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+// ══ API ══
+async function loadJSON(file) {
+  const r = await fetch('../data/' + file + '?t=' + Date.now());
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  return r.json();
+}
+
+async function saveJSON(file, data) {
+  const r = await fetch('save.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ file, data }),
+  });
+  return r.json();
+}
+
+async function uploadFile(fileInput, sekce) {
+  const file = fileInput?.files?.[0];
+  if (!file) return null;
+  const fd = new FormData();
+  fd.append('foto', file);
+  fd.append('sekce', sekce || 'galerie');
+  const r = await fetch('upload.php', { method: 'POST', body: fd });
+  return r.json();
+}
+
+// ══ TOAST ══
+function showToast(msg, type = 'success') {
+  const wrap = document.getElementById('toasts');
+  const t = document.createElement('div');
+  t.className = 'toast toast-' + type;
+  t.textContent = msg;
+  wrap.appendChild(t);
+  requestAnimationFrame(() => t.classList.add('visible'));
+  setTimeout(() => {
+    t.classList.remove('visible');
+    setTimeout(() => t.remove(), 300);
+  }, 3200);
+}
+
+// ══ NAV ══
+function renderNav() {
+  const nav = document.getElementById('sb-nav');
+  nav.innerHTML = SECTIONS.map(s => `
+    <button class="nav-item${s.id === currentSection ? ' active' : ''}" data-section="${s.id}">
+      <span class="nav-icon">${s.icon}</span>
+      ${esc(s.label)}
+    </button>
+  `).join('');
+  nav.querySelectorAll('.nav-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+      closeSidebar();
+      renderSection(btn.dataset.section);
+    });
+  });
+}
+
+// ══ SECTION NAVIGATION ══
+async function renderSection(id) {
+  currentSection = id;
+  editIdx = -1;
+  addingNew = false;
+  renderNav();
+  document.getElementById('main-content').innerHTML = '<div class="loading-state">Načítám…</div>';
+  const sec = SECTIONS.find(s => s.id === id);
+  try {
+    currentData = await loadJSON(sec.file);
+    renderCurrent();
+  } catch(e) {
+    document.getElementById('main-content').innerHTML =
+      `<div class="error-state">Chyba načítání ${esc(sec.file)}: ${esc(e.message)}</div>`;
+  }
+}
+
+function renderCurrent() {
+  switch(currentSection) {
+    case 'nastaveni': renderNastaveni(currentData); break;
+    case 'aktuality': renderAktuality(currentData); break;
+    case 'galerie':   renderGalerie(currentData);   break;
+    case 'atym':      renderAtym(currentData);      break;
+    case 'pripravka': renderPripravka(currentData); break;
+    case 'kontakty':  renderKontakty(currentData);  break;
+    case 'partneri':  renderPartneri(currentData);  break;
+  }
+}
+
+// ══ SAVE ══
+async function saveSection() {
+  const sec = SECTIONS.find(s => s.id === currentSection);
+  const btns = document.querySelectorAll('.btn-save-main');
+  btns.forEach(b => { b.disabled = true; b.textContent = 'Ukládám…'; });
+  try {
+    const res = await saveJSON(sec.file, currentData);
+    if (res.ok) {
+      showToast('✓ Uloženo');
+    } else {
+      showToast('Chyba: ' + (res.error || 'neznámá'), 'error');
+    }
+  } catch(e) {
+    showToast('Chyba: ' + e.message, 'error');
+  } finally {
+    btns.forEach(b => { b.disabled = false; b.textContent = '💾 Uložit'; });
+  }
+}
+
+// ══ FIELD HELPERS ══
+function inp(label, value, key, type = 'text', hint = '') {
+  return `<div class="field-wrap">
+    <label>${esc(label)}</label>
+    <input type="${type}" class="inp" value="${esc(value ?? '')}" data-key="${key}"${hint ? ` title="${esc(hint)}"` : ''}>
+    ${hint ? `<div class="field-hint">${esc(hint)}</div>` : ''}
+  </div>`;
+}
+function ta(label, value, key, rows = 3) {
+  return `<div class="field-wrap">
+    <label>${esc(label)}</label>
+    <textarea class="inp" data-key="${key}" rows="${rows}">${esc(value ?? '')}</textarea>
+  </div>`;
+}
+function chk(label, checked, key) {
+  return `<div class="field-wrap">
+    <label class="check-wrap">
+      <input type="checkbox" data-key="${key}" data-type="bool" ${checked ? 'checked' : ''}>
+      ${esc(label)}
+    </label>
+  </div>`;
+}
+
+// Input event delegation — live update currentData
+document.addEventListener('input', e => {
+  const el = e.target;
+  if (!el.dataset.key || !currentData) return;
+  let val;
+  if (el.type === 'checkbox') val = el.checked;
+  else if (el.type === 'number') val = el.value === '' ? null : Number(el.value);
+  else val = el.value;
+  setDeep(currentData, el.dataset.key, val);
+});
+document.addEventListener('change', e => {
+  const el = e.target;
+  if (!el.dataset.key || !currentData) return;
+  if (el.tagName === 'SELECT') {
+    setDeep(currentData, el.dataset.key, el.value);
+  }
+});
+
+
+// ══════════════════════════════
+// SEKCE: NASTAVENÍ
+// ══════════════════════════════
+function renderNastaveni(d) {
+  const mc = document.getElementById('main-content');
+  mc.innerHTML = `
+    <div class="section-hdr">
+      <h2>🏠 Hlavní stránka</h2>
+      <div class="section-actions">
+        <button class="btn btn-primary btn-save-main" onclick="saveSection()">💾 Uložit</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Hero texty</div>
+      ${inp('Nadpis modrý', d.hero?.nadpis_modry, 'hero.nadpis_modry')}
+      ${inp('Nadpis zelený', d.hero?.nadpis_zeleny, 'hero.nadpis_zeleny')}
+      ${inp('Perex (pod nadpisem)', d.hero?.perex, 'hero.perex')}
+    </div>
+
+    <div class="card">
+      <div class="card-title">Nejbližší zápas</div>
+      <div class="g2">
+        ${inp('Den (číslo)', d.nejblizsi_zapas?.datum_den, 'nejblizsi_zapas.datum_den')}
+        ${inp('Měsíc (zkratka)', d.nejblizsi_zapas?.datum_mesic, 'nejblizsi_zapas.datum_mesic', 'text', 'Zkratka: led, úno, bře, dub, kvě, čvn…')}
+        ${inp('Den v týdnu', d.nejblizsi_zapas?.den_v_tydnu, 'nejblizsi_zapas.den_v_tydnu')}
+        ${inp('Čas (HH:MM)', d.nejblizsi_zapas?.cas, 'nejblizsi_zapas.cas')}
+        ${inp('Soupeř', d.nejblizsi_zapas?.souper_nazev, 'nejblizsi_zapas.souper_nazev')}
+        ${inp('Místo', d.nejblizsi_zapas?.misto, 'nejblizsi_zapas.misto')}
+      </div>
+      ${inp('Soutěž', d.nejblizsi_zapas?.soutez, 'nejblizsi_zapas.soutez')}
+      ${inp('Match line text (hero pásek)', d.nejblizsi_zapas?.match_line_text, 'nejblizsi_zapas.match_line_text', 'text', 'Celý text v zeleném pásku nad logem v hero sekci')}
+      ${chk('Domácí zápas (odškrtni pro "Hosté")', d.nejblizsi_zapas?.domaci, 'nejblizsi_zapas.domaci')}
+    </div>
+
+    <div class="card">
+      <div class="card-title">Statistiky</div>
+      <div class="g3">
+        ${inp('Let tradice', d.stats?.tradice_let, 'stats.tradice_let', 'number')}
+        ${inp('Počet oddílů', d.stats?.pocet_oddilu, 'stats.pocet_oddilu', 'number')}
+        ${inp('Počet členů', d.stats?.pocet_clenu, 'stats.pocet_clenu', 'number')}
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Hymna</div>
+      ${inp('YouTube ID', d.hymna?.youtube_id, 'hymna.youtube_id', 'text', 'Část URL za v= — např. fl9_3GqrY80')}
+    </div>
+
+    <div class="card">
+      <div class="card-title">Kontakt globální</div>
+      <div class="g2">
+        ${inp('Telefon', d.kontakt_global?.telefon, 'kontakt_global.telefon', 'tel')}
+        ${inp('E-mail', d.kontakt_global?.email, 'kontakt_global.email', 'email')}
+      </div>
+      ${inp('Adresa', d.kontakt_global?.adresa, 'kontakt_global.adresa')}
+      ${inp('Facebook URL', d.kontakt_global?.facebook_url, 'kontakt_global.facebook_url', 'url')}
+      ${inp('Mapy URL', d.kontakt_global?.maps_url, 'kontakt_global.maps_url', 'url')}
+    </div>
+
+    <div class="card">
+      <div class="card-title">Soutěž — odkazy</div>
+      ${inp('URL výsledky (fotbal.cz)', d.soutez_odkazy?.vysledky_url, 'soutez_odkazy.vysledky_url', 'url')}
+      ${inp('URL tabulka (fotbal.cz)', d.soutez_odkazy?.tabulka_url, 'soutez_odkazy.tabulka_url', 'url')}
+    </div>
+
+    <div class="card">
+      <div class="card-title">Footer</div>
+      <div class="g2">
+        ${inp('Copyright rok', d.footer?.copyright_rok, 'footer.copyright_rok', 'number')}
+        ${inp('Copyright text', d.footer?.copyright_text, 'footer.copyright_text')}
+      </div>
+    </div>
+
+    <div style="text-align:right;margin-bottom:2rem">
+      <button class="btn btn-primary btn-save-main" onclick="saveSection()">💾 Uložit vše</button>
+    </div>
+  `;
+}
+
+
+// ══════════════════════════════
+// SEKCE: AKTUALITY
+// ══════════════════════════════
+function renderAktuality(items) {
+  const mc = document.getElementById('main-content');
+  mc.innerHTML = `
+    <div class="section-hdr">
+      <h2>📰 Aktuality</h2>
+      <div class="section-actions">
+        <button class="btn btn-green" onclick="toggleAddNew()">+ Přidat článek</button>
+        <button class="btn btn-primary btn-save-main" onclick="saveSection()">💾 Uložit</button>
+      </div>
+    </div>
+    ${addingNew ? aktualitaForm(-1, {}) : ''}
+    <div id="list-wrap">
+      ${items.length === 0 ? '<p class="empty-state">Žádné aktuality. Přidejte první článek.</p>' : ''}
+      ${items.map((it, i) => i === editIdx ? aktualitaForm(i, it) : aktualitaCard(it, i)).join('')}
+    </div>
+  `;
+}
+
+function aktualitaCard(it, i) {
+  const kat = it.kategorie || 'Aktualita';
+  const katColor = kat === 'A-tým' ? '' : kat === 'Mládež' ? 'green' : kat === 'Ostatní' ? 'orange' : '';
+  return `<div class="item-card">
+    <div class="item-card-hdr">
+      <div class="meta">
+        <small><span class="tag-badge ${katColor}">${esc(kat)}</span>${esc(it.datum_text || '')}</small>
+        <strong>${esc(it.titulek || '(bez názvu)')}</strong>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:.2rem">${esc(it.perex || '')}</div>
+      </div>
+      <div class="item-card-actions">
+        <button class="btn btn-ghost btn-sm" onclick="startEdit(${i})">Upravit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteItem(${i})">Smazat</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function aktualitaForm(idx, it) {
+  const isNew = idx === -1;
+  const kat = it.kategorie || 'Klub';
+  return `<div class="edit-panel">
+    <h4>${isNew ? 'Nový článek' : 'Upravit článek'}</h4>
+    <div class="g2">
+      <div class="field-wrap"><label>Titulek *</label><input type="text" id="af-titulek" class="inp" value="${esc(it.titulek||'')}"></div>
+      <div class="field-wrap"><label>Datum</label><input type="date" id="af-datum" class="inp" value="${esc(it.datum_iso||it.datum||'')}"></div>
+    </div>
+    <div class="field-wrap"><label>Perex (krátký popis)</label><input type="text" id="af-perex" class="inp" value="${esc(it.perex||'')}"></div>
+    <div class="field-wrap"><label>Obsah (full text)</label><textarea id="af-obsah" class="inp" rows="4">${esc(it.obsah||'')}</textarea></div>
+    <div class="g2">
+      <div class="field-wrap"><label>Kategorie</label>
+        <select id="af-kategorie" class="inp">
+          ${['Klub','A-tým','Mládež','Ostatní'].map(k => `<option${kat===k?' selected':''}>${k}</option>`).join('')}
+        </select>
+      </div>
+      <div class="field-wrap"><label>Foto (URL nebo nahrání)</label><input type="text" id="af-foto" class="inp" value="${esc(it.foto||'')}" placeholder="img/galerie/..."></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-green" onclick="saveAktualitaForm(${idx})">${isNew ? '+ Přidat' : '✓ Uložit změny'}</button>
+      <button class="btn btn-ghost" onclick="${isNew ? 'cancelAdd()' : 'cancelEdit()'}"">Zrušit</button>
+    </div>
+  </div>`;
+}
+
+function saveAktualitaForm(idx) {
+  const titulek = document.getElementById('af-titulek').value.trim();
+  if (!titulek) { showToast('Titulek je povinný', 'error'); return; }
+  const datumIso  = document.getElementById('af-datum').value;
+  const item = {
+    id: idx === -1 ? 'cl-' + Date.now() : (currentData[idx]?.id || 'cl-' + Date.now()),
+    titulek,
+    perex:      document.getElementById('af-perex').value,
+    obsah:      document.getElementById('af-obsah').value,
+    kategorie:  document.getElementById('af-kategorie').value,
+    foto:       document.getElementById('af-foto').value || null,
+    datum:      datumIso,
+    datum_iso:  datumIso,
+    datum_text: formatDateCz(datumIso),
+  };
+  if (idx === -1) {
+    currentData.unshift(item);
+    addingNew = false;
+  } else {
+    currentData[idx] = item;
+    editIdx = -1;
+  }
+  renderCurrent();
+}
+
+
+// ══════════════════════════════
+// SEKCE: GALERIE
+// ══════════════════════════════
+function renderGalerie(items) {
+  const mc = document.getElementById('main-content');
+  mc.innerHTML = `
+    <div class="section-hdr">
+      <h2>🖼 Galerie</h2>
+      <div class="section-actions">
+        <button class="btn btn-green" onclick="toggleAddNew()">+ Přidat fotku</button>
+        <button class="btn btn-primary btn-save-main" onclick="saveSection()">💾 Uložit</button>
+      </div>
+    </div>
+    ${addingNew ? galerieForm(-1, {}) : ''}
+    <div id="list-wrap">
+      ${items.length === 0 ? '<p class="empty-state">Galerie je prázdná.</p>' : ''}
+      ${items.map((it, i) => i === editIdx ? galerieForm(i, it) : galerieCard(it, i)).join('')}
+    </div>
+  `;
+}
+
+function galerieCard(it, i) {
+  const hasSrc = it.src && it.src.trim();
+  return `<div class="item-card">
+    <div class="item-card-hdr">
+      <div class="thumb-wrap">
+        ${hasSrc
+          ? `<img src="../${esc(it.src)}" alt="${esc(it.alt||'')}" onerror="this.style.display='none'">`
+          : `<div class="thumb-placeholder">📷</div>`}
+      </div>
+      <div class="meta" style="flex:1;min-width:0">
+        <strong>${esc(it.caption || it.alt || '(bez popisku)')}</strong>
+        <small>
+          <span class="tag-badge">${esc(it.sekce||'—')}</span>
+          ${it.wide ? '<span class="tag-badge green">wide</span>' : ''}
+          <span style="opacity:.6">${esc(it.src||'')}</span>
+        </small>
+      </div>
+      <div class="item-card-actions">
+        <button class="btn btn-ghost btn-sm" onclick="startEdit(${i})">Upravit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteItem(${i})">Smazat</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function galerieForm(idx, it) {
+  const isNew = idx === -1;
+  const sekce = it.sekce || 'atym';
+  return `<div class="edit-panel">
+    <h4>${isNew ? 'Nová fotka' : 'Upravit fotku'}</h4>
+    <div class="g2">
+      <div class="field-wrap">
+        <label>Nahrát soubor</label>
+        <input type="file" id="gf-file" class="inp" accept="image/jpeg,image/png,image/webp">
+        <div class="field-hint">JPG / PNG / WebP, max 8 MB</div>
+      </div>
+      <div class="field-wrap">
+        <label>nebo URL souboru</label>
+        <input type="text" id="gf-src" class="inp" value="${esc(it.src||'')}" placeholder="img/galerie/nazev.jpg">
+      </div>
+    </div>
+    <div class="g2">
+      <div class="field-wrap"><label>Alt text</label><input type="text" id="gf-alt" class="inp" value="${esc(it.alt||'')}"></div>
+      <div class="field-wrap"><label>Tag (Tým, Hřiště…)</label><input type="text" id="gf-tag" class="inp" value="${esc(it.tag||'')}"></div>
+    </div>
+    <div class="g2">
+      <div class="field-wrap"><label>Popisek (caption)</label><input type="text" id="gf-caption" class="inp" value="${esc(it.caption||'')}"></div>
+      <div class="field-wrap"><label>Sekce</label>
+        <select id="gf-sekce" class="inp">
+          ${['atym','pripravka','ostatni'].map(s => `<option value="${s}"${sekce===s?' selected':''}>${s}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    <label class="check-wrap" style="margin-bottom:.85rem">
+      <input type="checkbox" id="gf-wide" ${it.wide ? 'checked' : ''}>
+      Wide (zabírá 2 sloupce v galerii)
+    </label>
+    <div class="form-actions">
+      <button class="btn btn-green" onclick="saveGalerieForm(${idx})">${isNew ? '+ Přidat' : '✓ Uložit'}</button>
+      <button class="btn btn-ghost" onclick="${isNew ? 'cancelAdd()' : 'cancelEdit()'}">Zrušit</button>
+    </div>
+  </div>`;
+}
+
+async function saveGalerieForm(idx) {
+  const btn = document.querySelector('.edit-panel .btn-green');
+  if (btn) { btn.disabled = true; btn.textContent = 'Ukládám…'; }
+
+  let src = document.getElementById('gf-src').value.trim();
+  const fileInput = document.getElementById('gf-file');
+  const sekce     = document.getElementById('gf-sekce').value;
+
+  if (fileInput?.files?.length) {
+    const res = await uploadFile(fileInput, sekce);
+    if (res?.ok) {
+      src = res.src;
+      showToast('✓ Soubor nahrán');
+    } else {
+      showToast('Chyba nahrání: ' + (res?.error || '?'), 'error');
+      if (btn) { btn.disabled = false; btn.textContent = idx === -1 ? '+ Přidat' : '✓ Uložit'; }
+      return;
+    }
+  }
+
+  const item = {
+    src,
+    alt:     document.getElementById('gf-alt').value,
+    tag:     document.getElementById('gf-tag').value,
+    caption: document.getElementById('gf-caption').value,
+    sekce,
+    wide:    document.getElementById('gf-wide').checked || undefined,
+  };
+  if (!item.wide) delete item.wide;
+
+  if (idx === -1) {
+    currentData.push(item);
+    addingNew = false;
+  } else {
+    currentData[idx] = item;
+    editIdx = -1;
+  }
+  renderCurrent();
+}
+
+
+// ══════════════════════════════
+// SEKCE: A-TÝM
+// ══════════════════════════════
+function renderAtym(d) {
+  const mc = document.getElementById('main-content');
+  mc.innerHTML = `
+    <div class="section-hdr">
+      <h2>⚽ A-tým</h2>
+      <div class="section-actions">
+        <button class="btn btn-primary btn-save-main" onclick="saveSection()">💾 Uložit</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Informace o týmu</div>
+      <div class="g2">
+        ${inp('Název', d.nazev, 'nazev')}
+        ${inp('Podtitulek', d.podtitulek, 'podtitulek')}
+        ${inp('Trenér', d.trener, 'trener')}
+        ${inp('Soutěž', d.soutez, 'soutez')}
+      </div>
+      ${inp('Foto (cesta k souboru)', d.foto, 'foto', 'text', 'img/galerie/tym-02.jpg')}
+      ${ta('Popis týmu', d.popis, 'popis', 3)}
+      <div class="g2">
+        ${inp('Kontakt — jméno', d.kontakt_jmeno, 'kontakt_jmeno')}
+        ${inp('Kontakt — telefon', d.kontakt_tel, 'kontakt_tel', 'tel')}
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Soupiska hráčů</div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>#</th><th>Jméno a příjmení</th><th>Ročník</th><th>Pozice</th><th></th></tr></thead>
+          <tbody id="soupiska-body">
+            ${(d.soupiska||[]).map((h, i) => `
+              <tr>
+                <td style="color:var(--muted);text-align:center">${i+1}</td>
+                <td><input class="inp" data-key="soupiska.${i}.jmeno" value="${esc(h.jmeno||'')}"></td>
+                <td><input class="inp" type="number" data-key="soupiska.${i}.rocnik" value="${esc(h.rocnik||'')}" style="width:80px"></td>
+                <td>
+                  <select class="inp" data-key="soupiska.${i}.pozice" style="min-width:110px">
+                    ${['Brankář','Obránce','Záložník','Útočník'].map(p => `<option${h.pozice===p?' selected':''}>${p}</option>`).join('')}
+                  </select>
+                </td>
+                <td><button class="btn btn-danger btn-sm" onclick="removeSoupiskaHrac(${i})">×</button></td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:.75rem">
+        <button class="btn btn-ghost" onclick="addSoupiskaHrac()">+ Přidat hráče</button>
+      </div>
+    </div>
+  `;
+}
+
+function addSoupiskaHrac() {
+  if (!currentData.soupiska) currentData.soupiska = [];
+  currentData.soupiska.push({ jmeno: '', rocnik: '', pozice: 'Záložník' });
+  renderCurrent();
+}
+
+function removeSoupiskaHrac(i) {
+  if (!confirm('Smazat hráče?')) return;
+  currentData.soupiska.splice(i, 1);
+  renderCurrent();
+}
+
+
+// ══════════════════════════════
+// SEKCE: PŘÍPRAVKA
+// ══════════════════════════════
+function renderPripravka(d) {
+  const mc = document.getElementById('main-content');
+  mc.innerHTML = `
+    <div class="section-hdr">
+      <h2>👦 Přípravka</h2>
+      <div class="section-actions">
+        <button class="btn btn-primary btn-save-main" onclick="saveSection()">💾 Uložit</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Informace o přípravce</div>
+      <div class="g2">
+        ${inp('Název', d.nazev, 'nazev')}
+        ${inp('Podtitulek', d.podtitulek, 'podtitulek')}
+        ${inp('Trenér', d.trener, 'trener')}
+        ${inp('Věk od (let)', d.vek_od, 'vek_od', 'number')}
+        ${inp('Věk do (let)', d.vek_do, 'vek_do', 'number')}
+        ${inp('Foto (cesta k souboru)', d.foto, 'foto')}
+      </div>
+      ${ta('Popis', d.popis, 'popis', 3)}
+      <div class="g2">
+        ${inp('Kontakt — jméno', d.kontakt_jmeno, 'kontakt_jmeno')}
+        ${inp('Kontakt — telefon', d.kontakt_tel, 'kontakt_tel', 'tel')}
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Tréninky</div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Den</th><th>Čas</th><th>Místo</th><th></th></tr></thead>
+          <tbody>
+            ${(d.treninky||[]).map((t, i) => `
+              <tr>
+                <td><input class="inp" data-key="treninky.${i}.den"   value="${esc(t.den||'')}"   placeholder="Sobota"></td>
+                <td><input class="inp" data-key="treninky.${i}.cas"   value="${esc(t.cas||'')}"   placeholder="10:00" style="width:90px"></td>
+                <td><input class="inp" data-key="treninky.${i}.misto" value="${esc(t.misto||'')}" placeholder="Hřiště U Lindovy"></td>
+                <td><button class="btn btn-danger btn-sm" onclick="removeTrenink(${i})">×</button></td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:.75rem">
+        <button class="btn btn-ghost" onclick="addTrenink()">+ Přidat trénink</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Hledáme nové hráče</div>
+      ${chk('Zobrazit sekci „Hledáme hráče" na webu', d.hledame, 'hledame')}
+      <div id="hledame-text-wrap" style="${d.hledame ? '' : 'opacity:.4;pointer-events:none'}">
+        ${inp('Text pro nábor', d.hledame_text, 'hledame_text')}
+      </div>
+    </div>
+  `;
+
+  // Dynamicky show/hide hledame text při změně checkboxu
+  const ckHledame = document.querySelector('[data-key="hledame"]');
+  if (ckHledame) ckHledame.addEventListener('change', e => {
+    const wrap = document.getElementById('hledame-text-wrap');
+    if (wrap) { wrap.style.opacity = e.target.checked ? '' : '.4'; wrap.style.pointerEvents = e.target.checked ? '' : 'none'; }
+  });
+}
+
+function addTrenink() {
+  if (!currentData.treninky) currentData.treninky = [];
+  currentData.treninky.push({ den: '', cas: '', misto: '' });
+  renderCurrent();
+}
+
+function removeTrenink(i) {
+  if (!confirm('Smazat trénink?')) return;
+  currentData.treninky.splice(i, 1);
+  renderCurrent();
+}
+
+
+// ══════════════════════════════
+// SEKCE: KONTAKTY
+// ══════════════════════════════
+function renderKontakty(d) {
+  const osoby = d.osoby || [];
+  const mc = document.getElementById('main-content');
+  mc.innerHTML = `
+    <div class="section-hdr">
+      <h2>👥 Kontakty</h2>
+      <div class="section-actions">
+        <button class="btn btn-green" onclick="toggleAddNew()">+ Přidat osobu</button>
+        <button class="btn btn-primary btn-save-main" onclick="saveSection()">💾 Uložit</button>
+      </div>
+    </div>
+    ${addingNew ? kontaktForm(-1, {}) : ''}
+    <div id="list-wrap">
+      ${osoby.length === 0 ? '<p class="empty-state">Žádné kontakty.</p>' : ''}
+      ${osoby.map((o, i) => i === editIdx ? kontaktForm(i, o) : kontaktCard(o, i)).join('')}
+    </div>
+  `;
+}
+
+function kontaktCard(o, i) {
+  return `<div class="item-card">
+    <div class="item-card-hdr">
+      <div class="meta">
+        <strong>${esc(o.jmeno || '(bez jména)')}</strong>
+        <small>${esc(o.funkce||'')} ${o.tel ? '· ' + esc(o.tel) : ''} ${o.email ? '· ' + esc(o.email) : ''}</small>
+      </div>
+      <div class="item-card-actions">
+        <button class="btn btn-ghost btn-sm" onclick="startEdit(${i})">Upravit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteKontakt(${i})">Smazat</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function kontaktForm(idx, o) {
+  const isNew = idx === -1;
+  return `<div class="edit-panel">
+    <h4>${isNew ? 'Nová osoba' : 'Upravit osobu'}</h4>
+    <div class="g2">
+      <div class="field-wrap"><label>Funkce / pozice</label><input type="text" id="kf-funkce" class="inp" value="${esc(o.funkce||'')}"></div>
+      <div class="field-wrap"><label>Jméno a příjmení *</label><input type="text" id="kf-jmeno" class="inp" value="${esc(o.jmeno||'')}"></div>
+      <div class="field-wrap"><label>Telefon</label><input type="tel" id="kf-tel" class="inp" value="${esc(o.tel||'')}"></div>
+      <div class="field-wrap"><label>E-mail</label><input type="email" id="kf-email" class="inp" value="${esc(o.email||'')}"></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-green" onclick="saveKontaktForm(${idx})">${isNew ? '+ Přidat' : '✓ Uložit'}</button>
+      <button class="btn btn-ghost" onclick="${isNew ? 'cancelAdd()' : 'cancelEdit()'}">Zrušit</button>
+    </div>
+  </div>`;
+}
+
+function saveKontaktForm(idx) {
+  const jmeno = document.getElementById('kf-jmeno').value.trim();
+  if (!jmeno) { showToast('Jméno je povinné', 'error'); return; }
+  const item = {
+    funkce: document.getElementById('kf-funkce').value,
+    jmeno,
+    tel:    document.getElementById('kf-tel').value,
+    email:  document.getElementById('kf-email').value,
+  };
+  if (!currentData.osoby) currentData.osoby = [];
+  if (idx === -1) {
+    currentData.osoby.unshift(item);
+    addingNew = false;
+  } else {
+    currentData.osoby[idx] = item;
+    editIdx = -1;
+  }
+  renderCurrent();
+}
+
+function deleteKontakt(i) {
+  if (!confirm('Smazat kontakt?')) return;
+  currentData.osoby.splice(i, 1);
+  renderCurrent();
+}
+
+
+// ══════════════════════════════
+// SEKCE: PARTNEŘI
+// ══════════════════════════════
+function renderPartneri(items) {
+  const mc = document.getElementById('main-content');
+  mc.innerHTML = `
+    <div class="section-hdr">
+      <h2>🤝 Partneři</h2>
+      <div class="section-actions">
+        <button class="btn btn-green" onclick="toggleAddNew()">+ Přidat partnera</button>
+        <button class="btn btn-primary btn-save-main" onclick="saveSection()">💾 Uložit</button>
+      </div>
+    </div>
+    ${addingNew ? partnerForm(-1, {}) : ''}
+    <div id="list-wrap">
+      ${items.length === 0 ? '<p class="empty-state">Žádní partneři.</p>' : ''}
+      ${items.map((it, i) => i === editIdx ? partnerForm(i, it) : partnerCard(it, i)).join('')}
+    </div>
+  `;
+}
+
+function partnerCard(it, i) {
+  return `<div class="item-card">
+    <div class="item-card-hdr">
+      <div class="thumb-wrap">
+        ${it.logo ? `<img src="../${esc(it.logo)}" alt="${esc(it.nazev)}" onerror="this.style.display='none'" style="object-fit:contain;padding:4px">` : '<div class="thumb-placeholder">🤝</div>'}
+      </div>
+      <div class="meta">
+        <strong>${esc(it.nazev||'(bez názvu)')}</strong>
+        <small><span class="tag-badge">${esc(it.kategorie||'Partner')}</span>${esc(it.popis||'')}</small>
+      </div>
+      <div class="item-card-actions">
+        <button class="btn btn-ghost btn-sm" onclick="startEdit(${i})">Upravit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteItem(${i})">Smazat</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function partnerForm(idx, it) {
+  const isNew = idx === -1;
+  const kat = it.kategorie || 'Partner';
+  return `<div class="edit-panel">
+    <h4>${isNew ? 'Nový partner' : 'Upravit partnera'}</h4>
+    <div class="g2">
+      <div class="field-wrap"><label>Název *</label><input type="text" id="pf-nazev" class="inp" value="${esc(it.nazev||'')}"></div>
+      <div class="field-wrap"><label>Kategorie</label>
+        <select id="pf-kat" class="inp">
+          ${['Generální partner','Partner','Mediální partner'].map(k => `<option${kat===k?' selected':''}>${k}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    <div class="field-wrap"><label>Popis</label><input type="text" id="pf-popis" class="inp" value="${esc(it.popis||'')}"></div>
+    <div class="g2">
+      <div class="field-wrap">
+        <label>Logo (URL nebo nahrát)</label>
+        <input type="text" id="pf-logo" class="inp" value="${esc(it.logo||'')}" placeholder="img/partneri/logo.svg" oninput="prevPartnerLogo(this.value)">
+        <input type="file" id="pf-logo-file" class="inp" accept="image/*" style="margin-top:.4rem">
+        <div id="pf-logo-prev" style="margin-top:.4rem">${it.logo ? `<img src="../${esc(it.logo)}" class="logo-preview" alt="preview">` : ''}</div>
+      </div>
+      <div class="field-wrap"><label>URL webu partnera</label><input type="url" id="pf-url" class="inp" value="${esc(it.url||'')}" placeholder="https://..."></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-green" onclick="savePartnerForm(${idx})">${isNew ? '+ Přidat' : '✓ Uložit'}</button>
+      <button class="btn btn-ghost" onclick="${isNew ? 'cancelAdd()' : 'cancelEdit()'}">Zrušit</button>
+    </div>
+  </div>`;
+}
+
+function prevPartnerLogo(src) {
+  const wrap = document.getElementById('pf-logo-prev');
+  if (!wrap) return;
+  wrap.innerHTML = src ? `<img src="../${esc(src)}" class="logo-preview" alt="preview" onerror="this.style.display='none'">` : '';
+}
+
+async function savePartnerForm(idx) {
+  const nazev = document.getElementById('pf-nazev').value.trim();
+  if (!nazev) { showToast('Název je povinný', 'error'); return; }
+  const btn = document.querySelector('.edit-panel .btn-green');
+  if (btn) { btn.disabled = true; btn.textContent = 'Ukládám…'; }
+
+  let logo = document.getElementById('pf-logo').value.trim();
+  const fileInput = document.getElementById('pf-logo-file');
+  if (fileInput?.files?.length) {
+    const res = await uploadFile(fileInput, 'partneri');
+    if (res?.ok) { logo = res.src; showToast('✓ Logo nahráno'); }
+    else { showToast('Chyba nahrání: ' + (res?.error || '?'), 'error'); if (btn) { btn.disabled = false; btn.textContent = idx === -1 ? '+ Přidat' : '✓ Uložit'; } return; }
+  }
+
+  const item = {
+    nazev,
+    kategorie: document.getElementById('pf-kat').value,
+    popis:     document.getElementById('pf-popis').value,
+    logo:      logo || null,
+    url:       document.getElementById('pf-url').value,
+  };
+  if (idx === -1) {
+    currentData.push(item);
+    addingNew = false;
+  } else {
+    currentData[idx] = item;
+    editIdx = -1;
+  }
+  renderCurrent();
+}
+
+
+// ══ SHARED ACTIONS ══
+function startEdit(i) {
+  editIdx = i;
+  addingNew = false;
+  renderCurrent();
+}
+function cancelEdit() {
+  editIdx = -1;
+  renderCurrent();
+}
+function toggleAddNew() {
+  addingNew = !addingNew;
+  editIdx = -1;
+  renderCurrent();
+}
+function cancelAdd() {
+  addingNew = false;
+  renderCurrent();
+}
+function deleteItem(i) {
+  if (!confirm('Opravdu smazat?')) return;
+  currentData.splice(i, 1);
+  renderCurrent();
+}
+
+
+// ══ SIDEBAR MOBILE ══
+function openSidebar()  { document.getElementById('sidebar').classList.add('open'); document.getElementById('sb-overlay').classList.add('active'); }
+function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sb-overlay').classList.remove('active'); }
+
+document.getElementById('topbar-toggle').addEventListener('click', openSidebar);
+document.getElementById('sb-overlay').addEventListener('click', closeSidebar);
+
+
+// ══ INIT ══
+function init() {
+  renderNav();
+  renderSection('nastaveni');
+}
+
+init();
+</script>
+</body>
+</html>

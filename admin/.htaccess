@@ -1,0 +1,14 @@
+AuthType Basic
+AuthName "Správa webu SK Vrbová Lhota"
+
+# Cesta k .htpasswd souboru na serveru Wedos.
+# Správnou absolutní cestu najdete v Wedos administraci → Hosting → FTP/SSH → zobrazit cestu.
+# Typický formát na Wedos: /var/www/clients/clientX/webY/web/.htpasswd
+# nebo: /home/vhostname/web/.htpasswd
+# Po zjištění cestu doplňte a nahrajte .htpasswd vygenerovaný nástrojem htpasswd nebo online generátorem.
+AuthUserFile /var/www/vhosts/vrbovka98.cz/.htpasswd
+
+Require valid-user
+
+# Bezpečnostní hlavičky
+Options -Indexes

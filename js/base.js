@@ -122,3 +122,6 @@ const counterObs = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 
 document.querySelectorAll('.counter').forEach(c => counterObs.observe(c));
+
+// ─── Copyright year ───
+document.querySelectorAll('.js-year').forEach(el => { el.textContent = new Date().getFullYear(); });
