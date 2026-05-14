@@ -574,7 +574,12 @@ function aktualitaForm(idx, it) {
           ${['Klub','A-tým','Mládež','Ostatní'].map(k => `<option${kat===k?' selected':''}>${k}</option>`).join('')}
         </select>
       </div>
-      <div class="field-wrap"><label>Foto (URL nebo nahrání)</label><input type="text" id="af-foto" class="inp" value="${esc(it.foto||'')}" placeholder="img/galerie/..."></div>
+      <div class="field-wrap"><label>Titulní foto (cesta)</label><input type="text" id="af-foto" class="inp" value="${esc(it.foto||'')}" placeholder="img/aktuality/..."></div>
+    </div>
+    <div class="field-wrap">
+      <label>Galerie fotek (každá cesta na samostatný řádek)</label>
+      <textarea id="af-fotos" class="inp" rows="5" placeholder="img/aktuality/zapasy/slozka/1.jpeg&#10;img/aktuality/zapasy/slozka/2.jpeg">${(it.fotos||[]).join('\n')}</textarea>
+      <small style="color:var(--muted);font-size:.75rem">Pokud je první foto stejné jako titulní, bude zobrazeno jen jednou.</small>
     </div>
     <div class="form-actions">
       <button class="btn btn-green" onclick="saveAktualitaForm(${idx})">${isNew ? '+ Přidat' : '✓ Uložit změny'}</button>
@@ -594,6 +599,7 @@ function saveAktualitaForm(idx) {
     obsah:      document.getElementById('af-obsah').value,
     kategorie:  document.getElementById('af-kategorie').value,
     foto:       document.getElementById('af-foto').value || null,
+    fotos:      document.getElementById('af-fotos').value.split('\n').map(s => s.trim()).filter(Boolean),
     datum:      datumIso,
     datum_iso:  datumIso,
     datum_text: formatDateCz(datumIso),

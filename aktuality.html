@@ -189,6 +189,31 @@
   </div>
 </section>
 
+<!-- ══ ARTICLE MODAL ══ -->
+<div id="art-modal" class="art-modal" role="dialog" aria-modal="true" aria-label="Detail článku">
+  <div class="art-modal-box">
+    <button class="art-modal-close" id="art-modal-close" aria-label="Zavřít">&times;</button>
+    <div class="art-modal-header">
+      <span id="art-modal-tag" class="news-tag"></span>
+      <div id="art-modal-date" class="news-date" style="margin-top:.55rem"></div>
+      <h2 id="art-modal-title" style="font-family:'Noto Serif',serif;font-size:1.5rem;font-weight:700;line-height:1.3;margin-top:.35rem;color:var(--text)"></h2>
+    </div>
+    <div class="art-modal-body">
+      <p id="art-modal-obsah" class="art-modal-obsah"></p>
+      <div id="art-modal-photos" class="art-photo-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PHOTO LIGHTBOX ══ -->
+<div id="art-lightbox" class="art-lightbox" role="dialog" aria-modal="true" aria-label="Náhled fotografie">
+  <button class="art-lb-close" id="art-lb-close" aria-label="Zavřít">&times;</button>
+  <button class="art-lb-nav art-lb-prev" id="art-lb-prev" aria-label="Předchozí">&#8249;</button>
+  <img id="art-lb-img" src="" alt="" />
+  <button class="art-lb-nav art-lb-next" id="art-lb-next" aria-label="Další">&#8250;</button>
+  <div class="art-lb-counter" id="art-lb-counter"></div>
+</div>
+
 <!-- ══ FOOTER ══ -->
 <footer class="site-footer">
 <div class="footer-inner">
@@ -234,7 +259,7 @@
 <script src="js/base.js"></script>
 <script src="js/cookies.js"></script>
 <script>
-  // ─── Hymna: YouTube ID z nastaveni.json ───
+  // ─── Hymna ───
   fetch('data/nastaveni.json?t=' + Date.now())
     .then(r => r.json())
     .then(d => {
@@ -246,6 +271,85 @@
     })
     .catch(() => {});
 
+  // ─── Aktuality ───
+  let newsItems = [];
+  let lbPhotos  = [];
+  let lbIdx     = 0;
+
+  function fotCount(n) {
+    if (n === 1) return '1 foto';
+    if (n < 5)  return n + ' fotky';
+    return n + ' fotek';
+  }
+
+  function openArticle(idx) {
+    const item   = newsItems[idx];
+    const modal  = document.getElementById('art-modal');
+    const fotos  = item.fotos && item.fotos.length ? item.fotos : [];
+
+    document.getElementById('art-modal-tag').textContent   = item.kategorie || 'Aktualita';
+    document.getElementById('art-modal-date').textContent  = item.datum_text || '';
+    document.getElementById('art-modal-title').textContent = item.titulek || '';
+    document.getElementById('art-modal-obsah').textContent = item.obsah || item.perex || '';
+
+    const photosEl = document.getElementById('art-modal-photos');
+    if (fotos.length) {
+      lbPhotos = fotos;
+      photosEl.innerHTML = fotos.map((src, i) =>
+        `<div class="art-photo-thumb" onclick="openLightbox(${i})" tabindex="0" role="button" aria-label="Foto ${i+1}">
+           <img src="${src}" alt="Foto ${i+1}" loading="lazy" />
+         </div>`
+      ).join('');
+    } else {
+      photosEl.innerHTML = '';
+      lbPhotos = [];
+    }
+
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('art-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function openLightbox(idx) {
+    lbIdx = idx;
+    updateLightbox();
+    document.getElementById('art-lightbox').classList.add('open');
+  }
+
+  function closeLightbox() {
+    document.getElementById('art-lightbox').classList.remove('open');
+  }
+
+  function updateLightbox() {
+    document.getElementById('art-lb-img').src = lbPhotos[lbIdx];
+    document.getElementById('art-lb-img').alt = 'Foto ' + (lbIdx + 1);
+    document.getElementById('art-lb-counter').textContent = (lbIdx + 1) + ' / ' + lbPhotos.length;
+    document.getElementById('art-lb-prev').style.visibility = lbIdx > 0 ? 'visible' : 'hidden';
+    document.getElementById('art-lb-next').style.visibility = lbIdx < lbPhotos.length - 1 ? 'visible' : 'hidden';
+  }
+
+  // Modal & lightbox events
+  document.getElementById('art-modal-close').addEventListener('click', closeModal);
+  document.getElementById('art-modal').addEventListener('click', e => { if (e.target === document.getElementById('art-modal')) closeModal(); });
+  document.getElementById('art-lb-close').addEventListener('click', closeLightbox);
+  document.getElementById('art-lightbox').addEventListener('click', e => { if (e.target === document.getElementById('art-lightbox')) closeLightbox(); });
+  document.getElementById('art-lb-prev').addEventListener('click', () => { if (lbIdx > 0) { lbIdx--; updateLightbox(); } });
+  document.getElementById('art-lb-next').addEventListener('click', () => { if (lbIdx < lbPhotos.length - 1) { lbIdx++; updateLightbox(); } });
+  document.addEventListener('keydown', e => {
+    const lb = document.getElementById('art-lightbox').classList.contains('open');
+    const mo = document.getElementById('art-modal').classList.contains('open');
+    if (lb) {
+      if (e.key === 'ArrowLeft'  && lbIdx > 0)                   { lbIdx--; updateLightbox(); }
+      if (e.key === 'ArrowRight' && lbIdx < lbPhotos.length - 1) { lbIdx++; updateLightbox(); }
+      if (e.key === 'Escape') closeLightbox();
+    } else if (mo && e.key === 'Escape') closeModal();
+  });
+
+  // ─── Načtení článků ───
   fetch('data/aktuality.json?t=' + Date.now())
     .then(r => r.json())
     .then(items => {
@@ -254,23 +358,29 @@
       const empty   = document.getElementById('aktuality-empty');
       loading.classList.add('hidden');
 
-      if (!items.length) {
-        empty.classList.remove('hidden');
-        return;
-      }
+      if (!items.length) { empty.classList.remove('hidden'); return; }
 
+      newsItems = items;
       grid.classList.remove('hidden');
-      grid.innerHTML = items.map(item => `
-        <article class="news-card reveal">
-          ${item.foto ? `<div class="news-card-img"><img src="${item.foto}" alt="${item.titulek}" loading="lazy" /></div>` : ''}
-          <div class="news-card-body">
-            <span class="news-tag">${item.kategorie || 'Aktualita'}</span>
-            <div class="news-date">${item.datum_text}</div>
-            <h2 class="news-title">${item.titulek}</h2>
-            <p class="news-perex">${item.perex}</p>
-          </div>
-        </article>
-      `).join('');
+      grid.innerHTML = items.map((item, idx) => {
+        const cover  = item.foto || (item.fotos && item.fotos[0]) || null;
+        const fotos  = item.fotos && item.fotos.length ? item.fotos : [];
+        const hasText = item.obsah && item.obsah.trim();
+        const btnLabel = fotos.length
+          ? '📷 ' + fotCount(fotos.length)
+          : (hasText ? 'Číst více →' : '');
+        return `
+          <article class="news-card reveal" style="cursor:pointer" onclick="openArticle(${idx})">
+            ${cover ? `<div class="news-card-img"><img src="${cover}" alt="${item.titulek}" loading="lazy" /></div>` : ''}
+            <div class="news-card-body">
+              <span class="news-tag">${item.kategorie || 'Aktualita'}</span>
+              <div class="news-date">${item.datum_text}</div>
+              <h2 class="news-title">${item.titulek}</h2>
+              <p class="news-perex">${item.perex}</p>
+              ${btnLabel ? `<span class="news-read-more">${btnLabel}</span>` : ''}
+            </div>
+          </article>`;
+      }).join('');
 
       window.observeReveal(grid);
     })

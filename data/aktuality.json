@@ -1,5 +1,32 @@
 [
   {
+    "id": "zapas-vrbovka-dobrichov-2026-05-10",
+    "datum": "2026-05-10",
+    "datum_iso": "2026-05-10",
+    "datum_text": "10. května 2026",
+    "titulek": "Fotky ze zápasu: SK Vrbová Lhota vs. SK Dobřichov",
+    "perex": "Domácí zápas 9. ligy sk. B dne 10. 5. 2026. Prohlédněte si fotky z utkání.",
+    "obsah": "Domácí zápas 9. ligy sk. B dne 10. 5. 2026 na hřišti U Lindovy ve Vrbové Lhotě.",
+    "foto": "img/aktuality/zapasy/2026-05-10-vrbovka-dobrichov/1.jpeg",
+    "fotos": [
+      "img/aktuality/zapasy/2026-05-10-vrbovka-dobrichov/1.jpeg",
+      "img/aktuality/zapasy/2026-05-10-vrbovka-dobrichov/2.jpeg",
+      "img/aktuality/zapasy/2026-05-10-vrbovka-dobrichov/3.jpeg",
+      "img/aktuality/zapasy/2026-05-10-vrbovka-dobrichov/4.jpeg",
+      "img/aktuality/zapasy/2026-05-10-vrbovka-dobrichov/5.jpeg",
+      "img/aktuality/zapasy/2026-05-10-vrbovka-dobrichov/6.jpeg",
+      "img/aktuality/zapasy/2026-05-10-vrbovka-dobrichov/7.jpeg",
+      "img/aktuality/zapasy/2026-05-10-vrbovka-dobrichov/9.jpeg",
+      "img/aktuality/zapasy/2026-05-10-vrbovka-dobrichov/10.jpeg",
+      "img/aktuality/zapasy/2026-05-10-vrbovka-dobrichov/11.jpeg",
+      "img/aktuality/zapasy/2026-05-10-vrbovka-dobrichov/12.jpeg",
+      "img/aktuality/zapasy/2026-05-10-vrbovka-dobrichov/13.jpeg",
+      "img/aktuality/zapasy/2026-05-10-vrbovka-dobrichov/14.jpeg",
+      "img/aktuality/zapasy/2026-05-10-vrbovka-dobrichov/15.jpeg"
+    ],
+    "kategorie": "A-tým"
+  },
+  {
     "id": "vitani-sezony-2025",
     "datum": "2025-04-15",
     "datum_text": "15. dubna 2025",
@@ -7,6 +34,7 @@
     "perex": "Po zimní přestávce jsme zpátky na trávníku. Přípravy na jarní část sezóny probíhají naplno a tým je plný odhodlání.",
     "obsah": "Po zimní přestávce jsme zpátky na trávníku. Přípravy na jarní část sezóny probíhají naplno a tým je plný odhodlání. Tréninky probíhají každý úterý a čtvrtek od 17:30. Nové posily jsou vždy vítány — přijďte si zahrát!",
     "foto": null,
+    "fotos": [],
     "kategorie": "Klub"
   },
   {
@@ -17,6 +45,7 @@
     "perex": "Pro jarní sezónu 2025 hledáme posily do mužského A-týmu. Přijďte na trénink a ukažte, co umíte.",
     "obsah": "Pro jarní sezónu 2025 hledáme posily do mužského A-týmu. Jsme otevřeni hráčům všech věkových kategorií. Tréninky jsou pravidelné, atmosféra přátelská. Přijďte na trénink nebo nám napište přes kontaktní formulář.",
     "foto": null,
+    "fotos": [],
     "kategorie": "A-tým"
   },
   {
@@ -27,6 +56,7 @@
     "perex": "Naši nejmenší fotbalisté se těší na nové zápasy. Zájem o přípravku roste — přihlaste své děti!",
     "obsah": "Naši nejmenší fotbalisté se těší na nové zápasy. Zájem o přípravku v tomto roce výrazně vzrostl. Pokud chcete přihlásit své dítě (5–9 let), kontaktujte nás přes formulář nebo zavolejte. Tréninky probíhají každou sobotu od 10:00 na hřišti U Lindovy.",
     "foto": null,
+    "fotos": [],
     "kategorie": "Mládež"
   }
 ]
