@@ -521,6 +521,86 @@ function renderNastaveni(d) {
 // ══════════════════════════════
 // SEKCE: AKTUALITY
 // ══════════════════════════════
+
+// ─── Fotos state ───
+let _fotosArr = [];
+
+function _initFotos(fotos) {
+  _fotosArr = Array.isArray(fotos) ? [...fotos] : [];
+  _renderFotosPreview();
+}
+
+function _renderFotosPreview() {
+  const info   = document.getElementById('af-fotos-info');
+  const thumbs = document.getElementById('af-fotos-thumbs');
+  if (!info) return;
+  const n = _fotosArr.length;
+  if (n) {
+    const label = n === 1 ? '1 fotka' : n < 5 ? n + ' fotky' : n + ' fotek';
+    info.innerHTML = `<span style="color:#3aa76d">✓ ${label}</span> &nbsp;`
+      + `<button type="button" class="btn btn-ghost btn-sm" onclick="_clearFotos()" style="padding:.15rem .5rem;font-size:.7rem;line-height:1">✕ Vymazat vše</button>`;
+    thumbs.innerHTML = _fotosArr.slice(0, 10).map(src =>
+      `<img src="../${src}" style="height:48px;width:48px;object-fit:cover;border-radius:4px;border:1px solid var(--border)" title="${esc(src)}" onerror="this.style.opacity='.3'">`
+    ).join('') + (n > 10 ? `<span style="line-height:48px;margin-left:.3rem;font-size:.78rem;color:var(--muted)">+${n-10} dalších</span>` : '');
+  } else {
+    info.textContent = 'Žádné fotky';
+    thumbs.innerHTML = '';
+  }
+}
+
+function _clearFotos() {
+  _fotosArr = [];
+  _renderFotosPreview();
+}
+
+async function loadFotosDir() {
+  const dir  = (document.getElementById('af-fotos-dir')?.value || '').trim();
+  const info = document.getElementById('af-fotos-info');
+  if (!dir) { showToast('Zadejte cestu ke složce', 'error'); return; }
+  if (info) info.textContent = 'Načítám…';
+  try {
+    const r   = await fetch('listdir.php?dir=' + encodeURIComponent(dir));
+    const res = await r.json();
+    if (!res.ok) { if (info) info.textContent = '✗ ' + res.error; showToast(res.error, 'error'); return; }
+    if (!res.paths.length) { if (info) info.textContent = 'Ve složce nejsou žádné obrázky.'; return; }
+    _fotosArr = res.paths;
+    const fotoEl = document.getElementById('af-foto');
+    if (fotoEl && !fotoEl.value && res.paths.length) fotoEl.value = res.paths[0];
+    _renderFotosPreview();
+    showToast('Načteno ' + res.paths.length + ' fotek', 'ok');
+  } catch(e) { if (info) info.textContent = '✗ Chyba připojení'; }
+}
+
+async function uploadFotos() {
+  const subfolder = (document.getElementById('af-upload-subfolder')?.value || '').trim();
+  const fileInput = document.getElementById('af-fotos-files');
+  const files     = fileInput?.files;
+  const info      = document.getElementById('af-fotos-info');
+  if (!subfolder) { showToast('Zadejte název podsložky', 'error'); return; }
+  if (!files || !files.length) { showToast('Vyberte fotky k nahrání', 'error'); return; }
+  const paths = [];
+  for (let i = 0; i < files.length; i++) {
+    if (info) info.textContent = 'Nahrávám ' + (i + 1) + '/' + files.length + '…';
+    const fd = new FormData();
+    fd.append('foto', files[i]);
+    fd.append('sekce', 'aktuality');
+    fd.append('subfolder', subfolder);
+    try {
+      const r = await fetch('upload.php', { method: 'POST', body: fd });
+      const res = await r.json();
+      if (res.ok) paths.push(res.src);
+      else showToast('Chyba u ' + files[i].name + ': ' + res.error, 'error');
+    } catch(e) { showToast('Chyba sítě u ' + files[i].name, 'error'); }
+  }
+  _fotosArr = [..._fotosArr, ...paths];
+  const fotoEl = document.getElementById('af-foto');
+  if (fotoEl && !fotoEl.value && paths.length) fotoEl.value = paths[0];
+  const dirEl = document.getElementById('af-fotos-dir');
+  if (dirEl && !dirEl.value && subfolder) dirEl.value = 'img/aktuality/' + subfolder;
+  _renderFotosPreview();
+  showToast('Nahráno ' + paths.length + ' / ' + files.length + ' fotek', paths.length === files.length ? 'ok' : 'error');
+}
+
 function renderAktuality(items) {
   const mc = document.getElementById('main-content');
   mc.innerHTML = `
@@ -537,6 +617,9 @@ function renderAktuality(items) {
       ${items.map((it, i) => i === editIdx ? aktualitaForm(i, it) : aktualitaCard(it, i)).join('')}
     </div>
   `;
+  // Init fotos state after DOM is ready
+  if (addingNew) _initFotos([]);
+  else if (editIdx >= 0 && items[editIdx]) _initFotos(items[editIdx].fotos || []);
 }
 
 function aktualitaCard(it, i) {
@@ -574,12 +657,35 @@ function aktualitaForm(idx, it) {
           ${['Klub','A-tým','Mládež','Ostatní'].map(k => `<option${kat===k?' selected':''}>${k}</option>`).join('')}
         </select>
       </div>
-      <div class="field-wrap"><label>Titulní foto (cesta)</label><input type="text" id="af-foto" class="inp" value="${esc(it.foto||'')}" placeholder="img/aktuality/..."></div>
+      <div class="field-wrap"><label>Titulní foto (auto-vyplní se z galerie)</label><input type="text" id="af-foto" class="inp" value="${esc(it.foto||'')}" placeholder="img/aktuality/..."></div>
     </div>
+
     <div class="field-wrap">
-      <label>Galerie fotek (každá cesta na samostatný řádek)</label>
-      <textarea id="af-fotos" class="inp" rows="5" placeholder="img/aktuality/zapasy/slozka/1.jpeg&#10;img/aktuality/zapasy/slozka/2.jpeg">${(it.fotos||[]).join('\n')}</textarea>
-      <small style="color:var(--muted);font-size:.75rem">Pokud je první foto stejné jako titulní, bude zobrazeno jen jednou.</small>
+      <label>Galerie fotek</label>
+
+      <div style="display:flex;gap:.5rem;margin-bottom:.5rem">
+        <input type="text" id="af-fotos-dir" class="inp" style="flex:1"
+          value="${esc(it.fotos_dir||'')}"
+          placeholder="img/aktuality/zapasy/2026-05-10-...">
+        <button type="button" class="btn btn-ghost btn-sm" onclick="loadFotosDir()">📂 Načíst ze složky</button>
+      </div>
+
+      <details style="margin-bottom:.6rem">
+        <summary style="cursor:pointer;font-size:.78rem;color:var(--muted);user-select:none">⬆ Nebo nahrát nové fotky…</summary>
+        <div style="margin-top:.5rem;padding:.75rem;background:var(--bg);border-radius:6px;border:1px solid var(--border);display:flex;flex-direction:column;gap:.5rem">
+          <div class="field-wrap" style="margin:0">
+            <label style="font-size:.72rem">Podsložka pro uložení</label>
+            <input type="text" id="af-upload-subfolder" class="inp" placeholder="zapasy/2026-05-17-vrbovka-ratenice">
+          </div>
+          <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap">
+            <input type="file" id="af-fotos-files" accept="image/jpeg,image/png,image/webp" multiple style="flex:1;min-width:0;font-size:.82rem">
+            <button type="button" class="btn btn-primary btn-sm" onclick="uploadFotos()">⬆ Nahrát</button>
+          </div>
+        </div>
+      </details>
+
+      <div id="af-fotos-info" style="font-size:.78rem;color:var(--muted);min-height:1.4em"></div>
+      <div id="af-fotos-thumbs" style="display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.4rem"></div>
     </div>
     <div class="form-actions">
       <button class="btn btn-green" onclick="saveAktualitaForm(${idx})">${isNew ? '+ Přidat' : '✓ Uložit změny'}</button>
@@ -598,8 +704,9 @@ function saveAktualitaForm(idx) {
     perex:      document.getElementById('af-perex').value,
     obsah:      document.getElementById('af-obsah').value,
     kategorie:  document.getElementById('af-kategorie').value,
-    foto:       document.getElementById('af-foto').value || null,
-    fotos:      document.getElementById('af-fotos').value.split('\n').map(s => s.trim()).filter(Boolean),
+    foto:       document.getElementById('af-foto').value || (_fotosArr[0] || null),
+    fotos:      [..._fotosArr],
+    fotos_dir:  document.getElementById('af-fotos-dir')?.value.trim() || null,
     datum:      datumIso,
     datum_iso:  datumIso,
     datum_text: formatDateCz(datumIso),

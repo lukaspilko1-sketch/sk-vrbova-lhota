@@ -27,18 +27,34 @@ if ($file['size'] > $max_size) {
 }
 
 $ext  = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-$name = 'img_' . date('Ymd_His') . '_' . substr(md5(uniqid('', true)), 0, 6) . '.' . $ext;
-
 $sekce = isset($_POST['sekce']) ? preg_replace('/[^a-z]/', '', $_POST['sekce']) : 'galerie';
 
-$dir_map = [
-  'atym'      => '../img/galerie/',
-  'pripravka' => '../img/galerie/',
-  'ostatni'   => '../img/galerie/',
-  'galerie'   => '../img/galerie/',
-  'partneri'  => '../img/partneri/',
-];
-$dir = isset($dir_map[$sekce]) ? $dir_map[$sekce] : '../img/galerie/';
+// Pro aktuality: vlastní podsložka + zachování původního názvu souboru
+if ($sekce === 'aktuality') {
+  $subfolder = isset($_POST['subfolder']) ? trim($_POST['subfolder']) : '';
+  $subfolder = preg_replace('/[^a-zA-Z0-9_\-\/]/', '', $subfolder);
+  $subfolder = trim($subfolder, '/');
+  if (!$subfolder) {
+    echo json_encode(['ok' => false, 'error' => 'Chybí název podsložky']);
+    exit;
+  }
+  $dir = '../img/aktuality/' . $subfolder . '/';
+  // Zachovat původní název souboru (bez nebezpečných znaků)
+  $orig = preg_replace('/[^a-zA-Z0-9_\-\.]/', '_', $file['name']);
+  $name = $orig;
+  $rel_path = 'img/aktuality/' . $subfolder . '/' . $name;
+} else {
+  $name = 'img_' . date('Ymd_His') . '_' . substr(md5(uniqid('', true)), 0, 6) . '.' . $ext;
+  $dir_map = [
+    'atym'      => '../img/galerie/',
+    'pripravka' => '../img/galerie/',
+    'ostatni'   => '../img/galerie/',
+    'galerie'   => '../img/galerie/',
+    'partneri'  => '../img/partneri/',
+  ];
+  $dir = isset($dir_map[$sekce]) ? $dir_map[$sekce] : '../img/galerie/';
+  $rel_path = 'img/' . ($sekce === 'partneri' ? 'partneri/' : 'galerie/') . $name;
+}
 
 if (!is_dir($dir)) {
   mkdir($dir, 0755, true);
@@ -50,8 +66,6 @@ if (!move_uploaded_file($file['tmp_name'], $dest)) {
   echo json_encode(['ok' => false, 'error' => 'Chyba při ukládání souboru']);
   exit;
 }
-
-$rel_path = 'img/' . ($sekce === 'partneri' ? 'partneri/' : 'galerie/') . $name;
 
 echo json_encode([
   'ok'   => true,
