@@ -34,7 +34,8 @@
       "Bash(where python *)",
       "Read(//c/Windows/System32/**)",
       "Read(//c/Program Files/**)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(dir \"C:\\\\Users\\\\lukas\\\\Documents\\\\PRACOVNÍ\\\\Weby\\\\sk-vrbova-lhota\\\\img\\\\aktuality\\\\zapasy\\\\2026-05-10-vrbovka-dobrichov\")"
     ]
   }
 }
