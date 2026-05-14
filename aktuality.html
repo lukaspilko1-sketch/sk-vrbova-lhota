@@ -162,7 +162,7 @@
 </section>
 
 <!-- ══ AKTUALITY ══ -->
-<section style="background:var(--surface)" hidden>
+<section style="background:var(--surface)"  >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     <!-- Loading state -->
@@ -246,7 +246,7 @@
     })
     .catch(() => {});
 
-  fetch('data/aktuality.json')
+  fetch('data/aktuality.json?t=' + Date.now())
     .then(r => r.json())
     .then(items => {
       const loading = document.getElementById('aktuality-loading');
@@ -262,6 +262,7 @@
       grid.classList.remove('hidden');
       grid.innerHTML = items.map(item => `
         <article class="news-card reveal">
+          ${item.foto ? `<div class="news-card-img"><img src="${item.foto}" alt="${item.titulek}" loading="lazy" /></div>` : ''}
           <div class="news-card-body">
             <span class="news-tag">${item.kategorie || 'Aktualita'}</span>
             <div class="news-date">${item.datum_text}</div>
