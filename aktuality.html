@@ -282,10 +282,16 @@
     return n + ' fotek';
   }
 
+  function effectiveFotos(item) {
+    if (item.fotos && item.fotos.length) return item.fotos;
+    if (item.foto) return [item.foto];
+    return [];
+  }
+
   function openArticle(idx) {
     const item   = newsItems[idx];
     const modal  = document.getElementById('art-modal');
-    const fotos  = item.fotos && item.fotos.length ? item.fotos : [];
+    const fotos  = effectiveFotos(item);
 
     document.getElementById('art-modal-tag').textContent   = item.kategorie || 'Aktualita';
     document.getElementById('art-modal-date').textContent  = item.datum_text || '';
@@ -363,8 +369,8 @@
       newsItems = items;
       grid.classList.remove('hidden');
       grid.innerHTML = items.map((item, idx) => {
-        const cover  = item.foto || (item.fotos && item.fotos[0]) || null;
-        const fotos  = item.fotos && item.fotos.length ? item.fotos : [];
+        const fotos   = effectiveFotos(item);
+        const cover   = fotos[0] || null;
         const hasText = item.obsah && item.obsah.trim();
         const btnLabel = fotos.length
           ? '📷 ' + fotCount(fotos.length)
