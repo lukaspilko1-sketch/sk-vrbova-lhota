@@ -267,14 +267,14 @@
           <img src="img/logo/logo-sk-vrbova-lhota.png" alt="SK Vrbová Lhota 98 z.s." class="w-12 h-12 object-contain flex-shrink-0" />
           <div>
             <div class="text-white font-bold leading-tight">SK Vrbová Lhota 98 z.s.</div>
-            <div class="text-blue-200 text-xs">Domácí</div>
+            <div id="zapas-vrbovka-role" class="text-blue-200 text-xs">Domácí</div>
           </div>
         </div>
         <div class="text-white font-black text-3xl font-headline px-6">VS</div>
         <div class="flex items-center gap-3 flex-1 justify-end text-right">
           <div>
             <div id="zapas-souper" class="text-white font-bold leading-tight">SK Dobřichov</div>
-            <div class="text-blue-200 text-xs">Hosté</div>
+            <div id="zapas-souper-role" class="text-blue-200 text-xs">Hosté</div>
           </div>
           <span class="material-symbols-outlined ms-fill text-green-300 flex-shrink-0" style="font-size:2.5rem">sports_soccer</span>
         </div>
@@ -890,7 +890,9 @@
         set('zapas-misto',        z.misto);
         set('zapas-souper',       z.souper_nazev);
         set('zapas-soutez',       z.soutez);
-        set('zapas-domaci-badge', z.domaci ? 'Domácí' : 'Hosté');
+        set('zapas-domaci-badge',  z.domaci ? 'Domácí' : 'Hosté');
+        set('zapas-vrbovka-role',  z.domaci ? 'Domácí' : 'Hosté');
+        set('zapas-souper-role',   z.domaci ? 'Hosté'  : 'Domácí');
       }
 
       // Stats counters — aktualizuj data-target a reinicializuj animaci
