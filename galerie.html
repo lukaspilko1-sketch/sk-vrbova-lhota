@@ -167,20 +167,7 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     <!-- Sekce CTA -->
-    <div class="flex flex-wrap gap-3 justify-center mb-12 reveal">
-      <a href="#sekce-atym" class="btn-outline" style="font-size:.8rem;padding:.6rem 1.4rem">
-        <span class="material-symbols-outlined ms-fill" style="font-size:1rem">sports_soccer</span>
-        A-tým
-      </a>
-      <a href="#sekce-pripravka" class="btn-outline" style="font-size:.8rem;padding:.6rem 1.4rem">
-        <span class="material-symbols-outlined ms-fill" style="font-size:1rem">emoji_people</span>
-        Mladší přípravka
-      </a>
-      <a href="#sekce-ostatni" class="btn-outline" style="font-size:.8rem;padding:.6rem 1.4rem">
-        <span class="material-symbols-outlined ms-fill" style="font-size:1rem">photo_camera</span>
-        Ostatní
-      </a>
-    </div>
+    <div id="sekce-cta" class="flex flex-wrap gap-3 justify-center mb-12 reveal"></div>
 
     <div id="gallery-loading" class="text-center py-16" style="color:var(--muted)">
       <span class="material-symbols-outlined ms-fill text-4xl mb-3" style="color:var(--surface-2);display:block">photo_library</span>
@@ -252,18 +239,30 @@
 <script src="js/cookies.js"></script>
 <script>
   // Load gallery from JSON — grouped by sekce
-  const sectionConfig = [
-    { id: 'atym',      label: 'A-tým',            icon: 'sports_soccer' },
-    { id: 'pripravka', label: 'Mladší přípravka',  icon: 'emoji_people'  },
-    { id: 'ostatni',   label: 'Ostatní',           icon: 'photo_camera'  },
-  ];
-
-  fetch('data/galerie.json')
-    .then(r => r.json())
-    .then(items => {
+  // Načti sekce a fotky paralelně
+  Promise.all([
+    fetch('data/galerie-sekce.json?t=' + Date.now()).then(r => r.json()).catch(() => [
+      { id: 'atym',      label: 'A-tým',            icon: 'sports_soccer' },
+      { id: 'pripravka', label: 'Mladší přípravka', icon: 'emoji_people'  },
+      { id: 'ostatni',   label: 'Ostatní',          icon: 'photo_camera'  }
+    ]),
+    fetch('data/galerie.json?t=' + Date.now()).then(r => r.json())
+  ])
+    .then(([sectionConfig, items]) => {
       document.getElementById('gallery-loading').classList.add('hidden');
       const container = document.getElementById('gallery-sections');
       container.classList.remove('hidden');
+
+      // Render CTA tlačítek dynamicky
+      const ctaWrap = document.getElementById('sekce-cta');
+      if (ctaWrap) {
+        ctaWrap.innerHTML = sectionConfig.map(sec => `
+          <a href="#sekce-${sec.id}" class="btn-outline" style="font-size:.8rem;padding:.6rem 1.4rem">
+            <span class="material-symbols-outlined ms-fill" style="font-size:1rem">${sec.icon}</span>
+            ${sec.label}
+          </a>
+        `).join('');
+      }
 
       const grouped = {};
       sectionConfig.forEach(s => { grouped[s.id] = []; });

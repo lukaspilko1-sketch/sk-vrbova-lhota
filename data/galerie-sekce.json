@@ -1,0 +1,5 @@
+[
+  { "id": "atym",      "label": "A-tým",            "icon": "sports_soccer" },
+  { "id": "pripravka", "label": "Mladší přípravka", "icon": "emoji_people"  },
+  { "id": "ostatni",   "label": "Ostatní",          "icon": "photo_camera"  }
+]

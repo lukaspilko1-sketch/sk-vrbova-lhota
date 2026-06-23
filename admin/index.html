@@ -250,13 +250,14 @@ select.inp { cursor: pointer; }
 <script>
 // ══ CONFIG ══
 const SECTIONS = [
-  { id: 'nastaveni', label: 'Hlavní stránka',  icon: '🏠', file: 'nastaveni.json' },
-  { id: 'aktuality', label: 'Aktuality',        icon: '📰', file: 'aktuality.json' },
-  { id: 'galerie',   label: 'Galerie',           icon: '🖼', file: 'galerie.json'   },
-  { id: 'atym',      label: 'A-tým',             icon: '⚽', file: 'atym.json'      },
-  { id: 'pripravka', label: 'Přípravka',         icon: '👦', file: 'pripravka.json' },
-  { id: 'kontakty',  label: 'Kontakty',          icon: '👥', file: 'kontakty.json'  },
-  { id: 'partneri',  label: 'Partneři',          icon: '🤝', file: 'partneri.json'  },
+  { id: 'nastaveni',     label: 'Hlavní stránka',  icon: '🏠', file: 'nastaveni.json' },
+  { id: 'aktuality',     label: 'Aktuality',        icon: '📰', file: 'aktuality.json' },
+  { id: 'galerie',       label: 'Galerie',           icon: '🖼', file: 'galerie.json'   },
+  { id: 'galerie-sekce', label: 'Sekce galerie',    icon: '📂', file: 'galerie-sekce.json' },
+  { id: 'atym',          label: 'A-tým',             icon: '⚽', file: 'atym.json'      },
+  { id: 'pripravka',     label: 'Přípravka',         icon: '👦', file: 'pripravka.json' },
+  { id: 'kontakty',      label: 'Kontakty',          icon: '👥', file: 'kontakty.json'  },
+  { id: 'partneri',      label: 'Partneři',          icon: '🤝', file: 'partneri.json'  },
 ];
 
 // ══ STATE ══
@@ -264,6 +265,7 @@ let currentSection = 'nastaveni';
 let currentData    = null;
 let editIdx        = -1;
 let addingNew      = false;
+let galerieSekce   = null;  // seznam sekcí galerie pro dropdown a sekci "Sekce galerie"
 
 // ══ UTILS ══
 function esc(s) {
@@ -357,6 +359,18 @@ async function renderSection(id) {
   const sec = SECTIONS.find(s => s.id === id);
   try {
     currentData = await loadJSON(sec.file);
+    // Vždy načti sekce galerie, jsou potřeba pro dropdown a sekci "Sekce galerie"
+    if (!galerieSekce) {
+      try {
+        galerieSekce = await loadJSON('galerie-sekce.json');
+      } catch {
+        galerieSekce = [
+          { id: 'atym',      label: 'A-tým',            icon: 'sports_soccer' },
+          { id: 'pripravka', label: 'Mladší přípravka', icon: 'emoji_people'  },
+          { id: 'ostatni',   label: 'Ostatní',          icon: 'photo_camera'  }
+        ];
+      }
+    }
     renderCurrent();
   } catch(e) {
     document.getElementById('main-content').innerHTML =
@@ -366,13 +380,14 @@ async function renderSection(id) {
 
 function renderCurrent() {
   switch(currentSection) {
-    case 'nastaveni': renderNastaveni(currentData); break;
-    case 'aktuality': renderAktuality(currentData); break;
-    case 'galerie':   renderGalerie(currentData);   break;
-    case 'atym':      renderAtym(currentData);      break;
-    case 'pripravka': renderPripravka(currentData); break;
-    case 'kontakty':  renderKontakty(currentData);  break;
-    case 'partneri':  renderPartneri(currentData);  break;
+    case 'nastaveni':     renderNastaveni(currentData);     break;
+    case 'aktuality':     renderAktuality(currentData);     break;
+    case 'galerie':       renderGalerie(currentData);       break;
+    case 'galerie-sekce': renderGalerieSekce(currentData);  break;
+    case 'atym':          renderAtym(currentData);          break;
+    case 'pripravka':     renderPripravka(currentData);     break;
+    case 'kontakty':      renderKontakty(currentData);      break;
+    case 'partneri':      renderPartneri(currentData);      break;
   }
 }
 
@@ -384,6 +399,10 @@ async function saveSection() {
   try {
     const res = await saveJSON(sec.file, currentData);
     if (res.ok) {
+      // Po uložení sekcí galerie aktualizuj cached verzi
+      if (currentSection === 'galerie-sekce') {
+        galerieSekce = JSON.parse(JSON.stringify(currentData));
+      }
       showToast('✓ Uloženo');
     } else {
       showToast('Chyba: ' + (res.error || 'neznámá'), 'error');
@@ -761,6 +780,8 @@ function galerieCard(it, i) {
         </small>
       </div>
       <div class="item-card-actions">
+        <button class="btn btn-ghost btn-sm" onclick="moveGalerieItem(${i}, -1)" title="Posunout nahoru v sekci">▲</button>
+        <button class="btn btn-ghost btn-sm" onclick="moveGalerieItem(${i}, 1)" title="Posunout dolů v sekci">▼</button>
         <button class="btn btn-ghost btn-sm" onclick="startEdit(${i})">Upravit</button>
         <button class="btn btn-danger btn-sm" onclick="deleteItem(${i})">Smazat</button>
       </div>
@@ -770,7 +791,7 @@ function galerieCard(it, i) {
 
 function galerieForm(idx, it) {
   const isNew = idx === -1;
-  const sekce = it.sekce || 'atym';
+  const sekce = it.sekce || (galerieSekce && galerieSekce[0] ? galerieSekce[0].id : 'atym');
   return `<div class="edit-panel">
     <h4>${isNew ? 'Nová fotka' : 'Upravit fotku'}</h4>
     <div class="g2">
@@ -792,7 +813,7 @@ function galerieForm(idx, it) {
       <div class="field-wrap"><label>Popisek (caption)</label><input type="text" id="gf-caption" class="inp" value="${esc(it.caption||'')}"></div>
       <div class="field-wrap"><label>Sekce</label>
         <select id="gf-sekce" class="inp">
-          ${['atym','pripravka','ostatni'].map(s => `<option value="${s}"${sekce===s?' selected':''}>${s}</option>`).join('')}
+          ${(galerieSekce || []).map(s => `<option value="${esc(s.id)}"${sekce===s.id?' selected':''}>${esc(s.label)}</option>`).join('')}
         </select>
       </div>
     </div>
@@ -1109,6 +1130,8 @@ function partnerCard(it, i) {
         <small><span class="tag-badge">${esc(it.kategorie||'Partner')}</span>${esc(it.popis||'')}</small>
       </div>
       <div class="item-card-actions">
+        <button class="btn btn-ghost btn-sm" onclick="moveItem(${i}, -1)" title="Posunout nahoru">▲</button>
+        <button class="btn btn-ghost btn-sm" onclick="moveItem(${i}, 1)" title="Posunout dolů">▼</button>
         <button class="btn btn-ghost btn-sm" onclick="startEdit(${i})">Upravit</button>
         <button class="btn btn-danger btn-sm" onclick="deleteItem(${i})">Smazat</button>
       </div>
@@ -1184,6 +1207,121 @@ async function savePartnerForm(idx) {
 }
 
 
+// ══════════════════════════════
+// SEKCE: SEKCE GALERIE
+// ══════════════════════════════
+function renderGalerieSekce(items) {
+  const mc = document.getElementById('main-content');
+  mc.innerHTML = `
+    <div class="section-hdr">
+      <h2>📂 Sekce galerie</h2>
+      <div class="section-actions">
+        <button class="btn btn-green" onclick="toggleAddNew()">+ Přidat sekci</button>
+        <button class="btn btn-primary btn-save-main" onclick="saveSection()">💾 Uložit</button>
+      </div>
+    </div>
+    <div class="card" style="background:#fff8e1;border-left:4px solid var(--warning);margin-bottom:1rem;padding:.85rem 1rem;font-size:.85rem">
+      <strong>Pozor:</strong> ID sekce (např. <code>atym</code>) je interní identifikátor — pokud ho změníš u existující sekce, fotky přiřazené k ní se přestanou zobrazovat. Doporučujeme měnit pouze název a ikonu, ID neměnit.
+    </div>
+    ${addingNew ? sekceForm(-1, {}) : ''}
+    <div id="list-wrap">
+      ${items.length === 0 ? '<p class="empty-state">Žádné sekce.</p>' : ''}
+      ${items.map((it, i) => i === editIdx ? sekceForm(i, it) : sekceCard(it, i)).join('')}
+    </div>
+  `;
+}
+
+function sekceCard(it, i) {
+  return `<div class="item-card">
+    <div class="item-card-hdr">
+      <div class="thumb-wrap" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;background:#f1f5f9">
+        <span class="material-symbols-outlined ms-fill" style="font-size:2rem;color:var(--primary)">${esc(it.icon||'photo_camera')}</span>
+      </div>
+      <div class="meta" style="flex:1;min-width:0">
+        <strong>${esc(it.label || '(bez názvu)')}</strong>
+        <small>
+          <span class="tag-badge">ID: ${esc(it.id||'—')}</span>
+          <span style="opacity:.6">ikona: ${esc(it.icon||'—')}</span>
+        </small>
+      </div>
+      <div class="item-card-actions">
+        <button class="btn btn-ghost btn-sm" onclick="moveItem(${i}, -1)" title="Posunout nahoru">▲</button>
+        <button class="btn btn-ghost btn-sm" onclick="moveItem(${i}, 1)" title="Posunout dolů">▼</button>
+        <button class="btn btn-ghost btn-sm" onclick="startEdit(${i})">Upravit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteItem(${i})">Smazat</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function sekceForm(idx, it) {
+  const isNew = idx === -1;
+  // Material Symbols — nejčastěji použitelné ikony pro klubový web
+  const icons = [
+    'sports_soccer', 'emoji_people', 'photo_camera', 'photo_library',
+    'celebration', 'emoji_events', 'groups', 'child_care',
+    'stadium', 'flag', 'school', 'restaurant', 'cake', 'campaign'
+  ];
+  const icon = it.icon || 'photo_camera';
+  return `<div class="edit-panel">
+    <h4>${isNew ? 'Nová sekce galerie' : 'Upravit sekci'}</h4>
+    <div class="g2">
+      <div class="field-wrap">
+        <label>ID sekce *</label>
+        <input type="text" id="sf-id" class="inp" value="${esc(it.id||'')}" placeholder="napr-turnaje-2025" ${isNew ? '' : 'readonly style="background:#f1f5f9"'}>
+        <div class="field-hint">${isNew ? 'Bez mezer a diakritiky, jen písmena, číslice a pomlčky' : 'ID nelze měnit (rozbilo by přiřazení fotek)'}</div>
+      </div>
+      <div class="field-wrap">
+        <label>Název sekce *</label>
+        <input type="text" id="sf-label" class="inp" value="${esc(it.label||'')}" placeholder="Turnaje 2025">
+      </div>
+    </div>
+    <div class="field-wrap">
+      <label>Ikona (Material Symbols)</label>
+      <select id="sf-icon" class="inp">
+        ${icons.map(i => `<option value="${i}"${icon===i?' selected':''}>${i}</option>`).join('')}
+      </select>
+      <div class="field-hint">Další ikony: <a href="https://fonts.google.com/icons" target="_blank" style="color:var(--primary)">fonts.google.com/icons</a> — zkopíruj název ikony a vlož ho přímo do JSON</div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-green" onclick="saveSekceForm(${idx})">${isNew ? '+ Přidat' : '✓ Uložit'}</button>
+      <button class="btn btn-ghost" onclick="${isNew ? 'cancelAdd()' : 'cancelEdit()'}">Zrušit</button>
+    </div>
+  </div>`;
+}
+
+function saveSekceForm(idx) {
+  const isNew = idx === -1;
+  const id    = document.getElementById('sf-id').value.trim().toLowerCase().replace(/[^a-z0-9-]/g, '-');
+  const label = document.getElementById('sf-label').value.trim();
+  const icon  = document.getElementById('sf-icon').value;
+
+  if (!id || !label) {
+    showToast('ID a název jsou povinné', 'error');
+    return;
+  }
+
+  // Validace: ID musí být unikátní
+  if (isNew && currentData.some(s => s.id === id)) {
+    showToast('Sekce s tímto ID už existuje', 'error');
+    return;
+  }
+
+  const item = { id, label, icon };
+
+  if (isNew) {
+    currentData.push(item);
+    addingNew = false;
+  } else {
+    // Při editaci zachovej původní ID (nesmí se měnit)
+    item.id = currentData[idx].id;
+    currentData[idx] = item;
+    editIdx = -1;
+  }
+  renderCurrent();
+}
+
+
 // ══ SHARED ACTIONS ══
 function startEdit(i) {
   editIdx = i;
@@ -1206,6 +1344,31 @@ function cancelAdd() {
 function deleteItem(i) {
   if (!confirm('Opravdu smazat?')) return;
   currentData.splice(i, 1);
+  renderCurrent();
+}
+
+// Univerzální posun položky v poli currentData
+function moveItem(idx, direction) {
+  // direction: -1 nahoru, +1 dolů
+  const newIdx = idx + direction;
+  if (newIdx < 0 || newIdx >= currentData.length) return;
+  [currentData[idx], currentData[newIdx]] = [currentData[newIdx], currentData[idx]];
+  renderCurrent();
+}
+
+// Posun položky uvnitř konkrétní sekce galerie
+function moveGalerieItem(idx, direction) {
+  const item = currentData[idx];
+  const sekce = item.sekce || 'ostatni';
+  // Najdi indexy všech položek ve stejné sekci
+  const sameSection = currentData
+    .map((it, i) => ({ it, i }))
+    .filter(x => (x.it.sekce || 'ostatni') === sekce);
+  const posInSection = sameSection.findIndex(x => x.i === idx);
+  const newPosInSection = posInSection + direction;
+  if (newPosInSection < 0 || newPosInSection >= sameSection.length) return;
+  const swapWithIdx = sameSection[newPosInSection].i;
+  [currentData[idx], currentData[swapWithIdx]] = [currentData[swapWithIdx], currentData[idx]];
   renderCurrent();
 }
 

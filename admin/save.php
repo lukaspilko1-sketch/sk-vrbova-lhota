@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 
 $allowed = [
   'nastaveni.json', 'aktuality.json', 'galerie.json',
-  'atym.json', 'pripravka.json', 'kontakty.json', 'partneri.json'
+  'atym.json', 'pripravka.json', 'kontakty.json', 'partneri.json', 'galerie-sekce.json'
 ];
 
 $input = json_decode(file_get_contents('php://input'), true);
