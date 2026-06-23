@@ -416,8 +416,9 @@ section h2 { text-shadow: 0 1px 0 rgba(0,0,0,.06); }
 }
 .partner-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(26,101,168,.1); }
 .partner-logo {
-  height: 64px; width: auto; max-width: 160px;
+  height: 72px; width: auto; max-width: 220px;
   object-fit: contain; margin-bottom: 1rem;
+  border-radius: 4px;
   transition: opacity .2s;
 }
 .partner-logo:hover { opacity: .85; }

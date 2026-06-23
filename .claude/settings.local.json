@@ -35,7 +35,21 @@
       "Read(//c/Windows/System32/**)",
       "Read(//c/Program Files/**)",
       "Bash(git commit *)",
-      "Bash(dir \"C:\\\\Users\\\\lukas\\\\Documents\\\\PRACOVNÍ\\\\Weby\\\\sk-vrbova-lhota\\\\img\\\\aktuality\\\\zapasy\\\\2026-05-10-vrbovka-dobrichov\")"
+      "Bash(dir \"C:\\\\Users\\\\lukas\\\\Documents\\\\PRACOVNÍ\\\\Weby\\\\sk-vrbova-lhota\\\\img\\\\aktuality\\\\zapasy\\\\2026-05-10-vrbovka-dobrichov\")",
+      "WebFetch(domain:www.reznictvipisa.cz)",
+      "WebFetch(domain:www.wic-net.cz)",
+      "Bash(curl -sL \"https://www.wic-net.cz/wp-content/uploads/2016/04/logo1.png\" -o \"C:/Users/lukas/Documents/PRACOVNÍ/Weby/sk-vrbova-lhota/img/partneri/wic-net.png\" -A \"Mozilla/5.0\")",
+      "Bash(curl -sL \"https://www.reznictvipisa.cz/\" -A \"Mozilla/5.0\")",
+      "Bash(curl -sL \"https://www.reznictvipisa.cz/assets/img/logo.png\" -o \"C:/Users/lukas/Documents/PRACOVNÍ/Weby/sk-vrbova-lhota/img/partneri/reznictvi-pisa.png\" -A \"Mozilla/5.0\")",
+      "Bash(curl -sL \"https://www.reznictvipisa.cz/assets/css/main.css\" -A \"Mozilla/5.0\")",
+      "Bash(curl -sL \"https://www.reznictvipisa.cz/assets/css/sections.css\" -A \"Mozilla/5.0\")",
+      "Bash(curl -sL \"https://www.reznictvipisa.cz/assets/css/layout.css\" -A \"Mozilla/5.0\")",
+      "Bash(curl -sIL \"https://www.reznictvipisa.cz/favicon.ico\" -A \"Mozilla/5.0\")",
+      "Bash(curl -sIL \"https://www.reznictvipisa.cz/images/banner.jpg\" -A \"Mozilla/5.0\")",
+      "Bash(ls -lat \"C:/Users/lukas/AppData/Local/Temp/\" 2>/dev/null | head -20)",
+      "Bash(cp \"C:/Users/lukas/AppData/Local/Temp/802a7d85-ef1b-46f0-9526-c55b89bd4da2.tmp\" \"C:/Users/lukas/Documents/PRACOVNÍ/Weby/sk-vrbova-lhota/img/partneri/reznictvi-pisa.jpg\" && file \"C:/Users/lukas/Documents/PRACOVNÍ/Weby/sk-vrbova-lhota/img/partneri/reznictvi-pisa.jpg\")",
+      "Bash(python -c \"from PIL import Image; print\\('PIL OK'\\)\")",
+      "Bash(python)"
     ]
   }
 }

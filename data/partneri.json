@@ -19,5 +19,19 @@
     "popis": "Pokrývačství a klempířství, Vrbová Lhota",
     "logo": "img/partneri/strechy-sixta.png",
     "url": "https://www.strechy-sixta.cz/"
+  },
+  {
+    "nazev": "Řeznictví a uzenářství Píša",
+    "kategorie": "Partner",
+    "popis": "Rodinné řeznictví v Nymburce od roku 1937 — vlastní výroba uzenin a českého masa",
+    "logo": "img/partneri/reznictvi-pisa.jpg",
+    "url": "https://www.reznictvipisa.cz/"
+  },
+  {
+    "nazev": "WIC-NET",
+    "kategorie": "Partner",
+    "popis": "Telekomunikační služby — internet, televize, telefonie a slaboproudé systémy, Kolín",
+    "logo": "img/partneri/wic-net.png",
+    "url": "https://www.wic-net.cz/"
   }
 ]
